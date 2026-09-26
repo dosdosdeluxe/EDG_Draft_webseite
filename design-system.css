@@ -1,0 +1,381 @@
+/* ═══════════════════════════════════════════════════════════════
+   EAGLE GOLFERS DRIBBDEBACH e.V. — Design-System
+   ───────────────────────────────────────────────────────────────
+   Alle Farbkombinationen sind gegen WCAG 2.1 AA geprüft.
+   Die Kontrastwerte stehen als Kommentar hinter jedem Farbwert.
+   Wer eine Farbe ändert, muss den Wert neu prüfen —
+   z.B. auf https://webaim.org/resources/contrastchecker/
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Markenfarben ──────────────────────────────────────────── */
+  --blue:      #1a3a5c;  /* 11.64:1 auf Weiss — Überschriften, Navigation */
+  --blue-dk:   #122848;  /* 14.80:1 — Kopfzeile, Tab-Bar, Hero          */
+  --blue-lt:   #2a5080;  /*  8.10:1 — Hover, Verläufe                  */
+
+  --green:     #3a7c3f;  /*  5.08:1 — Bestätigung, Hauptaktionen       */
+  --green-dk:  #2a5c2e;
+  --green-lt:  #4d9e55;  /* nur auf dunklem Grund als Text verwenden    */
+
+  /* Gold gibt es in zwei Ausführungen. Das helle Gold ist Dekoration
+     und fällt als Textfarbe auf hellem Grund durch (nur 2.23:1).
+     Für Text auf hellem Grund gilt ausschließlich --gold-text.       */
+  --gold:      #d4a820;  /* Deko-Flächen, Rahmen auf Dunkel            */
+  --gold-lt:   #F5C518;  /* Akzent auf dunklem Grund, Fokusring         */
+  --gold-text: #8A6D25;  /*  4.89:1 auf Weiss, 4.52:1 auf --bg2        */
+
+  /* ── Flächen und Text ─────────────────────────────────────── */
+  --bg:        #ffffff;
+  --bg2:       #f4f6f9;
+  --bg3:       #e8edf3;
+  --text:      #111827;  /* 17.74:1 — Fließtext                        */
+  --text2:     #374151;  /* 10.31:1 — Sekundärtext                     */
+  --text3:     #4b5563;  /*  7.56:1 — Labels, Bildunterschriften        */
+  --border:    #d1d5db;
+
+  /* ── Typografie ────────────────────────────────────────────── */
+  /* 18px Basis. Bewusst in px, damit 1rem = 18px gilt und die
+     rem-Werte unten berechenbar bleiben. Die Zoom-Einstellung des
+     Browsers wirkt trotzdem, weil rem-Abstände mitskalieren.        */
+  --font: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  --fs-xs:   1rem;      /* 18px — kleinste erlaubte Größe            */
+  --fs-sm:   1.05rem;   /* 19px                                        */
+  --fs-base: 1.125rem;  /* 20px — Fließtext                           */
+  --fs-lg:   1.35rem;   /* 24px                                        */
+  --fs-h3:   1.5rem;    /* 27px                                        */
+
+  /* ── Maße ─────────────────────────────────────────────────── */
+  --touch:     48px;    /* Mindestgröße aller Bedienelemente         */
+  --nav-h:     72px;
+  --tab-h:     66px;
+  --radius:    14px;
+  --shadow:    0 2px 8px rgba(0, 0, 0, .08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, .12);
+  --wrap:      1180px;
+
+  color-scheme: light;
+}
+
+/* ── Dunkles Farbschema ──────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1923;  --bg2: #162130;  --bg3: #1e2e40;
+    --text: #f1f5f9; --text2: #cbd5e1; --text3: #a7b4c4;
+    --border: #2d3f52;
+    --gold-text: #F5C518;   /* auf dunklem Grund ist helles Gold richtig */
+    --green: #5cb063;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1923;  --bg2: #162130;  --bg3: #1e2e40;
+  --text: #f1f5f9; --text2: #cbd5e1; --text3: #a7b4c4;
+  --border: #2d3f52;
+  --gold-text: #F5C518;
+  --green: #5cb063;
+  color-scheme: dark;
+}
+
+/* ═══ RESET ══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+/* ═══ BEWEGUNG ═══════════════════════════════════════════════
+   Wer im Betriebssystem "Bewegung reduzieren" eingestellt hat,
+   bekommt keine Animationen. Das ist Pflicht nach WCAG 2.3.3.   */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ═══ FOKUS ══════════════════════════════════════════════════
+   Ohne sichtbaren Fokus ist die Seite per Tastatur unbenutzbar.
+   Diese Regeln dürfen nicht entfernt werden.                   */
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.topnav :focus-visible,
+.tabbar :focus-visible,
+.hero :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--gold-lt);
+}
+
+/* ── Sprunglink zum Hauptinhalt ──────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  background: var(--gold-lt);
+  color: #111827;
+  font-weight: 700;
+  padding: 16px 28px;
+  border-radius: 0 0 10px 0;
+  text-decoration: none;
+}
+.skip-link:focus { left: 0; }
+
+/* ── Nur für Screenreader sichtbar ──────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ═══ TYPOGRAFIE ═════════════════════════════════════════════ */
+h1, h2, h3, h4 { line-height: 1.25; text-wrap: balance; color: var(--text); }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); font-weight: 700; }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+h4 { font-size: var(--fs-lg); font-weight: 600; }
+
+p { max-width: 68ch; }
+p + p { margin-top: 1em; }
+
+a { color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--blue-lt); }
+:root[data-theme="dark"] a { color: var(--gold-lt); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) a { color: var(--gold-lt); }
+}
+
+strong { font-weight: 700; }
+
+/* ═══ LAYOUT ═════════════════════════════════════════════════ */
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+@media (max-width: 767px) { .wrap { padding-inline: 16px; } }
+
+.section { padding-block: 56px; }
+@media (max-width: 767px) { .section { padding-block: 36px; } }
+.section--grey { background: var(--bg2); }
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+:root[data-theme="dark"] .section-title { color: var(--gold-lt); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .section-title { color: var(--gold-lt); }
+}
+
+.stack > * + * { margin-top: 1.25rem; }
+
+/* ═══ KARTEN ═════════════════════════════════════════════════ */
+.cards { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+}
+.card__icon { font-size: 2.2rem; line-height: 1; margin-bottom: 14px; }
+.card h3 { margin-bottom: 10px; color: var(--blue); }
+:root[data-theme="dark"] .card h3 { color: var(--gold-lt); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card h3 { color: var(--gold-lt); }
+}
+.card p { color: var(--text2); font-size: var(--fs-sm); }
+
+/* Anklickbare Karte: der ganze Block ist ein Link */
+a.card { text-decoration: none; display: block; transition: box-shadow .2s, transform .2s; }
+a.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+/* ═══ SCHALTFLAECHEN ═════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--touch);
+  padding: 14px 28px;
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+}
+.btn--primary { background: var(--green); color: #fff; }
+.btn--primary:hover { background: var(--green-dk); color: #fff; }
+.btn--ghost { background: transparent; color: var(--blue); border-color: var(--blue); }
+.btn--ghost:hover { background: var(--bg2); }
+
+/* ═══ TABELLEN ═══════════════════════════════════════════════ */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  min-width: 540px;
+}
+caption {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text3);
+  padding-bottom: 12px;
+}
+th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+th {
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
+  position: sticky; top: 0;
+}
+td { font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: var(--bg2); }
+
+/* ═══ STATUS-KENNZEICHEN ═════════════════════════════════════
+   Farbe allein trägt nie die Bedeutung (WCAG 1.4.1) —
+   jedes Kennzeichen hat zusätzlich ein Zeichen und einen Text. */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  border: 2px solid;
+}
+.badge--done    { background: #e8f3e9; color: #1f5424; border-color: #2a5c2e; }
+.badge--open    { background: #fdf4dd; color: #6b5310; border-color: #8A6D25; }
+.badge--running { background: #e4edf7; color: #123a63; border-color: #1a3a5c; }
+:root[data-theme="dark"] .badge--done    { background: #16301a; color: #9edea3; }
+:root[data-theme="dark"] .badge--open    { background: #2e2710; color: #F5C518; }
+:root[data-theme="dark"] .badge--running { background: #15263a; color: #9cc2ea; }
+
+/* ═══ HINWEISKASTEN ══════════════════════════════════════════ */
+.note {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: var(--bg2);
+  border-left: 5px solid var(--gold-text);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 22px 26px;
+}
+.note__icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+.note h4 { margin-bottom: 6px; }
+.note p { font-size: var(--fs-sm); color: var(--text2); }
+
+/* Entwurfs-Hinweis: markiert Platzhalterinhalte deutlich sichtbar. */
+.draft-note {
+  background: #fdf4dd;
+  border: 2px dashed #8A6D25;
+  color: #4a3a0c;
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  font-size: var(--fs-sm);
+}
+:root[data-theme="dark"] .draft-note { background: #2e2710; color: #f0dca0; }
+
+/* ═══ DRUCKAUSGABE ═══════════════════════════════════════════
+   Terminlisten werden von Mitgliedern ausgedruckt.               */
+@media print {
+  .topnav, .tabbar, .skip-link, .site-footer nav { display: none !important; }
+  body { font-size: 12pt; background: #fff; color: #000; }
+  .section { padding-block: 12pt; }
+  a::after { content: " (" attr(href) ")"; font-size: 10pt; color: #555; }
+  table { min-width: 0; }
+  th { background: #ddd !important; color: #000 !important; }
+}
+
+/* ═══ FORMULARE ══════════════════════════════════════════════
+   Eingabefelder mindestens 16px Schrift — sonst zoomt iOS Safari
+   beim Antippen automatisch hinein, was Ältere irritiert.        */
+.feld { display: grid; gap: 8px; margin-bottom: 22px; }
+
+.feld label {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+.feld .hilfe { font-size: var(--fs-xs); color: var(--text3); }
+
+.feld input[type="text"],
+.feld input[type="email"],
+.feld input[type="date"],
+.feld select,
+.feld textarea {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 12px 16px;
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  color: var(--text);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+}
+.feld textarea { min-height: 150px; resize: vertical; line-height: 1.6; }
+
+.feld input:focus-visible,
+.feld select:focus-visible,
+.feld textarea:focus-visible { border-color: var(--blue); }
+
+.feld input[readonly],
+.feld textarea[readonly] { background: var(--bg2); }
+
+/* Schalter für Einstellungen — bewusst als große Zeile,
+   nicht als winziger Kippschalter. */
+.schalter {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: var(--touch);
+  padding: 18px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.schalter + .schalter { margin-top: 12px; }
+.schalter input[type="checkbox"] {
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--green);
+}
+.schalter__text { flex: 1; }
+.schalter__text strong { display: block; margin-bottom: 2px; }
+.schalter__text span { font-size: var(--fs-sm); color: var(--text3); }
+
+/* ═══ VORSCHAU-KENNZEICHNUNG ═════════════════════════════════ */
+.vorschau-band {
+  max-width: none;          /* haette sonst die globale Absatzbreite */
+  background: #4a2c00;
+  color: #ffe9b0;
+  padding: 16px 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  border-bottom: 3px solid var(--gold-lt);
+  text-wrap: balance;
+}
+.vorschau-band strong { color: #fff; }

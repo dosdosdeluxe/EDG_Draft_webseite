@@ -1,0 +1,11 @@
+---
+// Kennzeichnet jede Seite, die nur ein Layout zeigt und nichts tut.
+// Ohne diesen Hinweis hält jemand die Anmeldemaske für echt und
+// tippt dort ein Passwort ein.
+const { phase, was } = Astro.props;
+---
+
+<p class="vorschau-band">
+  <strong>Vorschau &mdash; Phase {phase}:</strong> {was}
+  Noch nicht gebaut &mdash; Eingaben werden nicht verarbeitet.
+</p>

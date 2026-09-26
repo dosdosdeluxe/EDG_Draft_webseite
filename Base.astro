@@ -1,0 +1,58 @@
+---
+// Die Schrift wird mit ausgeliefert und NICHT von Google geladen.
+// Das vermeidet die Übertragung von IP-Adressen an Google beim
+// Seitenaufruf (LG München I, 3 O 17493/20) und macht die Seite schneller.
+import '@fontsource-variable/inter';
+import '../styles/design-system.css';
+import { pfad } from '../utils/url.js';
+import TopNav from '../components/TopNav.astro';
+import TabBar from '../components/TabBar.astro';
+import Footer from '../components/Footer.astro';
+
+const {
+  titel,
+  beschreibung = 'Eagle Golfers Dribbdebach e.V. — Golfclub in Frankfurt am Main. Eagle Tour, Matchplay, Clubmeisterschaft und Termine.',
+} = Astro.props;
+
+const seitentitel = titel
+  ? `${titel} — Eagle Golfers Dribbdebach e.V.`
+  : 'Eagle Golfers Dribbdebach e.V.';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{seitentitel}</title>
+    <meta name="description" content={beschreibung} />
+
+    <link rel="icon" href={pfad("/logo.png")} type="image/png" />
+
+    <meta property="og:title" content={seitentitel} />
+    <meta property="og:description" content={beschreibung} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <TopNav />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <TabBar />
+  </body>
+</html>
+
+<style is:global>
+  /* Abstand unten, damit die feste Tab-Leiste nichts verdeckt */
+  @media (max-width: 899px) {
+    body { padding-bottom: 0; }
+  }
+  main:focus { outline: none; }
+</style>

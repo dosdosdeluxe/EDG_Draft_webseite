@@ -1,0 +1,110 @@
+---
+import { nav } from '../data/navigation.js';
+import { pfad, istAktiv } from '../utils/url.js';
+
+const aktuellerPfad = Astro.url.pathname;
+const istAktuell = (href) => istAktiv(aktuellerPfad, href);
+---
+
+<header class="topnav">
+  <div class="topnav__inner">
+    <a class="topnav__brand" href={pfad("/")}>
+      <img src={pfad("/logo.png")} alt="" width="44" height="44" loading="eager" />
+      <span class="topnav__name">Eagle Golfers Dribbdebach e.V.</span>
+    </a>
+
+    <nav aria-label="Hauptnavigation">
+      <ul class="topnav__links">
+        {nav.map((eintrag) => (
+          <li>
+            <a
+              href={pfad(eintrag.href)}
+              aria-current={istAktuell(eintrag.href) ? 'page' : undefined}
+            >
+              {eintrag.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--blue-dk);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .2);
+  }
+
+  .topnav__inner {
+    max-width: var(--wrap);
+    margin-inline: auto;
+    padding-inline: 24px;
+    min-height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .topnav__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding-block: 10px;
+    margin-right: auto;
+  }
+  .topnav__brand img { border-radius: 6px; }
+
+  .topnav__links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+
+  .topnav__links a {
+    display: flex;
+    align-items: center;
+    min-height: var(--touch);
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, .85);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    border-bottom: 3px solid transparent;
+    transition: background .2s, color .2s;
+  }
+  .topnav__links a:hover {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+  }
+
+  /* Aktive Seite doppelt gekennzeichnet: Farbe UND Unterstrich.
+     Farbe allein reicht nach WCAG 1.4.1 nicht aus. */
+  .topnav__links a[aria-current='page'] {
+    color: #fff;
+    background: rgba(255, 255, 255, .14);
+    border-bottom-color: var(--gold-lt);
+    font-weight: 700;
+  }
+
+  @media (max-width: 899px) {
+    .topnav__links { display: none; }
+    .topnav__inner { padding-inline: 16px; min-height: 60px; }
+    .topnav__name { font-size: .95rem; }
+  }
+  /* Der Vereinsname bleibt so lange stehen, wie er lesbar hineinpasst.
+     Erst unterhalb von 340px Breite weicht er dem Wappen. */
+  @media (max-width: 560px) {
+    .topnav__name { font-size: .82rem; line-height: 1.25; }
+  }
+  @media (max-width: 339px) {
+    .topnav__name { display: none; }
+  }
+</style>

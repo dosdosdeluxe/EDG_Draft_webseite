@@ -1,0 +1,77 @@
+---
+import { nav, rechtliches, vorschau } from '../data/navigation.js';
+import { pfad } from '../utils/url.js';
+const jahr = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__name">Eagle Golfers Dribbdebach e.V.</p>
+      <p class="site-footer__sub">Golf mit Leidenschaft &middot; Frankfurt am Main</p>
+    </div>
+
+    <nav aria-label="Fußzeilen-Navigation">
+      <ul>
+        {nav.map((e) => <li><a href={pfad(e.href)}>{e.label}</a></li>)}
+        {rechtliches.map((e) => <li><a href={pfad(e.href)}>{e.label}</a></li>)}
+        <li><a href={pfad(vorschau.href)}>{vorschau.label}</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <p class="site-footer__copy">
+    &copy; {jahr} Eagle Golfers Dribbdebach e.V.
+  </p>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--blue-dk);
+    color: rgba(255, 255, 255, .9);
+    padding: 48px 24px 32px;
+    margin-top: 64px;
+  }
+  /* Platz für die Tab-Leiste, damit die Fußzeile nicht darunter verschwindet */
+  @media (max-width: 899px) {
+    .site-footer { padding-bottom: calc(var(--tab-h) + 32px); }
+  }
+
+  .site-footer__inner {
+    max-width: var(--wrap);
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .site-footer__name { font-size: 1.2rem; font-weight: 700; color: #fff; }
+  .site-footer__sub  { color: rgba(255, 255, 255, .75); font-size: var(--fs-sm); }
+
+  .site-footer ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+  .site-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch);
+    color: rgba(255, 255, 255, .9);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .site-footer a:hover { color: var(--gold-lt); }
+
+  .site-footer__copy {
+    max-width: var(--wrap);
+    margin: 28px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, .2);
+    font-size: var(--fs-xs);
+    color: rgba(255, 255, 255, .7);
+  }
+</style>

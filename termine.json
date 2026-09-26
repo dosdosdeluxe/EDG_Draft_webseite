@@ -1,0 +1,53 @@
+{
+  "_hinweis": "PLATZHALTERDATEN. Echte Termine hier eintragen. Format des Datums: JJJJ-MM-TT. Erlaubte Werte für status: 'offen', 'gespielt', 'abgesagt'.",
+
+  "saison": "2026",
+
+  "termine": [
+    {
+      "datum": "2026-10-11",
+      "uhrzeit": "09:00",
+      "titel": "Eagle Tour Stop 6",
+      "platz": "GC Rennbahn Frankfurt",
+      "spielform": "Stableford",
+      "status": "offen",
+      "hinweis": "Letzter Zählwettbewerb der Saison"
+    },
+    {
+      "datum": "2026-10-25",
+      "uhrzeit": "10:00",
+      "titel": "Clubmeisterschaft 2026",
+      "platz": "GC Kronberg",
+      "spielform": "Zählspiel, 18 Loch",
+      "status": "offen",
+      "hinweis": "Nur für qualifizierte Spieler"
+    },
+    {
+      "datum": "2026-11-08",
+      "uhrzeit": "11:00",
+      "titel": "Saisonabschluss mit Siegerehrung",
+      "platz": "Clubhaus",
+      "spielform": "Gesellig",
+      "status": "offen",
+      "hinweis": "Anmeldung bis 01.11. erbeten"
+    },
+    {
+      "datum": "2026-09-13",
+      "uhrzeit": "09:00",
+      "titel": "Eagle Tour Stop 5",
+      "platz": "GC Bad Homburg",
+      "spielform": "Stableford",
+      "status": "gespielt",
+      "hinweis": ""
+    },
+    {
+      "datum": "2026-07-19",
+      "uhrzeit": "09:00",
+      "titel": "Eagle Tour Stop 4",
+      "platz": "GC Taunus",
+      "spielform": "Stableford",
+      "status": "gespielt",
+      "hinweis": ""
+    }
+  ]
+}
