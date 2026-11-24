@@ -5,6 +5,7 @@ import verein from '../data/verein.json';
 import wettbewerbeDaten from '../data/wettbewerbe.json';
 import termineDaten from '../data/termine.json';
 import { lang, nachDatum } from '../utils/datum.js';
+import { heroZahlen } from '../utils/zahlen.js';
 import { pfad } from '../utils/url.js';
 
 const wettbewerbe = wettbewerbeDaten.wettbewerbe;
@@ -22,7 +23,7 @@ const naechste = termineDaten.termine
   <Hero
     titel="Golf mit Leidenschaft an der Rennbahn"
     untertitel={`${verein.name} — Ihr Golfclub in ${verein.ort} seit ${verein.gegruendet}`}
-    zahlen={verein.zahlen}
+    zahlen={heroZahlen(verein, termineDaten.saison)}
   />
 
   <section class="section">

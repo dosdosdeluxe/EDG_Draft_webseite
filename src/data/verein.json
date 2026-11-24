@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Stammdaten des Vereins. Diese Datei mit echten Werten füllen. Die Felder unter 'impressum' sind rechtlich vorgeschrieben (Paragraf 5 DDG).",
+  "_hinweis": "Stammdaten des Vereins. Diese Datei mit echten Werten füllen. Die Felder unter 'impressum' sind rechtlich vorgeschrieben (Paragraf 5 DDG). Bei den Zahlen setzt die Seite Einträge mit 'berechnet' selbst: jahreAktiv = laufendes Jahr minus gegruendet, saison = Saison aus termine.json.",
 
   "name": "Eagle Golfers Dribbdebach e.V.",
   "kurzname": "EGD",
@@ -10,8 +10,8 @@
   "zahlen": [
     { "wert": "47",  "label": "Mitglieder" },
     { "wert": "6",   "label": "Eagle Tour Stops" },
-    { "wert": "16",  "label": "Jahre aktiv" },
-    { "wert": "2026", "label": "Saison" }
+    { "berechnet": "jahreAktiv", "label": "Jahre aktiv" },
+    { "berechnet": "saison", "label": "Saison" }
   ],
 
   "impressum": {
