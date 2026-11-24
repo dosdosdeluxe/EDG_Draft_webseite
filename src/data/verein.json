@@ -15,14 +15,14 @@
   ],
 
   "impressum": {
-    "_status": "PLATZHALTER — vor dem Start durch echte Daten ersetzen",
+    "_status": "Übernommen am 2026-11-24 aus dem Archiv-Schnappschuss der alten Seite (2026-07-17). Vor dem Start vom Vorstand bestätigen lassen.",
     "vereinsname": "Eagle Golfers Dribbdebach e.V.",
-    "strasse": "[Straße und Hausnummer eintragen]",
-    "plz_ort": "[PLZ] Frankfurt am Main",
-    "vertreten_durch": "[Name des 1. Vorsitzenden]",
+    "strasse": "Vogelstr. 11",
+    "plz_ort": "60528 Frankfurt am Main",
+    "vertreten_durch": "Jens Fischer",
     "registergericht": "Amtsgericht Frankfurt am Main",
-    "registernummer": "[VR-Nummer eintragen]",
-    "email": "[E-Mail-Adresse eintragen]",
-    "telefon": "[optional]"
+    "registernummer": "VR 15676",
+    "email": "info@eagle-golfers-dribbdebach.de",
+    "telefon": "069 / 40 95 47 00"
   }
 }
