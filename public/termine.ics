@@ -26,6 +26,75 @@ RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
+UID:2026-11-29-matchplay-finale@eaglegolfersdribbdebach.de
+DTSTAMP:20261129T080000Z
+DTSTART;TZID=Europe/Berlin:20261129T110000
+DTEND;TZID=Europe/Berlin:20261129T160000
+SUMMARY:Matchplay Finale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nBeide Finalisten melden sich 
+ beim Spielführer\nDauer geschätzt. Änderungen wandern automatisch in 
+ diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-06-saisonabschluss-mit-siegerehrung@eaglegolfersdribbdebach.de
+DTSTAMP:20261206T080000Z
+DTSTART;TZID=Europe/Berlin:20261206T110000
+DTEND;TZID=Europe/Berlin:20261206T160000
+SUMMARY:Saisonabschluss mit Siegerehrung
+LOCATION:Clubhaus
+DESCRIPTION:Spielform: Gesellig\nAnmeldung bis 29.11. erbeten\nDauer gesc
+ hätzt. Änderungen wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-01-24-mitgliederversammlung-2027@eaglegolfersdribbdebach.de
+DTSTAMP:20270124T080000Z
+DTSTART;TZID=Europe/Berlin:20270124T150000
+DTEND;TZID=Europe/Berlin:20270124T200000
+SUMMARY:Mitgliederversammlung 2027
+LOCATION:Clubhaus
+DESCRIPTION:Spielform: Versammlung\nEinladung folgt mit Frist laut Satzun
+ g\nDauer geschätzt. Änderungen wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-25-clubmeisterschaft-2026@eaglegolfersdribbdebach.de
+DTSTAMP:20261025T080000Z
+DTSTART;TZID=Europe/Berlin:20261025T100000
+DTEND;TZID=Europe/Berlin:20261025T150000
+SUMMARY:Clubmeisterschaft 2026
+LOCATION:GC Kronberg
+DESCRIPTION:Spielform: Zählspiel\, 18 Loch\nDauer geschätzt. Änderunge
+ n wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-10-11-eagle-tour-stop-6@eaglegolfersdribbdebach.de
 DTSTAMP:20261011T080000Z
 DTSTART;TZID=Europe/Berlin:20261011T090000
@@ -43,32 +112,14 @@ TRIGGER:-P1D
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-10-25-clubmeisterschaft-2026@eaglegolfersdribbdebach.de
-DTSTAMP:20261025T080000Z
-DTSTART;TZID=Europe/Berlin:20261025T100000
-DTEND;TZID=Europe/Berlin:20261025T150000
-SUMMARY:Clubmeisterschaft 2026
-LOCATION:GC Kronberg
-DESCRIPTION:Spielform: Zählspiel\, 18 Loch\nNur für qualifizierte Spiel
- er\nDauer geschätzt. Änderungen wandern automatisch in diesen Kalender
- .
-STATUS:CONFIRMED
-TRANSP:OPAQUE
-BEGIN:VALARM
-ACTION:DISPLAY
-DESCRIPTION:Erinnerung
-TRIGGER:-P1D
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:2026-11-08-saisonabschluss-mit-siegerehrung@eaglegolfersdribbdebach.de
-DTSTAMP:20261108T080000Z
-DTSTART;TZID=Europe/Berlin:20261108T110000
-DTEND;TZID=Europe/Berlin:20261108T160000
-SUMMARY:Saisonabschluss mit Siegerehrung
-LOCATION:Clubhaus
-DESCRIPTION:Spielform: Gesellig\nAnmeldung bis 01.11. erbeten\nDauer gesc
- hätzt. Änderungen wandern automatisch in diesen Kalender.
+UID:2026-09-20-matchplay-halbfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260920T080000Z
+DTSTART;TZID=Europe/Berlin:20260920T100000
+DTEND;TZID=Europe/Berlin:20260920T150000
+SUMMARY:Matchplay Halbfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
@@ -95,6 +146,23 @@ TRIGGER:-P1D
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:2026-08-23-matchplay-halbfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260823T080000Z
+DTSTART;TZID=Europe/Berlin:20260823T100000
+DTEND;TZID=Europe/Berlin:20260823T150000
+SUMMARY:Matchplay Halbfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-07-19-eagle-tour-stop-4@eaglegolfersdribbdebach.de
 DTSTAMP:20260719T080000Z
 DTSTART;TZID=Europe/Berlin:20260719T090000
@@ -103,6 +171,160 @@ SUMMARY:Eagle Tour Stop 4
 LOCATION:GC Taunus
 DESCRIPTION:Spielform: Stableford\nDauer geschätzt. Änderungen wandern 
  automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-12-matchplay-viertelfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260712T080000Z
+DTSTART;TZID=Europe/Berlin:20260712T100000
+DTEND;TZID=Europe/Berlin:20260712T150000
+SUMMARY:Matchplay Viertelfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-05-matchplay-viertelfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260705T080000Z
+DTSTART;TZID=Europe/Berlin:20260705T100000
+DTEND;TZID=Europe/Berlin:20260705T150000
+SUMMARY:Matchplay Viertelfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-28-matchplay-viertelfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260628T080000Z
+DTSTART;TZID=Europe/Berlin:20260628T100000
+DTEND;TZID=Europe/Berlin:20260628T150000
+SUMMARY:Matchplay Viertelfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-21-matchplay-viertelfinale@eaglegolfersdribbdebach.de
+DTSTAMP:20260621T080000Z
+DTSTART;TZID=Europe/Berlin:20260621T100000
+DTEND;TZID=Europe/Berlin:20260621T150000
+SUMMARY:Matchplay Viertelfinale
+LOCATION:Platz nach Absprache
+DESCRIPTION:Spielform: Matchplay\, 18 Loch\nDauer geschätzt. Änderungen
+  wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-06-14-eagle-tour-stop-3@eaglegolfersdribbdebach.de
+DTSTAMP:20260614T080000Z
+DTSTART;TZID=Europe/Berlin:20260614T090000
+DTEND;TZID=Europe/Berlin:20260614T140000
+SUMMARY:Eagle Tour Stop 3
+LOCATION:GC Hanau
+DESCRIPTION:Spielform: Stableford\nDauer geschätzt. Änderungen wandern 
+ automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-05-10-eagle-tour-stop-2@eaglegolfersdribbdebach.de
+DTSTAMP:20260510T080000Z
+DTSTART;TZID=Europe/Berlin:20260510T090000
+DTEND;TZID=Europe/Berlin:20260510T140000
+SUMMARY:Eagle Tour Stop 2
+LOCATION:GC Neuhof
+DESCRIPTION:Spielform: Stableford\nDauer geschätzt. Änderungen wandern 
+ automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-04-12-eagle-tour-stop-1@eaglegolfersdribbdebach.de
+DTSTAMP:20260412T080000Z
+DTSTART;TZID=Europe/Berlin:20260412T093000
+DTEND;TZID=Europe/Berlin:20260412T143000
+SUMMARY:Eagle Tour Stop 1
+LOCATION:GC Kronberg
+DESCRIPTION:Spielform: Stableford\nSaisoneröffnung\nDauer geschätzt. Ä
+ nderungen wandern automatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-03-22-saisoner-ffnung-mit-regelabend@eaglegolfersdribbdebach.de
+DTSTAMP:20260322T080000Z
+DTSTART;TZID=Europe/Berlin:20260322T140000
+DTEND;TZID=Europe/Berlin:20260322T190000
+SUMMARY:Saisoneröffnung mit Regelabend
+LOCATION:Clubhaus
+DESCRIPTION:Spielform: Gesellig\nDauer geschätzt. Änderungen wandern au
+ tomatisch in diesen Kalender.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Erinnerung
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-02-holy-mountain-sonderwertung@eaglegolfersdribbdebach.de
+DTSTAMP:20260802T080000Z
+DTSTART;TZID=Europe/Berlin:20260802T090000
+DTEND;TZID=Europe/Berlin:20260802T140000
+SUMMARY:Holy Mountain Sonderwertung
+LOCATION:GC Taunus
+DESCRIPTION:Spielform: Stableford\, Höhenmeter\nZählt für die Holy-Mou
+ ntain-Wertung\nDauer geschätzt. Änderungen wandern automatisch in dies
+ en Kalender.
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
