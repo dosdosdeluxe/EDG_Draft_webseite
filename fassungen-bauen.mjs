@@ -19,6 +19,7 @@ const PROJEKT = dirname(fileURLToPath(import.meta.url));
 const REPO_PFAD = '/EDG_Draft_webseite/';   // Name des GitHub-Repos
 
 import { kalenderSchreiben } from './kalender-erzeugen.mjs';
+import { relativeAdressen } from './relative-pfade.mjs';
 
 const SEITE_ECHT = 'https://eaglegolfersdribbdebach.de';
 const SEITE_ENTWURF = 'https://dosdosdeluxe.github.io';
@@ -34,16 +35,6 @@ function bauen(basis, zusatz = {}) {
 // Bricht den Lauf ab, statt eine falsche Fassung auszuliefern.
 function pruefen(bedingung, meldung) {
   if (!bedingung) throw new Error(`Prüfung fehlgeschlagen: ${meldung}`);
-}
-
-function alleDateien(ordner) {
-  const raus = [];
-  for (const e of readdirSync(ordner)) {
-    const voll = join(ordner, e);
-    if (statSync(voll).isDirectory()) raus.push(...alleDateien(voll));
-    else raus.push(voll);
-  }
-  return raus;
 }
 
 // ── 0. Kalenderdatei aus den Terminen erzeugen ────────────────────
@@ -76,36 +67,7 @@ const ZIEL = join(PROJEKT, 'EGD-Website-Vorschau');
 rmSync(ZIEL, { recursive: true, force: true });
 cpSync(join(PROJEKT, 'dist'), ZIEL, { recursive: true });
 
-let umgeschrieben = 0;
-for (const datei of alleDateien(ZIEL)) {
-  const istHtml = datei.endsWith('.html');
-  const istCss = datei.endsWith('.css');
-  if (!istHtml && !istCss) continue;
-  let text = readFileSync(datei, 'utf8');
-
-  // Wie tief liegt diese Datei unter der Wurzel?
-  const nachOben = relative(dirname(datei), ZIEL).replace(/\\/g, '/');
-  const praefix = nachOben === '' ? '' : nachOben + '/';
-
-  if (istHtml) {
-    text = text.replace(/(href|src)="\/([^"]*)"/g, (_, attribut, rest) => {
-      let ziel = rest;
-      // Ordner-Adressen ausschreiben: "termine/" → "termine/index.html"
-      if (ziel === '' || ziel.endsWith('/')) ziel += 'index.html';
-      umgeschrieben++;
-      return `${attribut}="${praefix}${ziel}"`;
-    });
-  }
-
-  // url(...) in Stylesheets und in <style>-Blöcken: Schriftdateien und
-  // das Hintergrundlogo stehen dort ebenfalls mit führendem Schrägstrich.
-  text = text.replace(/url\((['"]?)\/([^)'"]+)\1\)/g, (_, anf, rest) => {
-    umgeschrieben++;
-    return `url(${anf}${praefix}${rest}${anf})`;
-  });
-
-  writeFileSync(datei, text, 'utf8');
-}
+const umgeschrieben = relativeAdressen(ZIEL);
 console.log(`EGD-Website-Vorschau/ gebaut — ${umgeschrieben} Adressen auf relative Pfade umgestellt.`);
 
 // Kurze Anleitung dazulegen

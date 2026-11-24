@@ -19,6 +19,12 @@
 # ── Eigene Fehlerseite ────────────────────────────────────────
 ErrorDocument 404 /404.html
 
+# ── Dateitypen, die nicht jeder Server kennt ──────────────────
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType text/calendar .ics
+</IfModule>
+
 # ── Sicherheits-Kopfzeilen ────────────────────────────────────
 <IfModule mod_headers.c>
   # Verhindert, dass die Seite in fremde Rahmen eingebettet wird
@@ -50,10 +56,14 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # ── Komprimierung ─────────────────────────────────────────────
+# AddOutputFilterByType gehört zu mod_filter. Fehlt das Modul, würde die Zeile
+# sonst die ganze Seite mit Fehler 500 lahmlegen.
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/plain
-  AddOutputFilterByType DEFLATE application/javascript application/json
-  AddOutputFilterByType DEFLATE image/svg+xml
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+  </IfModule>
 </IfModule>
 
 # ── Verzeichnisinhalte nicht auflisten ────────────────────────

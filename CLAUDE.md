@@ -14,6 +14,7 @@ npm run build          # -> dist/ (prebuild erzeugt public/termine.ics neu, dana
                        #    schreibt sitemap-und-robots.mjs sitemap.xml bzw. die Sperr-robots.txt)
 node fassungen-bauen.mjs   # erzeugt docs/ (GitHub Pages) + EGD-Website-Vorschau/ (file://)
 node bilder-erzeugen.mjs   # Vorschaubild og-bild.jpg + App-Symbole neu rendern
+npm run alfahosting    # ausgabe/: Upload-Pakete live + entwurf (Ordner und ZIP) + UPLOAD-ANLEITUNG.txt
 ```
 
 ## Wo was liegt
@@ -70,7 +71,8 @@ Jede davon steht hier, weil sie schon einmal gebrochen wurde.
 10. **Die Entwurfsfassung ist `noindex`.** Jeder Build mit `NOINDEX=1` setzt das
     Metatag (`Base.astro`) und schreibt eine sperrende `robots.txt` ohne
     Sitemap (`sitemap-und-robots.mjs`, eingebunden in `astro.config.mjs`).
-    `NOINDEX=1` setzen `fassungen-bauen.mjs` (docs/) und `github-pages.yml`.
+    `NOINDEX=1` setzen `fassungen-bauen.mjs` (docs/), `alfahosting-bauen.mjs`
+    (Entwurfspaket) und `github-pages.yml`.
     Jeder neue Weg, die Entwurfsseite zu bauen, muss es ebenfalls setzen.
     Platzhalterdaten dürfen nicht in die Google-Suche.
 
@@ -95,7 +97,10 @@ Settings → Pages → Deploy from a branch → `main` / `/docs`.
 hoch. Er läuft **nur von Hand** (Actions → Run workflow), weil der Upload mit
 `--delete` spiegelt und im Zielordner alles löscht, was nicht in `dist/` liegt
 (auch das alte Joomla). Einen Push-Trigger erst ergänzen, wenn Impressum und
-Datenschutz echt sind. Alfahosting kann PHP und MariaDB, aber **kein Node.js und kein
+Datenschutz echt sind. Von Hand: `npm run alfahosting` baut `ausgabe/` (Anleitung
+und Go-Live-Prüfung in `UPLOAD-ANLEITUNG.txt`). Das Livepaket ist die echte
+Fassung, das Entwurfspaket läuft mit relativen Adressen in jedem Unterordner und
+ist `noindex`. Alfahosting kann PHP und MariaDB, aber **kein Node.js und kein
 PostgreSQL**. Astro braucht Node nur zum Bauen, das Ergebnis sind statische
 Dateien. Für ein späteres Backend ist der Hoster damit raus.
 
