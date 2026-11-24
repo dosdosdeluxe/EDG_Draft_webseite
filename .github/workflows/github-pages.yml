@@ -39,12 +39,19 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      # Auf GitHub Pages liegt die Seite in einem Unterordner, der so
-      # heißt wie das Repository. Ohne diesen Wert zeigen alle internen
-      # Links ins Leere.
+      # BASE_PATH: Auf GitHub Pages liegt die Seite in einem Unterordner, der
+      #   so heißt wie das Repository. Ohne diesen Wert zeigen alle internen
+      #   Links ins Leere.
+      # SITE_URL: Canonical-Link und Vorschaubild zeigen auf die Testadresse
+      #   statt auf die echte Domain.
+      # NOINDEX: Die Testseite trägt Platzhalterdaten und darf nicht in die
+      #   Suche (Regel 10 in CLAUDE.md). Der Build setzt dann das
+      #   noindex-Metatag und schreibt eine sperrende robots.txt.
       - name: Website bauen
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          NOINDEX: '1'
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

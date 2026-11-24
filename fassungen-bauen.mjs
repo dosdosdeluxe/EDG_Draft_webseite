@@ -31,34 +31,9 @@ function bauen(basis, zusatz = {}) {
   });
 }
 
-// Sitemap: sagt Suchmaschinen, welche Seiten es gibt. Die Vorschau des
-// Mitgliederbereichs bleibt draussen, sie ist nur ein Entwurf.
-function sitemapSchreiben(ordner, grundadresse, basis = '/') {
-  const seiten = [];
-  (function sammeln(dir, pfadTeil = '') {
-    for (const e of readdirSync(dir)) {
-      const voll = join(dir, e);
-      if (statSync(voll).isDirectory()) sammeln(voll, `${pfadTeil}/${e}`);
-      else if (e === 'index.html') seiten.push(`${pfadTeil}/`);
-    }
-  })(ordner);
-
-  const heute = new Date().toISOString().slice(0, 10);
-  const eintraege = seiten
-    .filter((s) => !s.startsWith('/vorschau'))
-    .sort()
-    .map((s) => {
-      const adresse = new URL(basis.replace(/\/+$/, '') + s, grundadresse).href;
-      const wichtig = s === '/' ? '1.0' : '0.7';
-      return `  <url>\n    <loc>${adresse}</loc>\n    <lastmod>${heute}</lastmod>\n    <priority>${wichtig}</priority>\n  </url>`;
-    })
-    .join('\n');
-
-  writeFileSync(
-    join(ordner, 'sitemap.xml'),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${eintraege}\n</urlset>\n`
-  );
-  return seiten.length;
+// Bricht den Lauf ab, statt eine falsche Fassung auszuliefern.
+function pruefen(bedingung, meldung) {
+  if (!bedingung) throw new Error(`Prüfung fehlgeschlagen: ${meldung}`);
 }
 
 function alleDateien(ordner) {
@@ -84,16 +59,19 @@ cpSync(join(PROJEKT, 'dist'), join(PROJEKT, 'docs'), { recursive: true });
 // .nojekyll schaltet die Jekyll-Verarbeitung ab. Ohne diese Datei
 // verschluckt GitHub Ordner, deren Name mit einem Unterstrich beginnt.
 writeFileSync(join(PROJEKT, 'docs', '.nojekyll'), '');
-writeFileSync(
-  join(PROJEKT, 'docs', 'robots.txt'),
-  '# Entwurfsfassung. Platzhalterdaten — gehoert nicht in die Suche.\nUser-agent: *\nDisallow: /\n'
-);
+// Regel 10: Die Entwurfsfassung darf nicht in die Suche. robots.txt und
+// noindex-Metatag schreibt der Build selbst (sitemap-und-robots.mjs und
+// Base.astro, gesteuert über NOINDEX=1). Hier wird nur noch nachgeprüft.
+pruefen(readFileSync(join(PROJEKT, 'docs', 'robots.txt'), 'utf8').includes('Disallow: /'), 'docs/robots.txt sperrt nicht');
+pruefen(readFileSync(join(PROJEKT, 'docs', 'index.html'), 'utf8').includes('noindex'), 'docs/index.html hat kein noindex');
+pruefen(!existsSync(join(PROJEKT, 'docs', 'sitemap.xml')), 'docs/ enthält eine sitemap.xml');
 console.log('docs/ gebaut — Grundpfad ' + REPO_PFAD + ', nicht indexierbar');
 
 // ── 2. Fassung zum Doppelklicken ──────────────────────────────────
 bauen('/', { SITE_URL: SEITE_ECHT });
-const anzahl = sitemapSchreiben(join(PROJEKT, 'dist'), SEITE_ECHT);
-console.log(`sitemap.xml geschrieben — ${anzahl} Seiten gefunden`);
+const sitemap = join(PROJEKT, 'dist', 'sitemap.xml');
+pruefen(existsSync(sitemap), 'dist/sitemap.xml fehlt');
+console.log(`sitemap.xml vorhanden, ${(readFileSync(sitemap, 'utf8').match(/<loc>/g) || []).length} Seiten`);
 const ZIEL = join(PROJEKT, 'EGD-Website-Vorschau');
 rmSync(ZIEL, { recursive: true, force: true });
 cpSync(join(PROJEKT, 'dist'), ZIEL, { recursive: true });

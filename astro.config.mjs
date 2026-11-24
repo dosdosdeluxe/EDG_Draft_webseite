@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { suchmaschinenHinweise } from './sitemap-und-robots.mjs';
 
 export default defineConfig({
   // Später auf die echte Domain ändern, sobald die Seite live geht.
@@ -28,4 +29,8 @@ export default defineConfig({
   },
 
   compressHTML: true,
+
+  // Schreibt nach jedem Build die sitemap.xml (echte Fassung) oder eine
+  // sperrende robots.txt (Entwurfsfassung, NOINDEX=1).
+  integrations: [suchmaschinenHinweise()],
 });
