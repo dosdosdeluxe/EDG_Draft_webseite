@@ -10,7 +10,8 @@ Antworte auf Deutsch, Code und Commits auf Englisch.
 ```bash
 npm install
 npm run dev            # localhost:4321
-npm run build          # -> dist/ (prebuild erzeugt public/termine.ics neu)
+npm run build          # -> dist/ (prebuild erzeugt public/termine.ics neu, danach
+                       #    schreibt sitemap-und-robots.mjs sitemap.xml bzw. die Sperr-robots.txt)
 node fassungen-bauen.mjs   # erzeugt docs/ (GitHub Pages) + EGD-Website-Vorschau/ (file://)
 node bilder-erzeugen.mjs   # Vorschaubild og-bild.jpg + App-Symbole neu rendern
 ```
@@ -35,7 +36,9 @@ einer Anmeldung mit Row Level Security.
 `src/pages/vorschau/` sind Layout-Attrappen für noch nicht gebaute Funktionen.
 Jede dieser Seiten trägt `<VorschauHinweis>`, Formularfelder sind `disabled`.
 Das ist nicht optional: sonst tippt jemand ein echtes Passwort in ein totes
-Formular.
+Formular. In der echten Fassung stehen sie nicht in der Sitemap, und
+`public/robots.txt` sperrt `/vorschau/` für Crawler (Crawl-Sperre, kein
+`noindex`).
 
 ## Harte Regeln
 
@@ -64,8 +67,11 @@ Jede davon steht hier, weil sie schon einmal gebrochen wurde.
    Hell `--gold-text` (#8A6D25, 4,89:1), auf Dunkel `--gold-lt`.
 9. **Schriften werden mitgeliefert** (`@fontsource-variable/inter`), nie von
    Google geladen (LG München I, 3 O 17493/20).
-10. **Die Entwurfsfassung ist `noindex`.** `fassungen-bauen.mjs` setzt für den
-    GitHub-Pages-Build `NOINDEX=1` und schreibt eine sperrende `robots.txt`.
+10. **Die Entwurfsfassung ist `noindex`.** Jeder Build mit `NOINDEX=1` setzt das
+    Metatag (`Base.astro`) und schreibt eine sperrende `robots.txt` ohne
+    Sitemap (`sitemap-und-robots.mjs`, eingebunden in `astro.config.mjs`).
+    `NOINDEX=1` setzen `fassungen-bauen.mjs` (docs/) und `github-pages.yml`.
+    Jeder neue Weg, die Entwurfsseite zu bauen, muss es ebenfalls setzen.
     Platzhalterdaten dürfen nicht in die Google-Suche.
 
 ## Prüfen vor dem Abhaken
@@ -86,7 +92,10 @@ Ordner muss per Drag and Drop ins Upload-Feld von GitHub gezogen werden, nicht
 Settings → Pages → Deploy from a branch → `main` / `/docs`.
 
 **Alfahosting (Ziel):** `.github/workflows/deploy.yml` lädt `dist/` per lftp
-hoch. Alfahosting kann PHP und MariaDB, aber **kein Node.js und kein
+hoch. Er läuft **nur von Hand** (Actions → Run workflow), weil der Upload mit
+`--delete` spiegelt und im Zielordner alles löscht, was nicht in `dist/` liegt
+(auch das alte Joomla). Einen Push-Trigger erst ergänzen, wenn Impressum und
+Datenschutz echt sind. Alfahosting kann PHP und MariaDB, aber **kein Node.js und kein
 PostgreSQL**. Astro braucht Node nur zum Bauen, das Ergebnis sind statische
 Dateien. Für ein späteres Backend ist der Hoster damit raus.
 
