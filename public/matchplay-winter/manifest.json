@@ -1,0 +1,16 @@
+{
+  "name": "Winter Matchplay Serie",
+  "short_name": "Winter Matchplay",
+  "description": "Eagle Golfers Dribbdebach: Spielplan, Tabellen und Finaltag",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#122848",
+  "theme_color": "#122848",
+  "lang": "de",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

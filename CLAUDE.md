@@ -104,6 +104,22 @@ ist `noindex`. Alfahosting kann PHP und MariaDB, aber **kein Node.js und kein
 PostgreSQL**. Astro braucht Node nur zum Bauen, das Ergebnis sind statische
 Dateien. Für ein späteres Backend ist der Hoster damit raus.
 
+## Winter-Matchplay (PHP-Tool in `public/matchplay-winter/`)
+
+Übernommen aus der Live-Version auf hammaecker.de/Eaglesmatchplay (Stand 2026-11-24).
+Anders als die Astro-Seiten braucht es PHP und JavaScript: Spielplan, Tabellen,
+Ergebnis melden, Fotos, Editor mit Login und Verlauf. Nicht im Menü der
+Entwurfsfassung testbar, auf GitHub Pages läuft kein PHP.
+
+- `api.php` trägt nur Platzhalter-Passwörter (`BITTE-AENDERN`). Echte Startpasswörter
+  gehören nie ins Repository. `data.json` ist eine leere Vorlage.
+- **Nie ins Repo:** `data.json` mit Inhalt, `users.php`, `verlauf.php`, `meldungen.php`,
+  `fotos.php`, `terminspieler.php`, `fotos/`. Sie enthalten Namen und Passwort-Hashes.
+- `deploy.yml` nimmt diese Dateien samt `api.php` vom `--delete` aus. Sonst würde ein
+  Deploy die Live-Daten und die Passwörter überschreiben.
+- Nicht in der Sitemap, `noindex`. Kontrastfarbe `--accent` auf `#7FCB86` angehoben (axe).
+- Offen: nicht auf Alfahosting getestet (PHP-Version, Schreibrechte, `mail()`).
+
 ## Stand und offene Punkte
 
 Fertig: 11 öffentliche Seiten, 13 Vorschauseiten, Organisatorisches,

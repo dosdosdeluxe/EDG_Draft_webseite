@@ -10,6 +10,7 @@ export const nav = [
   { label: 'Start',       href: '/',              icon: '\u{1F3E0}', imTab: true  },
   { label: 'Spielbetrieb', href: '/spielbetrieb/', icon: '⛳',    imTab: false },
   { label: 'Matchplay',   href: '/matchplay/',    icon: '\u2694\uFE0F',  imTab: false },
+  { label: 'Winter-Matchplay', href: '/matchplay-winter/', icon: '\u2744\uFE0F', imTab: false },
   { label: 'Termine',     href: '/termine/',      icon: '\u{1F4C5}', imTab: true  },
   { label: 'Ergebnisse',  href: '/ergebnisse/',   icon: '\u{1F3C6}', imTab: true  },
   { label: 'Galerie',     href: '/galerie/',      icon: '\u{1F4F7}', imTab: true  },

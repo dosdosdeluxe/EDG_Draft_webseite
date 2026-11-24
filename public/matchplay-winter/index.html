@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eagle Golfers Dribbdebach · Winter Matchplay Serie</title>
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#122848">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Winter Matchplay">
+<meta name="description" content="Winter Matchplay Serie der Eagle Golfers Dribbdebach: Spielplan, Tabellen und Finaltag.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#122848; --surface:#1A3A5C; --border:#2F5A8C;
+  --text:#F1F5F9; --muted:#B4C0D0; --gold:#F5C518; --accent:#7FCB86;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --head:var(--body);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--body);font-weight:700;margin:0;line-height:1.2;text-wrap:balance}
+.eyebrow{font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7FCB86}
+.muted{color:var(--muted)}
+section{padding:60px 0 20px}
+h2{font-size:clamp(34px,6vw,48px)}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.sec-head p{margin:0;max-width:720px;color:var(--muted)}
+
+/* Nav */
+.nav{border-bottom:1px solid var(--border)}
+.nav .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-top:16px;padding-bottom:16px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--head);font-weight:700;font-size:20px;line-height:1.15;text-decoration:none}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:26px}
+.nav-links{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:16px}
+.nav-links a{color:var(--muted);text-decoration:none;padding:6px 0}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--text)}
+.nav-links a.home{color:var(--text);border:1px solid var(--accent);border-radius:8px;padding:8px 16px;font-weight:600}
+
+/* Hero */
+.hero{display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding:72px 0 48px}
+.hero-text{flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px}
+.hero h1{font-size:clamp(26px,8vw,60px);line-height:1.1;overflow-wrap:anywhere}
+.hero h1 span{color:var(--gold)}
+.hero p{margin:0;font-size:20px;color:var(--muted);max-width:540px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 28px;border-radius:8px;font-weight:600;text-decoration:none}
+.btn.gold{background:var(--gold);color:var(--bg)}
+.btn.line{border:1px solid var(--accent);color:var(--accent)}
+.btn:focus-visible,.nav-links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.hero-card{flex:1 1 360px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px}
+.hero-card h3,.hero-card h2{font-size:22px;letter-spacing:.06em;color:var(--muted)}
+.two{display:flex;flex-wrap:wrap;gap:12px}
+.two div{min-width:120px}
+.two div{flex:1;border:1px solid var(--border);border-radius:10px;padding:12px 16px}
+.two b{display:block;font-family:var(--head);font-size:26px;text-transform:uppercase}
+.two small{color:var(--muted);font-size:16px}
+.pairs div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--border);font-size:16px}
+.pairs .gold{color:var(--gold);font-weight:600}
+
+/* Stats */
+.stats{display:flex;flex-wrap:wrap;gap:16px;padding-bottom:16px}
+.stat{flex:1 1 200px;border-top:2px solid var(--gold);padding-top:14px}
+.stat b{display:block;font-family:var(--head);font-size:54px;line-height:1;text-transform:uppercase}
+.stat span{color:var(--muted)}
+
+/* Cards */
+.cards{display:flex;flex-wrap:wrap;gap:20px}
+.card{flex:1 1 300px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.card .no{font-family:var(--head);font-weight:700;font-size:44px;color:var(--gold);line-height:1}
+.card h3{font-size:28px}
+.card p{margin:0;color:var(--muted)}
+
+/* Zeitplan strip */
+.strip{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.strip div{flex:1 1 140px;border:1px solid var(--border);border-radius:10px;padding:14px 18px}
+.strip div.fin{border-color:var(--gold)}
+.strip b{display:block;font-family:var(--head);font-size:26px;text-transform:uppercase}
+.strip .fin b{color:var(--gold)}
+.strip span{font-size:16px;color:var(--muted)}
+
+/* Spielplan */
+.rounds{display:flex;flex-direction:column;gap:14px}
+.round{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start}
+.round.final{border:2px solid var(--gold)}
+.when{flex:0 0 190px;min-width:0}
+.when b{display:block;font-family:var(--head);font-size:30px;line-height:1.1;text-transform:uppercase}
+.round.final .when b{color:var(--gold)}
+.when span{font-size:16px;color:var(--muted)}
+.col{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.col .lab{font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7FCB86}
+.match{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-weight:500}
+.lnk{background:none;border:0;padding:6px 0;margin:0;font:inherit;font-size:15px;color:var(--gold);text-decoration:underline;cursor:pointer;min-height:36px}
+.md{flex:0 0 100%;font-size:15px;font-weight:400;color:var(--muted)}
+.res{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;white-space:nowrap}
+.free{font-size:16px;color:var(--muted);font-style:italic}
+.fin-line{font-weight:500}
+.fin-line.top{color:var(--gold);font-weight:700}
+
+/* Tabellen */
+.tables{display:flex;flex-wrap:wrap;gap:24px}
+.tbl{flex:1 1 480px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.tbl h3{font-size:32px;padding:20px 20px 14px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px;font-variant-numeric:tabular-nums}
+th{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;padding:10px 6px;border-top:1px solid var(--border)}
+td{padding:12px 6px;border-top:1px solid var(--border);text-align:center}
+th.l,td.l{text-align:left}
+th:first-child,td:first-child{padding-left:20px;width:56px}
+th:last-child,td:last-child{padding-right:20px}
+td.l{padding-left:8px}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);color:var(--muted);font-weight:600;font-size:16px}
+.badge.first{background:var(--gold);color:var(--bg);border-color:var(--gold);font-weight:700}
+.team{font-weight:600}
+.players{display:block;font-size:15px;color:var(--muted);font-weight:400}
+.pkt{font-weight:700;color:var(--gold)}
+.note{margin-top:20px;font-size:16px;color:var(--muted);max-width:820px}
+
+/* Hinweise */
+.rules{display:flex;flex-wrap:wrap;gap:20px}
+.rule{flex:1 1 280px;min-width:0;border:1px solid var(--border);border-radius:12px;padding:24px 28px}
+.rule h3{font-size:24px;margin-bottom:8px}
+.rule p{margin:0;color:var(--muted)}
+.rule ul{margin:0;padding-left:20px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+
+footer{margin-top:60px;border-top:1px solid var(--border)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:28px;padding-bottom:28px;font-size:16px;color:var(--muted)}
+.brand img{height:46px;width:auto;display:block}
+.brand small{display:block;font-size:16px;font-weight:600;color:var(--gold)}
+.crest{display:block;margin:0 auto;height:170px;width:auto}
+.hero-card h3,.hero-card h2{text-align:center}
+footer .brand-foot{display:flex;align-items:center;gap:12px}
+footer .brand-foot img{height:40px;width:auto}
+
+
+/* Knöpfe, Formulare */
+[hidden]{display:none!important}
+button.btn{border:0;cursor:pointer;font:inherit;font-weight:600}
+.btn.sm{min-height:40px;padding:0 16px;font-size:16px}
+.btn.line{background:transparent}
+button.tlink{background:none;border:0;padding:0;margin:0;color:inherit;font:inherit;font-weight:inherit;text-align:left;cursor:pointer;text-decoration:underline dotted rgba(180,192,208,.6);text-underline-offset:4px}
+button.tlink:hover,button.tlink:focus-visible{text-decoration-color:var(--gold);color:var(--gold)}
+button.tlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.f{display:flex;flex-direction:column;gap:6px;font-size:16px;color:var(--muted);font-weight:600}
+input[type=text],input[type=number],select{font:inherit;font-size:18px;width:100%;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid #5A7DB0;background:#0F2038;color:var(--text)}
+input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.mini{margin-top:8px}
+
+/* Gruppen */
+#gruppen{padding-top:28px}
+.gl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.gl li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--border)}
+.gl li:first-child{border-top:0}
+.gl .no{flex:0 0 auto;font-size:15px;font-weight:700;color:var(--muted);min-width:30px;padding-top:3px;font-family:var(--body)}
+.gl .nm{flex:1;min-width:0;text-align:left;font-weight:600;font-size:19px}
+.gl .pl{display:block;font-size:16px;color:var(--muted);font-weight:400}
+.gl .empty{color:var(--muted);font-style:italic;font-weight:400}
+.gl li.mine{background:rgba(245,197,24,.12);border-radius:8px;padding-left:8px;padding-right:8px;margin:0 -8px}
+
+/* Aktuell */
+#aktuell{padding-top:28px}
+.card.next{border-color:var(--gold)}
+.card .big{font-size:26px;font-weight:700;line-height:1.2}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.card li{display:flex;justify-content:space-between;gap:12px}
+.card .lab{font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7FCB86;margin-top:6px}
+
+/* Mein Team und Teamkarte */
+.pick{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;margin-bottom:20px;max-width:520px}
+.pick .f{flex:1 1 280px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px}
+.tcard h3{font-size:30px}
+.tstats{display:flex;flex-wrap:wrap;gap:10px}
+.tstats div{flex:1 1 110px;border:1px solid var(--border);border-radius:10px;padding:8px 12px}
+.tstats b{display:block;font-size:26px;line-height:1.1}
+.tstats span{font-size:15px;color:var(--muted)}
+.tg{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px}
+.tg .tgl{flex:1 1 150px;font-size:16px;color:var(--muted)}
+.tg .tgm{flex:2 1 200px;font-weight:600}
+.tg .tgr{flex:1 1 150px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.tg .sc{font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.tg .sc.l{color:var(--muted)}
+.tag{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tbtns{display:flex;flex-wrap:wrap;gap:10px}
+.prompt{border:1px dashed var(--border);border-radius:14px;padding:22px;color:var(--muted);max-width:720px}
+tr.mine td{background:rgba(245,197,24,.12)}
+.match.mine{background:rgba(245,197,24,.12);border-radius:6px;padding:2px 6px;margin:0 -6px}
+
+/* Finaltag */
+.bracket{display:flex;flex-wrap:wrap;gap:16px}
+.bm{flex:1 1 300px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.bm.fin{flex:1 1 100%;border:2px solid var(--gold)}
+.bm .bl{font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.bm.fin .bl{color:var(--gold)}
+.bt{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.bt .bs{flex:0 0 auto;font-size:14px;font-weight:700;color:var(--muted);min-width:52px}
+.bt .bn{flex:1;min-width:0;font-weight:600;overflow-wrap:anywhere}
+.bt .bg{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted)}
+.bt.w{border-color:var(--gold);background:rgba(245,197,24,.10)}
+.bt.w .bg,.bt.w .bn{color:var(--gold)}
+.vs{text-align:center;font-size:14px;color:var(--muted);letter-spacing:.2em}
+
+/* Fenster */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(5,12,24,.78);display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;overflow:auto}
+.mbox{position:relative;width:100%;max-width:680px;background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;margin:auto 0}
+.mclose{position:absolute;top:12px;right:12px}
+#mbody{padding-top:48px}
+.mbox h3.mt{font-size:28px;margin:0 0 14px}
+.mbox>h3{font-size:28px;margin:0 40px 14px 0}
+.rscore{display:flex;align-items:flex-end;gap:10px}
+.rscore .f{flex:1;min-width:0}
+.rscore .f span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rscore input{text-align:center;font-size:24px;font-weight:700}
+.rscore .colon{font-size:26px;font-weight:700;padding-bottom:8px;color:var(--muted)}
+.rform{display:flex;flex-direction:column;gap:14px}
+.rmsg{border-radius:8px;padding:12px 14px;font-size:16px}
+#rdatebox[hidden],#rscorebox[hidden]{display:none}
+.rmsg.err{background:#3A1A22;border:1px solid #7A3340;color:#FFC9C4}
+.rmsg.ok{background:#12301F;border:1px solid #2A6A45;color:#C8F5D8}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+
+/* Handy */
+@media (max-width:600px){
+  .hero{padding:36px 0 28px;gap:28px}
+  .hero-card{padding:20px}
+  .hero p{font-size:18px}
+  .btn{padding:0 20px}
+  .tbl h3{font-size:26px;padding:16px 14px 10px}
+  table{min-width:0}
+  th{font-size:13px;letter-spacing:0;padding:10px 2px}
+  td{padding:11px 2px;font-size:16px}
+  th:first-child,td:first-child{padding-left:10px;width:40px}
+  th:last-child,td:last-child{padding-right:10px}
+  td.l{padding-left:4px}
+  .badge{width:26px;height:26px;font-size:15px}
+  .tcard{padding:16px}
+  .tcard h3{font-size:26px}
+  .mbox{padding:18px}
+  .modal{padding:12px 10px}
+  .tg .tgr{justify-content:flex-start}
+}
+/* Fotos */
+.fchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.fchips button{min-height:48px;padding:0 16px;border-radius:999px;border:1px solid #5A7DB0;background:#0F2038;color:var(--text);font:inherit;font-weight:600;cursor:pointer}
+.fchips button[aria-pressed=true]{background:#F5C518;color:#122848;border-color:#F5C518}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.gal button{padding:0;border:0;background:#0F2038;border-radius:10px;overflow:hidden;cursor:pointer;aspect-ratio:1/1}
+.gal img{display:block;width:100%;height:100%;object-fit:cover}
+.gal .none{grid-column:1/-1;color:var(--muted)}
+.bigimg{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;border-radius:8px;background:#0F2038}
+.fsel{width:100%;font:inherit;font-size:18px;color:var(--text)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.png" alt="" width="40" height="46"><span>Eagle Golfers Dribbdebach<small>Winter Matchplay Serie</small></span></a>
+    <nav class="nav-links" aria-label="Seitenmenü">
+      <a class="home" href="../index.html">&larr; Zur Hauptseite</a>
+      <a href="#gruppen">Gruppen</a>
+      <a href="#aktuell">Aktuell</a>
+      <a href="#meinteam">Mein Team</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#spielplan">Spielplan</a>
+      <a href="#fotos" id="navfotos" hidden>Fotos</a>
+      <a href="#tabellen">Tabellen</a>
+      <a href="#finaltag">Finaltag</a>
+      <a href="#ausschreibung">Ausschreibung</a>
+      <a href="#regeln">Regeln</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="eyebrow">Saison 2026/27 · Golf-Matchplay im Champions-League-Format</div>
+        <h1>Gruppenphase. <span>Duell.</span> Finale.</h1>
+        <p>Zwölf Teams mit je zwei Spielern, fünf Gruppenspiele für jedes Team, verteilt auf fünf Spieltage von November bis März. Am Finaltag im April spielt Platz 1 gegen Platz 1, Platz 2 gegen Platz 2 und so weiter.</p>
+        <div class="btns">
+          <a class="btn gold" href="#spielplan">Spielplan ansehen</a>
+          <a class="btn line" href="#tabellen">Tabellen</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img class="crest" src="logo.png" alt="Wappen der Eagle Golfers Dribbdebach" width="150" height="170">
+        <h2>Von der Gruppe zum Finaltag</h2>
+        <div class="two">
+          <div><b>Gruppe A</b><small>6 Teams · 5 Spiele je Team</small></div>
+          <div><b>Gruppe B</b><small>6 Teams · 5 Spiele je Team</small></div>
+        </div>
+        <div class="pairs">
+          <div><span>1. Gruppe A gegen 1. Gruppe B</span><span class="gold">Finale</span></div>
+          <div><span>2. A gegen 2. B</span><span class="muted">Platz 3</span></div>
+          <div><span>3. A gegen 3. B</span><span class="muted">Platz 5</span></div>
+          <div><span>4. A gegen 4. B</span><span class="muted">Platz 7</span></div>
+          <div><span>5. A gegen 5. B</span><span class="muted">Platz 9</span></div>
+          <div><span>6. A gegen 6. B</span><span class="muted">Platz 11</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>12</b><span>Teams mit je 2 Spielern</span></div>
+      <div class="stat"><b>5</b><span>Gruppenspiele pro Team</span></div>
+      <div class="stat"><b>3 · 1</b><span>Punkte: Sieg · geteiltes Match</span></div>
+      <div class="stat"><b>April</b><span>Finaltag mit allen Platzierungsspielen</span></div>
+    </div>
+  </div>
+
+  <section id="gruppen">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Gruppen</div>
+        <h2>Wer spielt in welcher Gruppe</h2>
+        <p>Zwölf Teams in zwei Gruppen. Tippe auf ein Team für Spiele und Termine.</p>
+      </div>
+      <div class="cards" id="gruppenfeld"></div>
+    </div>
+  </section>
+
+  <section id="aktuell">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Aktuell</div>
+        <h2>Als Nächstes</h2>
+      </div>
+      <div class="cards" id="aktuellfeld"></div>
+    </div>
+  </section>
+
+  <section id="meinteam">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Mein Team</div>
+        <h2>Deine Spiele auf einen Blick</h2>
+        <p>Wähle dein Team. Die Auswahl wird auf diesem Gerät gemerkt. Du siehst deine Gegner, Termine und deinen Tabellenplatz, kannst Termine in den Kalender legen und Ergebnisse melden.</p>
+      </div>
+      <div class="pick"><label class="f">Mein Team<select id="meinteamwahl"></select></label></div>
+      <div id="meinteaminhalt"></div>
+    </div>
+  </section>
+
+  <section id="ablauf">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Ablauf</div>
+        <h2>So wird gespielt</h2>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="no">01</div>
+          <h3>Gruppenphase</h3>
+          <p>Die 12 Teams (je 2 Spieler) sind auf Gruppe A und Gruppe B verteilt, je 6 Teams. Jedes Team bestreitet in fünf Spieltagen von November bis März fünf Fourball-Partien (bestes Ergebnis), jeweils eine gegen jedes andere Team der eigenen Gruppe.</p>
+        </div>
+        <div class="card">
+          <div class="no">02</div>
+          <h3>Tabelle</h3>
+          <p>Sieg = 3 Punkte, geteiltes Match = 1 Punkt. Jedes Ergebnis (zum Beispiel 4:3 oder 2:1) wird addiert und angezeigt. Bei Punktgleichheit entscheidet das Gesamtergebnis.</p>
+        </div>
+        <div class="card">
+          <div class="no">03</div>
+          <h3>Finaltag</h3>
+          <p>Das 1. Team aus Gruppe A spielt gegen das 1. Team aus Gruppe B, das 2. gegen das 2. und so weiter. Alle Platzierungsspiele finden an einem einzigen Finaltag im April statt.</p>
+        </div>
+      </div>
+      <div class="strip" id="zeitleiste"></div>
+    </div>
+  </section>
+
+  <section id="spielplan">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Spielplan</div>
+        <h2>Wer spielt wann gegen wen</h2>
+        <p>Fünf Spieltage, von November bis März. In jeder Gruppe spielt jedes Team gegen jedes andere genau einmal, an jedem Spieltag also ein Spiel pro Team. Die Termine vereinbaren die Teams untereinander. Das erstgenannte Team hat das Platzrecht.</p>
+      </div>
+      <div class="rounds" id="runden"></div>
+    </div>
+  </section>
+
+  <section id="fotos" hidden>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Fotos</div>
+        <h2>Bilder von den Spieltagen</h2>
+        <p>Du hast ein Foto gemacht? Lade es hier zu deinem Spieltag hoch. Die Turnierleitung schaut kurz drüber und schaltet es frei.</p>
+      </div>
+      <div class="fchips" id="fchips"></div>
+      <div class="gal" id="gal"></div>
+      <p style="margin-top:18px"><button class="btn gold" type="button" data-fotoup="">Foto hochladen</button></p>
+    </div>
+  </section>
+
+  <section id="tabellen">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Gruppenphase</div>
+        <h2>Tabellen</h2>
+      </div>
+      <div class="tables" id="tabellenfeld"></div>
+      <p class="note">Sp = Spiele, S = Siege, U = geteilte Matches, N = Niederlagen, Pkt = Punkte (Sieg 3, geteiltes Match 1). Ergebnis = alle eingetragenen Ergebnisse addiert (4:3 und 2:1 ergeben 6:4). Bei gleicher Punktzahl entscheidet das Gesamtergebnis, also die Differenz aller eingetragenen Ergebnisse. Gespielt wird im Zweierteam als Fourball (bestes Ergebnis).</p>
+    </div>
+  </section>
+
+  <section id="finaltag">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">April 2027</div>
+        <h2>Der Finaltag</h2>
+        <p id="finalhinweis">Alle Platzierungsspiele an einem Tag. Die Paarungen ergeben sich aus den Gruppentabellen.</p>
+      </div>
+      <div class="bracket" id="finalbox"></div>
+      <p class="muted" style="margin-top:16px"><strong>Gleichstand in der Tabelle:</strong> Bei Punkt- und Lochgleichheit entscheidet der direkte Vergleich über die Platzierung. Ist auch der identisch, entscheidet das Los.</p>
+    </div>
+  </section>
+
+  <section id="ausschreibung">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Ausschreibung</div>
+        <h2>Eagles Winter Serie (Outdoor / Indoor)</h2>
+      </div>
+      <p style="margin:0 0 22px"><a href="ausschreibung.png" target="_blank" rel="noopener"><img src="ausschreibung.png" alt="Ausschreibung Eagles Winter Serie (Outdoor / Indoor): Spielmodus, Meldeschluss, Anmeldung, Auslosung und Termine" style="display:block;width:100%;max-width:460px;height:auto;border-radius:12px;margin:0 auto" loading="lazy"></a></p>
+      <div class="rules">
+        <div class="rule"><h3>Spielmodus</h3><p>4er-Matchplay über 18 Loch (Vierball / Fourball).*</p></div>
+        <div class="rule"><h3>Meldeschluss</h3><p>30.09.2026</p></div>
+        <div class="rule"><h3>Anmeldung</h3><p>Über die Homepage ab Anfang September.</p></div>
+        <div class="rule"><h3>Erste Auslosung</h3><p>Die erste Auslosung der Partien fand am 13.10.2026 statt.</p></div>
+        <div class="rule"><h3>Weitere Runden</h3><p>Die Termine richten sich nach der Teilnehmerzahl, voraussichtlich eine Partie pro Monat. Das Finale ist im April 2027.</p></div>
+      </div>
+      <p class="muted" style="margin-top:16px">* Zwei Teams mit je zwei Spielern. Jeder Spieler spielt seinen eigenen Ball. Pro Loch wird das bessere Ergebnis der beiden Partner gewertet. Der stärkste Spieler im Flight spielt mit Vorgabe 0, die anderen drei mit 90&nbsp;% ihrer persönlichen Vorgabe. Details unter <a href="#regeln">Regeln</a>.</p>
+    </div>
+  </section>
+
+  <section id="regeln">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Regeln</div>
+        <h2>Kurz erklärt</h2>
+      </div>
+      <div class="rules">
+        <div class="rule"><h3>Four Ball Matchplay über 18 Löcher</h3><ul>
+          <li>Es spielen je zwei Spieler gegeneinander (Team gegen Team).</li>
+          <li>Jeder Spieler spielt seinen eigenen Ball.</li>
+          <li>Pro Loch zählt das bessere Ergebnis der beiden Teammitglieder.</li>
+          <li>Das Team mit dem besseren Netto-Ergebnis gewinnt das Loch.</li>
+          <li>Ein Loch bleibt unentschieden, wenn beide Teams gleich gut sind.</li>
+        </ul></div>
+        <div class="rule"><h3>Vorgaben</h3><ul>
+          <li>Der stärkste Spieler im Flight erhält 0 Vorgabe.</li>
+          <li>Alle anderen drei Spieler spielen mit 90&nbsp;% ihrer persönlichen Vorgabe. Das gilt auch für den Partner des stärksten Spielers.</li>
+          <li>Die Vorgaben werden vor Spielbeginn festgelegt.</li>
+        </ul></div>
+        <div class="rule"><h3>Ergebnis</h3><ul>
+          <li>Nach 18 Löchern werden die gewonnenen Löcher gezählt.</li>
+          <li>Das Endergebnis wird in gewonnenen Löchern angegeben, zum Beispiel 6:4, 7:6 oder 9:9.</li>
+        </ul></div>
+        <div class="rule"><h3>Termine und Platzrecht</h3><p>Die Teams vereinbaren ihre Termine untereinander (bilateral) innerhalb des jeweiligen Monats und tragen sie selbst im Spielplan ein (&bdquo;Termin eintragen&ldquo;). Das erstgenannte Team hat das Platzrecht. Trotzdem soll alles einvernehmlich laufen.</p></div>
+        <div class="rule"><h3>Punkte</h3><p>Das Siegerteam bekommt 3 Punkte. Bei einem geteilten Match gibt es für beide Teams 1 Punkt.</p></div>
+        <div class="rule"><h3>Punktgleichheit</h3><p>Es zählt das Gesamtergebnis aus allen eingetragenen Ergebnissen, zum Beispiel 4:3 oder 2:1. Bei Punkt- und Lochgleichheit entscheidet der direkte Vergleich, danach das Los.</p></div>
+        <div class="rule"><h3>Ergebnis melden</h3><p id="kontakt">Ergebnisse gehen an die Turnierleitung. Sie prüft und trägt sie ein, die Tabelle aktualisiert sich dann.</p><button class="btn gold sm mini" type="button" data-report="">Ergebnis melden</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand-foot"><img src="logo.png" alt="" width="36" height="40"><span>Eagle Golfers Dribbdebach e.V. · Winter Matchplay Serie · Saison 2026/27</span></div>
+    <!-- Hier Impressum und Datenschutz verlinken, zum Beispiel: <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> -->
+    <div id="stand"></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="Details">
+  <div class="mbox"><button class="btn line sm mclose" type="button" id="mclose" aria-label="Schließen">Schließen</button><div id="mbody"></div></div>
+</div>
+
+<script>
+/* Die Daten (Teams, Ergebnisse, Termine) stehen in der Datei data.json
+   und werden mit dem Editor (editor.html) gepflegt. Hier ist nichts einzutragen. */
+var IDS = ["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6"];
+var CONFIG = { stand: "", kontakt: "", termine: {1:"",2:"",3:"",4:"",5:"",finale:""}, teams: {}, ergebnisse: [], spieltermine: {} };
+IDS.forEach(function(id){ CONFIG.teams[id] = { name: "", spieler: "" }; });
+
+var RUNDEN = [
+  { monat: "November 2026", gruppe: { A: [[6,1],[5,2],[3,4]], B: [[6,1],[5,2],[3,4]] } },
+  { monat: "Dezember 2026", gruppe: { A: [[1,5],[4,6],[2,3]], B: [[1,5],[4,6],[2,3]] } },
+  { monat: "Januar 2027", gruppe: { A: [[4,1],[3,5],[6,2]], B: [[4,1],[3,5],[6,2]] } },
+  { monat: "Februar 2027", gruppe: { A: [[1,3],[2,4],[5,6]], B: [[1,3],[2,4],[5,6]] } },
+  { monat: "März 2027", gruppe: { A: [[1,2],[3,6],[4,5]], B: [[1,2],[3,6],[4,5]] } }
+];
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function nm(id){var t=CONFIG.teams[id];return esc(t&&t.name?t.name:"Team "+id);}
+function isNum(v){return typeof v==="number" && isFinite(v);}
+
+var FLABELS = ["Finale","Spiel um Platz 3","Spiel um Platz 5","Spiel um Platz 7","Spiel um Platz 9","Spiel um Platz 11"];
+CONFIG.finalspiele = [];
+
+function normalize(d){
+  if(!d || typeof d!=="object") return;
+  IDS.forEach(function(id){
+    var t = (d.teams && d.teams[id]) || {};
+    var sp = [t.s1, t.s2].filter(function(x){return x;}).join(" / ");
+    CONFIG.teams[id] = { name: t.name || "", spieler: sp || t.spieler || "" };
+  });
+  ["1","2","3","4","5","finale"].forEach(function(k){
+    CONFIG.termine[k] = (d.termine && d.termine[k]) || "";
+  });
+  CONFIG.kontakt = d.kontakt || "";
+  CONFIG.ergebnisse = (d.ergebnisse || []).filter(function(r){
+    return r && IDS.indexOf(r.a)>=0 && IDS.indexOf(r.b)>=0 && r.a!==r.b && r.a.charAt(0)===r.b.charAt(0) && isNum(+r.ga) && isNum(+r.gb);
+  }).map(function(r){return {a:r.a,b:r.b,ga:+r.ga,gb:+r.gb};});
+  CONFIG.spieltermine = {};
+  (d.spieltermine || []).forEach(function(r){
+    if(r && IDS.indexOf(r.a)>=0 && IDS.indexOf(r.b)>=0 && /^\d{4}-\d{2}-\d{2}$/.test(r.datum||""))
+      CONFIG.spieltermine[[r.a,r.b].sort().join("-")] = { datum:r.datum, zeit:/^\d{2}:\d{2}$/.test(r.zeit||"") ? r.zeit : "", am:r.am||"" };
+  });
+  CONFIG.finalspiele = (d.finalspiele || []).filter(function(r){
+    return r && +r.k>=1 && +r.k<=6 && isNum(+r.ga) && isNum(+r.gb);
+  }).map(function(r){return {k:+r.k,ga:+r.ga,gb:+r.gb};});
+  if(d.geaendert && d.geaendert.am){
+    var dt = new Date(d.geaendert.am);
+    if(!isNaN(dt)) CONFIG.stand = dt.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
+  }
+}
+
+/* ---------- Berechnung ---------- */
+var M = { ERG:{}, TAB:{A:[],B:[]}, played:0 };
+function key(a,b){ return [a,b].sort().join("-"); }
+function resOf(a,b){
+  var r = M.ERG[key(a,b)];
+  if(!r) return null;
+  return r.a===a ? [r.ga,r.gb] : [r.gb,r.ga];
+}
+function termLine(a,b){
+  var t = mTermin(a,b), pre = esc(a+"|"+b);
+  return '<span class="md">'+(t ? '&#128197; '+esc(mTerminText(a,b))+' <button class="lnk" type="button" data-termin="'+pre+'">ändern</button>'
+    : '<button class="lnk" type="button" data-termin="'+pre+'">&#128197; Termin eintragen</button>')+'</span>';
+}
+function mTermin(a,b){ return CONFIG.spieltermine[key(a,b)] || null; }
+var WTAG = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+function mTerminText(a,b){
+  var t = mTermin(a,b); if(!t) return "";
+  var p = t.datum.split("-"), dt = new Date(+p[0],+p[1]-1,+p[2]);
+  return WTAG[dt.getDay()]+", "+(+p[2])+"."+(+p[1])+"."+(+p[0]===2026||+p[0]===2027?"":+p[0])+(t.zeit?" · "+t.zeit+" Uhr":"");
+}
+function ergText(a,b){ var r = resOf(a,b); return r ? r[0]+":"+r[1] : ""; }
+function dayMatches(i){
+  var out = [];
+  ["A","B"].forEach(function(g){
+    var d = RUNDEN[i].gruppe[g];
+    for(var k=0;k<3;k++) out.push({g:g,a:g+d[k][0],b:g+d[k][1]});
+  });
+  return out;
+}
+function berechne(g){
+  var st = {};
+  for(var i=1;i<=6;i++){ st[g+i] = {id:g+i,sp:0,s:0,u:0,n:0,pkt:0,f:0,a:0}; }
+  CONFIG.ergebnisse.forEach(function(r){
+    if(r.a.charAt(0)!==g) return;
+    var x = st[r.a], y = st[r.b];
+    x.sp++; y.sp++;
+    x.f += r.ga; x.a += r.gb; y.f += r.gb; y.a += r.ga;
+    if(r.ga>r.gb){ x.s++; y.n++; x.pkt+=3; }
+    else if(r.ga<r.gb){ y.s++; x.n++; y.pkt+=3; }
+    else { x.u++; y.u++; x.pkt++; y.pkt++; }
+  });
+  var arr = Object.keys(st).map(function(k){return st[k];});
+  arr.sort(function(p,q){
+    if(q.pkt!==p.pkt) return q.pkt-p.pkt;
+    var dp=p.f-p.a, dq=q.f-q.a;
+    if(dq!==dp) return dq-dp;
+    if(q.f!==p.f) return q.f-p.f;
+    var dv = CONFIG.ergebnisse.filter(function(r){ return (r.a===p.id&&r.b===q.id)||(r.a===q.id&&r.b===p.id); })[0];
+    if(dv && dv.ga!==dv.gb){ var pw = (dv.a===p.id) ? dv.ga>dv.gb : dv.gb>dv.ga; return pw?-1:1; }
+    return p.id<q.id?-1:1;
+  });
+  return arr;
+}
+function compute(){
+  M.ERG = {};
+  CONFIG.ergebnisse.forEach(function(r){ M.ERG[key(r.a,r.b)] = r; });
+  M.TAB = { A: berechne("A"), B: berechne("B") };
+  M.played = CONFIG.ergebnisse.length;
+}
+function rankOf(id){
+  var g = id.charAt(0);
+  for(var i=0;i<6;i++) if(M.TAB[g][i].id===id) return { rank:i+1, st:M.TAB[g][i] };
+  return null;
+}
+function tn(id){ return '<button type="button" class="tlink" data-team="'+id+'">'+nm(id)+'</button>'; }
+function termin(i){ return CONFIG.termine[i+1] || ""; }
+
+/* ---------- Termine lesen und Kalender ---------- */
+function parseTermin(text){
+  if(!text) return null;
+  var m = /(\d{1,2})\.\s?(\d{1,2})\.(?:\s?(\d{4}|\d{2}))?/.exec(text);
+  if(!m) return null;
+  var d = +m[1], mo = +m[2], y = m[3] ? +m[3] : (mo>=7 ? 2026 : 2027);
+  if(y<100) y += 2000;
+  if(mo<1||mo>12||d<1||d>31) return null;
+  var rest = text.replace(m[0],"");
+  var t = /(\d{1,2})[:.](\d{2})\s*(?:Uhr|h)\b/i.exec(rest) || /(\d{1,2}):(\d{2})/.exec(rest);
+  var hh = null, mm = 0;
+  if(t && +t[1]<24 && +t[2]<60){ hh = +t[1]; mm = +t[2]; }
+  return { y:y, m:mo, d:d, hh:hh, mm:mm };
+}
+function pad2(n){ return (n<10?"0":"")+n; }
+function icsEsc(x){ return String(x).replace(/\\/g,"\\\\").replace(/;/g,"\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n"); }
+function fold(line){
+  var out = [], i = 0;
+  while(line.length - i > 72){ out.push(line.substr(i,72)); i += 72; }
+  out.push(line.substr(i));
+  return out.join("\r\n ");
+}
+function dstr(dt){ return dt.getUTCFullYear()+pad2(dt.getUTCMonth()+1)+pad2(dt.getUTCDate()); }
+function buildICS(events){
+  var now = new Date();
+  var stamp = now.getUTCFullYear()+pad2(now.getUTCMonth()+1)+pad2(now.getUTCDate())+"T"+pad2(now.getUTCHours())+pad2(now.getUTCMinutes())+pad2(now.getUTCSeconds())+"Z";
+  var L = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Winter Matchplay Serie//DE","CALSCALE:GREGORIAN","METHOD:PUBLISH"];
+  events.forEach(function(e,i){
+    var p = e.p;
+    L.push("BEGIN:VEVENT");
+    L.push("UID:matchplay-"+e.uid+"@"+(location.host||"local"));
+    L.push("DTSTAMP:"+stamp);
+    var base = new Date(Date.UTC(p.y,p.m-1,p.d));
+    if(p.hh===null){
+      var nx = new Date(base.getTime()+86400000);
+      L.push("DTSTART;VALUE=DATE:"+dstr(base));
+      L.push("DTEND;VALUE=DATE:"+dstr(nx));
+    } else {
+      var st = new Date(Date.UTC(p.y,p.m-1,p.d,p.hh,p.mm));
+      var en = new Date(st.getTime()+5*3600000);
+      var f = function(x){ return dstr(x)+"T"+pad2(x.getUTCHours())+pad2(x.getUTCMinutes())+"00"; };
+      L.push("DTSTART:"+f(st)); L.push("DTEND:"+f(en));
+    }
+    L.push("SUMMARY:"+icsEsc(e.title));
+    if(e.desc) L.push("DESCRIPTION:"+icsEsc(e.desc));
+    L.push("END:VEVENT");
+  });
+  L.push("END:VCALENDAR");
+  return L.map(fold).join("\r\n")+"\r\n";
+}
+function downloadICS(name,events){
+  var blob = new Blob([buildICS(events)],{type:"text/calendar;charset=utf-8"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },3000);
+}
+function plain(id){ var t=CONFIG.teams[id]; return t&&t.name ? t.name : "Team "+id; }
+function dayEvent(i){
+  var p = parseTermin(termin(i));
+  if(!p) return null;
+  var lines = [];
+  dayMatches(i).forEach(function(m){ lines.push("Gruppe "+m.g+": "+plain(m.a)+" - "+plain(m.b)); });
+  return { uid:"tag"+(i+1), p:p, title:"Winter Matchplay Serie: Spieltag "+(i+1), desc:lines.join("\n") };
+}
+function teamEvents(id){
+  var out = [], g = id.charAt(0);
+  for(var i=0;i<5;i++){
+    var gm = dayMatches(i).filter(function(m){ return m.a===id || m.b===id; })[0];
+    if(!gm) continue;
+    var opp = gm.a===id ? gm.b : gm.a;
+    var mt = mTermin(id,opp), p;
+    if(mt){ var q = mt.datum.split("-"); p = { y:+q[0], m:+q[1], d:+q[2], hh:null, mm:0 }; if(mt.zeit){ var z = mt.zeit.split(":"); p.hh = +z[0]; p.mm = +z[1]; } }
+    else p = parseTermin(termin(i));
+    if(!p) continue;
+    out.push({ uid:"team-"+id+"-"+(i+1), p:p, title:"Winter Matchplay Serie: "+plain(id)+" - "+plain(opp), desc:"Spieltag "+(i+1)+", Gruppe "+g+"\nGegner: "+plain(opp) });
+  }
+  var pf = parseTermin(CONFIG.termine.finale);
+  if(pf) out.push({ uid:"finale-"+id, p:pf, title:"Winter Matchplay Serie: Finaltag", desc:"Platzierungsspiele gegen das gleich platzierte Team der anderen Gruppe." });
+  return out;
+}
+
+/* ---------- Fenster ---------- */
+var lastFocus = null;
+function openModal(html){
+  lastFocus = document.activeElement;
+  document.getElementById("mbody").innerHTML = html;
+  var m = document.getElementById("modal");
+  m.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("mclose").focus();
+}
+function closeModal(){
+  document.getElementById("modal").hidden = true;
+  document.body.style.overflow = "";
+  if(lastFocus && lastFocus.focus) try{ lastFocus.focus(); }catch(e){}
+}
+
+/* ---------- Mein Team ---------- */
+var MY = "";
+try{ MY = localStorage.getItem("matchplayMyTeam") || ""; }catch(e){}
+if(IDS.indexOf(MY)<0) MY = "";
+function setMy(id){
+  MY = id;
+  try{ if(id) localStorage.setItem("matchplayMyTeam", id); else localStorage.removeItem("matchplayMyTeam"); }catch(e){}
+  renderAll();
+}
+
+function teamCard(id, inModal){
+  var g = id.charAt(0), rk = rankOf(id), st = rk.st, t = CONFIG.teams[id];
+  var h = '<div class="tcard"><div><div class="eyebrow">Gruppe '+g+(M.played>0?' · Platz '+rk.rank:'')+'</div><h3>'+nm(id)+'</h3>'+
+    (t&&t.spieler?'<div class="muted">'+esc(t.spieler)+'</div>':'')+'</div>';
+  h += '<div class="tstats"><div><b>'+st.pkt+'</b><span>Punkte</span></div><div><b>'+st.s+'-'+st.u+'-'+st.n+'</b><span>S-U-N</span></div><div><b>'+st.f+':'+st.a+'</b><span>Ergebnis</span></div></div>';
+  h += '<div>';
+  for(var i=0;i<5;i++){
+    var gm = dayMatches(i).filter(function(m){ return m.a===id || m.b===id; })[0];
+    var lab = '<div class="tgl">Spieltag '+(i+1)+' · '+esc(RUNDEN[i].monat.split(" ")[0])+(termin(i)?'<br>'+esc(termin(i)):'')+'</div>';
+    if(!gm){ h += '<div class="tg">'+lab+'<div class="tgm muted">spielfrei</div><div class="tgr"></div></div>'; continue; }
+    var opp = gm.a===id ? gm.b : gm.a, r = resOf(id,opp), right = "";
+    if(r){
+      var out = r[0]>r[1] ? "Sieg" : (r[0]<r[1] ? "Niederlage" : "Geteilt");
+      right = '<span class="sc'+(r[0]<r[1]?' l':'')+'">'+r[0]+':'+r[1]+'</span><span class="tag">'+out+'</span>';
+    } else {
+      right = '<span class="tag">noch offen</span><button class="btn line sm" type="button" data-report="'+id+'|'+opp+'">Melden</button>';
+    }
+    h += '<div class="tg">'+lab+'<div class="tgm">gegen '+tn(opp)+'<br><span class="muted" style="font-size:15px;font-weight:400">'+(mTermin(id,opp)?'&#128197; '+esc(mTerminText(id,opp))+' ':'')+'<button class="lnk" type="button" data-termin="'+esc(id+"|"+opp)+'">'+(mTermin(id,opp)?'ändern':'&#128197; Termin eintragen')+'</button></span></div><div class="tgr">'+right+'</div></div>';
+  }
+  h += '</div><div class="tbtns">';
+  if(teamEvents(id).length) h += '<button class="btn line sm" type="button" data-cal="team:'+id+'">Alle Termine in meinen Kalender</button>';
+  if(inModal) h += (MY===id ? '<span class="tag" style="align-self:center">Das ist dein Team</span>' : '<button class="btn gold sm" type="button" data-mine="'+id+'">Als mein Team merken</button>');
+  else h += '<button class="btn line sm" type="button" data-mine="">Anderes Team wählen</button>';
+  h += '</div></div>';
+  return h;
+}
+function renderMeinTeam(){
+  var sel = document.getElementById("meinteamwahl");
+  var o = '<option value="">Bitte Team wählen …</option>';
+  ["A","B"].forEach(function(g){
+    o += '<optgroup label="Gruppe '+g+'">';
+    for(var i=1;i<=6;i++){ var id=g+i; o += '<option value="'+id+'"'+(id===MY?' selected':'')+'>'+nm(id)+'</option>'; }
+    o += '</optgroup>';
+  });
+  sel.innerHTML = o;
+  document.getElementById("meinteaminhalt").innerHTML = MY ? teamCard(MY,false) :
+    '<div class="prompt">Noch kein Team gewählt. Sobald du dein Team auswählst, siehst du hier deine Gegner, Termine und den aktuellen Tabellenplatz.</div>';
+}
+
+/* ---------- Als Nächstes ---------- */
+function dayDone(i){ return dayMatches(i).every(function(m){ return !!resOf(m.a,m.b); }); }
+function renderGruppen(){
+  var h = "";
+  ["A","B"].forEach(function(g){
+    h += '<div class="card"><div class="eyebrow">Gruppe '+g+'</div><ul class="gl">';
+    for(var i=1;i<=6;i++){
+      var id = g+i, t = CONFIG.teams[id], named = t && t.name;
+      h += '<li'+(id===MY?' class="mine"':'')+'><span class="no">'+i+'</span><span class="nm">'+
+        (named ? tn(id) : '<span class="empty">noch nicht eingetragen</span>')+
+        (t && t.spieler ? '<span class="pl">'+esc(t.spieler)+'</span>' : '')+'</span></li>';
+    }
+    h += '</ul></div>';
+  });
+  document.getElementById("gruppenfeld").innerHTML = h;
+}
+function renderAktuell(){
+  var next = -1, last = -1;
+  for(var i=0;i<5;i++){ if(next<0 && !dayDone(i)) next = i; }
+  for(var j=4;j>=0;j--){ if(dayMatches(j).some(function(m){ return !!resOf(m.a,m.b); })){ last = j; break; } }
+  var h = '<div class="card next">';
+  if(next>=0){
+    var ev = dayEvent(next);
+    h += '<div class="eyebrow">Nächster Spieltag</div><div class="big">Spieltag '+(next+1)+' · '+esc(RUNDEN[next].monat)+'</div>'+
+      '<div class="muted">'+(termin(next)?esc(termin(next)):'Termin vereinbaren die Teams untereinander')+'</div>';
+    ["A","B"].forEach(function(g){
+      h += '<div class="lab">Gruppe '+g+'</div><ul>';
+      dayMatches(next).filter(function(m){return m.g===g;}).forEach(function(m){
+        var e = ergText(m.a,m.b);
+        h += '<li><span>'+tn(m.a)+' – '+tn(m.b)+'</span>'+(e?'<span class="res">'+e+'</span>':'<span class="tag">offen</span>')+'</li>';
+      });
+      h += '</ul>';
+    });
+    if(ev) h += '<div><button class="btn line sm mini" type="button" data-cal="day:'+next+'">In Kalender speichern</button></div>';
+  } else {
+    h += '<div class="eyebrow">Gruppenphase</div><div class="big">Alle Spieltage gespielt</div><div class="muted">Weiter geht es am Finaltag'+(CONFIG.termine.finale?' · '+esc(CONFIG.termine.finale):' im April 2027')+'.</div><div><a class="btn line sm mini" href="#finaltag">Zum Finaltag</a></div>';
+  }
+  h += '</div><div class="card">';
+  if(last>=0){
+    h += '<div class="eyebrow">Zuletzt gespielt</div><div class="big">Spieltag '+(last+1)+' · '+esc(RUNDEN[last].monat)+'</div>';
+    ["A","B"].forEach(function(g){
+      h += '<div class="lab">Gruppe '+g+'</div><ul>';
+      dayMatches(last).filter(function(m){return m.g===g;}).forEach(function(m){
+        var e = ergText(m.a,m.b);
+        h += '<li><span>'+tn(m.a)+' – '+tn(m.b)+'</span>'+(e?'<span class="res">'+e+'</span>':'<span class="tag">offen</span>')+'</li>';
+      });
+      h += '</ul>';
+    });
+  } else {
+    h += '<div class="eyebrow">Zuletzt gespielt</div><div class="big">Noch keine Ergebnisse</div><div class="muted">Sobald das erste Ergebnis eingetragen ist, steht es hier.</div>';
+  }
+  h += '</div>';
+  document.getElementById("aktuellfeld").innerHTML = h;
+}
+
+/* ---------- Seitenaufbau ---------- */
+function renderAll(){
+  /* Zeitleiste */
+  var h = "";
+  RUNDEN.forEach(function(r,i){
+    h += '<div><b>'+esc(r.monat.split(" ")[0])+'</b><span>Spieltag '+(i+1)+'</span></div>';
+  });
+  h += '<div class="fin"><b>April</b><span>Finaltag</span></div>';
+  document.getElementById("zeitleiste").innerHTML = h;
+
+  /* Spielplan */
+  h = "";
+  RUNDEN.forEach(function(r,i){
+    var tt = termin(i), ev = dayEvent(i);
+    h += '<div class="round"><div class="when"><b>'+esc(r.monat)+'</b><span>Spieltag '+(i+1)+(tt?' · '+esc(tt):'')+'</span>'+
+      (ev?'<br><button class="btn line sm mini" type="button" data-cal="day:'+i+'">In Kalender</button>':'')+'</div>';
+    ["A","B"].forEach(function(g){
+      h += '<div class="col"><div class="lab">Gruppe '+g+'</div>';
+      dayMatches(i).filter(function(m){return m.g===g;}).forEach(function(m){
+        var e = ergText(m.a,m.b), mine = MY && (m.a===MY||m.b===MY);
+        h += '<div class="match'+(mine?' mine':'')+'"><span>'+tn(m.a)+' – '+tn(m.b)+'</span>'+(e?'<span class="res">'+e+'</span>':'')+termLine(m.a,m.b)+'</div>';
+      });
+      h += '</div>';
+    });
+    h += '</div>';
+  });
+  document.getElementById("runden").innerHTML = h;
+
+  /* Tabellen */
+  h = "";
+  ["A","B"].forEach(function(g){
+    h += '<div class="tbl"><h3>Gruppe '+g+'</h3><div class="scroll"><table><thead><tr><th>#</th><th class="l">Team</th><th>Sp</th><th>S</th><th>U</th><th>N</th><th>Pkt</th><th>Ergebnis</th></tr></thead><tbody>';
+    M.TAB[g].forEach(function(t,i){
+      var sp = CONFIG.teams[t.id] && CONFIG.teams[t.id].spieler;
+      h += '<tr'+(t.id===MY?' class="mine"':'')+'><td><span class="badge'+(i===0&&M.played>0?' first':'')+'">'+(i+1)+'</span></td>'+
+           '<td class="l"><span class="team">'+tn(t.id)+'</span>'+(sp?'<span class="players">'+esc(sp)+'</span>':'')+'</td>'+
+           '<td>'+t.sp+'</td><td>'+t.s+'</td><td>'+t.u+'</td><td>'+t.n+'</td><td class="pkt">'+t.pkt+'</td><td>'+t.f+':'+t.a+'</td></tr>';
+    });
+    h += '</tbody></table></div></div>';
+  });
+  document.getElementById("tabellenfeld").innerHTML = h;
+
+  /* Finaltag */
+  var ft = CONFIG.termine.finale, fres = {};
+  CONFIG.finalspiele.forEach(function(r){ fres[r.k] = r; });
+  h = "";
+  for(var k=1;k<=6;k++){
+    var ia = M.played>0 ? M.TAB.A[k-1].id : null, ib = M.played>0 ? M.TAB.B[k-1].id : null;
+    var r = fres[k], wa = r && r.ga>r.gb, wb = r && r.gb>r.ga;
+    h += '<div class="bm'+(k===1?' fin':'')+'"><div class="bl">'+FLABELS[k-1]+(k===1&&ft?' · '+esc(ft):'')+'</div>'+
+      '<div class="bt'+(wa?' w':'')+'"><span class="bs">'+k+'. A</span><span class="bn">'+(ia?tn(ia):k+'. Gruppe A')+'</span><span class="bg">'+(r?r.ga:'')+'</span></div>'+
+      '<div class="vs">GEGEN</div>'+
+      '<div class="bt'+(wb?' w':'')+'"><span class="bs">'+k+'. B</span><span class="bn">'+(ib?tn(ib):k+'. Gruppe B')+'</span><span class="bg">'+(r?r.gb:'')+'</span></div></div>';
+  }
+  document.getElementById("finalbox").innerHTML = h;
+  if(M.played>0){
+    document.getElementById("finalhinweis").textContent = "Die Paarungen zeigen den aktuellen Tabellenstand und ändern sich, bis der letzte Spieltag gespielt ist."+(ft?" Termin: "+ft+".":"");
+  }
+
+  renderGruppen();
+  renderAktuell();
+  renderMeinTeam();
+
+  /* Kontakt und Stand */
+  if(CONFIG.kontakt){
+    document.getElementById("kontakt").firstChild.textContent = "Ergebnisse bitte hier melden oder an die Turnierleitung: " + CONFIG.kontakt + " ";
+  }
+  if(CONFIG.stand){
+    document.getElementById("stand").textContent = "Stand: " + CONFIG.stand;
+  }
+}
+function render(){ compute(); renderAll(); }
+
+/* ---------- Ergebnis melden ---------- */
+function allMatches(){
+  var out = [];
+  for(var i=0;i<5;i++) dayMatches(i).forEach(function(m){ out.push({day:i,g:m.g,a:m.a,b:m.b}); });
+  return out;
+}
+function openReport(pre){
+  var myName = ""; try{ myName = localStorage.getItem("matchplayReporter") || ""; }catch(e){}
+  var list = allMatches(), sel = pre || "";
+  if(!sel && MY){
+    var f = list.filter(function(m){ return (m.a===MY||m.b===MY) && !resOf(m.a,m.b); })[0];
+    if(f) sel = f.a+"|"+f.b;
+  }
+  var o = '<option value="">Bitte Spiel wählen …</option>';
+  list.forEach(function(m){
+    var v = m.a+"|"+m.b, done = resOf(m.a,m.b);
+    o += '<option value="'+v+'"'+(v===sel||v===(sel.split("|")[1]+"|"+sel.split("|")[0])?' selected':'')+'>Spieltag '+(m.day+1)+' · Gruppe '+m.g+': '+nm(m.a)+' – '+nm(m.b)+(done?' (schon eingetragen)':'')+'</option>';
+  });
+  openModal('<h3 class="mt">Ergebnis melden</h3><form class="rform" id="repform" novalidate>'+
+    '<label class="f">Spiel<select id="rm">'+o+'</select></label>'+
+    '<div class="rscore" id="rscorebox"><label class="f"><span id="rn1">Team 1</span><input type="number" inputmode="numeric" min="0" max="99" id="rg1"></label><span class="colon">:</span><label class="f"><span id="rn2">Team 2</span><input type="number" inputmode="numeric" min="0" max="99" id="rg2"></label></div>'+
+    '<label class="f">Dein Name<input type="text" id="rname" maxlength="40" value="'+esc(myName)+'" autocomplete="name"></label>'+
+    '<label class="f">Hinweis (freiwillig)<input type="text" id="rnote" maxlength="200" placeholder="zum Beispiel: Spiel am Samstag gespielt"></label>'+
+    '<input type="text" id="rweb" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    '<p class="note" style="margin:0">Deine Meldung geht nur an die Turnierleitung. Sie prüft und trägt das Ergebnis ein. Dein Name wird dafür mit gespeichert und nach der Prüfung wieder gelöscht.</p>'+
+    '<div id="rmsg" class="rmsg" hidden></div>'+
+    '<button class="btn gold" type="submit" id="rsend">Ergebnis melden</button></form>');
+  syncReportNames();
+}
+function syncReportNames(){
+  var v = document.getElementById("rm").value.split("|");
+  document.getElementById("rn1").textContent = v[0] ? plain(v[0]) : "Team 1";
+  document.getElementById("rn2").textContent = v[1] ? plain(v[1]) : "Team 2";
+}
+function rmsg(text,ok){
+  var m = document.getElementById("rmsg");
+  m.textContent = text; m.className = "rmsg "+(ok?"ok":"err"); m.hidden = !text;
+}
+function sendReport(){
+  var v = document.getElementById("rm").value.split("|");
+  var g1 = document.getElementById("rg1").value.trim(), g2 = document.getElementById("rg2").value.trim();
+  var name = document.getElementById("rname").value.trim();
+  var isT = false, dat = "", zeit = "";
+  rmsg("");
+  if(v.length<2 || !v[0]){ rmsg("Bitte zuerst das Spiel wählen."); return; }
+  if(isT){ if(!/^\d{4}-\d{2}-\d{2}$/.test(dat)){ rmsg("Bitte das Datum des Spiels eintragen."); return; } }
+  else if(!/^\d{1,2}$/.test(g1) || !/^\d{1,2}$/.test(g2)){ rmsg("Bitte beide Ergebnisse als Zahlen von 0 bis 99 eintragen."); return; }
+  if(!name){ rmsg("Bitte deinen Namen eintragen."); return; }
+  var b = document.getElementById("rsend"); b.disabled = true; b.textContent = "Sendet …";
+  fetch("api.php", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({
+    action:"melden", typ:(isT?"termin":"ergebnis"), datum:dat, zeit:zeit, a:v[0], b:v[1], ga:+g1, gb:+g2, von:name, notiz:document.getElementById("rnote").value.trim(), website:document.getElementById("rweb").value }) })
+  .then(function(r){ return r.json().then(function(j){ return { s:r.status, j:j }; }); })
+  .then(function(x){
+    if(x.j && x.j.ok){
+      try{ localStorage.setItem("matchplayReporter", name); }catch(e){}
+      document.getElementById("repform").innerHTML = '<div class="rmsg ok">Danke, die Meldung ist bei der Turnierleitung angekommen. Sobald sie '+(isT?'den Termin':'das Ergebnis')+' geprüft hat, erscheint '+(isT?'er im Spielplan':'es in der Tabelle')+'.</div><button class="btn line" type="button" id="rdone">Schließen</button>';
+    } else {
+      rmsg((x.j && x.j.error) || "Die Meldung hat nicht geklappt.");
+      b.disabled = false; b.textContent = isT ? "Termin melden" : "Ergebnis melden";
+    }
+  })
+  .catch(function(){
+    rmsg("Gerade keine Verbindung. Bitte später noch einmal versuchen"+(CONFIG.kontakt?" oder direkt melden: "+CONFIG.kontakt:"")+".");
+    b.disabled = false; b.textContent = isT ? "Termin melden" : "Ergebnis melden";
+  });
+}
+
+
+/* ---------- Fotos ---------- */
+var FOTOS = [], FTAG = "1";
+var FNAMES = { "1":"Spieltag 1","2":"Spieltag 2","3":"Spieltag 3","4":"Spieltag 4","5":"Spieltag 5","finale":"Finaltag" };
+function renderFotos(){
+  var h = "";
+  Object.keys(FNAMES).forEach(function(k){
+    var n = FOTOS.filter(function(f){ return f.tag===k; }).length;
+    h += '<button type="button" data-ftag="'+k+'" aria-pressed="'+(k===FTAG)+'">'+FNAMES[k]+(n?' ('+n+')':'')+'</button>';
+  });
+  document.getElementById("fchips").innerHTML = h;
+  var list = FOTOS.filter(function(f){ return f.tag===FTAG; });
+  document.getElementById("gal").innerHTML = list.length ? list.map(function(f){
+    return '<button type="button" data-foto="'+esc(f.id)+'" aria-label="Foto von '+esc(f.von)+' ansehen"><img src="'+esc(f.th)+'" alt="Foto von '+esc(f.von)+'" loading="lazy"></button>';
+  }).join("") : '<p class="none">Noch keine Fotos für diesen Termin.</p>';
+}
+function loadFotos(){
+  fetch("foto.php?t="+Date.now(), { cache:"no-store" })
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if(!j || !j.ok) return;
+      FOTOS = j.fotos || [];
+      var first = ["1","2","3","4","5","finale"].filter(function(k){ return FOTOS.some(function(f){ return f.tag===k; }); });
+      if(first.length) FTAG = first[first.length-1];
+      document.getElementById("fotos").hidden = false;
+      document.getElementById("navfotos").hidden = false;
+      renderFotos();
+    }).catch(function(){});
+}
+function openFotoUp(){
+  var myName = ""; try{ myName = localStorage.getItem("matchplayReporter") || ""; }catch(e){}
+  var o = ""; Object.keys(FNAMES).forEach(function(k){ o += '<option value="'+k+'"'+(k===FTAG?' selected':'')+'>'+FNAMES[k]+'</option>'; });
+  openModal('<h3 class="mt">Foto hochladen</h3><form class="rform" id="fotoform" novalidate>'+
+    '<label class="f">Zu welchem Termin?<select id="ft">'+o+'</select></label>'+
+    '<label class="f">Dein Name<input type="text" id="fname" maxlength="40" value="'+esc(myName)+'" autocomplete="name"></label>'+
+    '<label class="f">Foto (auch mehrere)<input type="file" id="ffile" accept="image/*" multiple style="font:inherit;font-size:16px;color:var(--text)"></label>'+
+    '<input type="text" id="fweb" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    '<p class="note" style="margin:0">Bitte nur Fotos, auf denen alle Abgebildeten einverstanden sind. Die Turnierleitung gibt jedes Foto frei, bevor es auf der Seite erscheint.</p>'+
+    '<div id="fmsg" class="rmsg" hidden></div>'+
+    '<button class="btn gold" type="submit" id="fsend">Hochladen</button></form>');
+}
+function fmsg(t,ok){ var m = document.getElementById("fmsg"); m.textContent = t; m.className = "rmsg "+(ok?"ok":"err"); m.hidden = !t; }
+function shrink(file){
+  return new Promise(function(res,rej){
+    var fin = function(src,w,h,done){
+      var k = Math.min(1,1600/Math.max(w,h)), c = document.createElement("canvas");
+      c.width = Math.round(w*k); c.height = Math.round(h*k);
+      var x = c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.drawImage(src,0,0,c.width,c.height);
+      c.toBlob(function(b){ if(done) done(); b ? res(b) : rej(new Error("x")); }, "image/jpeg", 0.85);
+    };
+    if(window.createImageBitmap){
+      createImageBitmap(file,{imageOrientation:"from-image"}).then(function(bm){ fin(bm,bm.width,bm.height,function(){ if(bm.close) bm.close(); }); }, function(){ res(file); });
+    } else {
+      var im = new Image(), u = URL.createObjectURL(file);
+      im.onload = function(){ fin(im,im.naturalWidth,im.naturalHeight,function(){ URL.revokeObjectURL(u); }); };
+      im.onerror = function(){ URL.revokeObjectURL(u); res(file); };
+      im.src = u;
+    }
+  });
+}
+function sendFotos(){
+  var files = document.getElementById("ffile").files, name = document.getElementById("fname").value.trim();
+  fmsg("");
+  if(!name){ fmsg("Bitte deinen Namen eintragen."); return; }
+  if(!files.length){ fmsg("Bitte zuerst ein Foto auswählen."); return; }
+  var b = document.getElementById("fsend"), tag = document.getElementById("ft").value, web = document.getElementById("fweb").value;
+  b.disabled = true;
+  var i = 0, ok = 0, err = "";
+  (function next(){
+    if(i>=files.length){
+      if(ok){
+        try{ localStorage.setItem("matchplayReporter", name); }catch(e){}
+        document.getElementById("fotoform").innerHTML = '<div class="rmsg ok">Danke! '+ok+(ok===1?' Foto ist':' Fotos sind')+' angekommen und '+(ok===1?'erscheint':'erscheinen')+' nach der Freigabe durch die Turnierleitung.'+(err?' Es hat aber nicht alles geklappt: '+esc(err):'')+'</div><button class="btn line" type="button" id="rdone">Schließen</button>';
+      } else { fmsg(err || "Das Hochladen hat nicht geklappt."); b.disabled = false; b.textContent = "Hochladen"; }
+      return;
+    }
+    b.textContent = "Lädt hoch "+(i+1)+" von "+files.length+" …";
+    shrink(files[i]).then(function(blob){
+      var fd = new FormData(); fd.append("tag",tag); fd.append("von",name); fd.append("website",web); fd.append("foto",blob,"foto.jpg");
+      return fetch("foto.php",{method:"POST",body:fd}).then(function(r){ return r.json().catch(function(){ return {ok:false,error:"Antwort vom Server unlesbar."}; }); });
+    }).then(function(j){ if(j && j.ok) ok++; else err = (j && j.error) || "Fehler."; })
+      .catch(function(){ err = "Keine Verbindung."; })
+      .then(function(){ i++; next(); });
+  })();
+}
+
+
+/* ---------- Spieltermin eintragen (Teams stimmen sich selbst ab) ---------- */
+function openTermin(pre){
+  var myName = ""; try{ myName = localStorage.getItem("matchplayReporter") || ""; }catch(e){}
+  var list = allMatches(), sel = pre || "";
+  if(!sel && MY){ var f = list.filter(function(m){ return (m.a===MY||m.b===MY) && !resOf(m.a,m.b); })[0]; if(f) sel = f.a+"|"+f.b; }
+  var o = '<option value="">Bitte Spiel wählen …</option>';
+  list.forEach(function(m){
+    var v = m.a+"|"+m.b;
+    o += '<option value="'+v+'"'+(v===sel||v===(sel.split("|")[1]+"|"+sel.split("|")[0])?' selected':'')+'>Spieltag '+(m.day+1)+' · Gruppe '+m.g+': '+nm(m.a)+' – '+nm(m.b)+'</option>';
+  });
+  var cur = sel ? mTermin(sel.split("|")[0],sel.split("|")[1]) : null;
+  openModal('<h3 class="mt">Spieltermin eintragen</h3><form class="rform" id="termform" novalidate>'+
+    '<p class="note" style="margin:0">Das erstgenannte Team hat das Platzrecht. Stimmt euch bitte vorher ab, der Termin steht danach sofort im Spielplan.</p>'+
+    '<label class="f">Spiel<select id="tm">'+o+'</select></label>'+
+    '<div class="rscore"><label class="f">Datum<input type="date" id="tdat" min="2026-10-01" max="2027-12-31" value="'+(cur?esc(cur.datum):"")+'"></label><label class="f">Uhrzeit (freiwillig)<input type="time" id="tzeit" value="'+(cur?esc(cur.zeit):"")+'"></label></div>'+
+    '<label class="f">Dein Name<input type="text" id="tname" maxlength="40" value="'+esc(myName)+'" autocomplete="name"></label>'+
+    '<input type="text" id="tweb" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    '<div id="tmsg" class="rmsg" hidden></div>'+
+    '<button class="btn gold" type="submit" id="tsend">Termin speichern</button></form>');
+}
+function tmsg(t){ var m = document.getElementById("tmsg"); m.textContent = t; m.className = "rmsg err"; m.hidden = !t; }
+function sendTermin(){
+  var v = document.getElementById("tm").value.split("|"), dat = document.getElementById("tdat").value, zeit = document.getElementById("tzeit").value;
+  var name = document.getElementById("tname").value.trim();
+  tmsg("");
+  if(v.length<2 || !v[0]){ tmsg("Bitte zuerst das Spiel wählen."); return; }
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(dat)){ tmsg("Bitte das Datum eintragen."); return; }
+  if(!name){ tmsg("Bitte deinen Namen eintragen."); return; }
+  var b = document.getElementById("tsend"); b.disabled = true; b.textContent = "Speichert …";
+  fetch("api.php", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({
+    action:"termin_setzen", a:v[0], b:v[1], datum:dat, zeit:zeit, von:name, website:document.getElementById("tweb").value }) })
+  .then(function(r){ return r.json().then(function(j){ return { j:j }; }); })
+  .then(function(x){
+    if(x.j && x.j.ok && x.j.termin){
+      try{ localStorage.setItem("matchplayReporter", name); }catch(e){}
+      CONFIG.spieltermine[key(v[0],v[1])] = { datum:dat, zeit:zeit, am:x.j.termin.t };
+      renderAll(); renderMeinTeam();
+      document.getElementById("termform").innerHTML = '<div class="rmsg ok">Danke, der Termin steht im Spielplan: '+esc(plain(v[0]))+' – '+esc(plain(v[1]))+', '+esc(mTerminText(v[0],v[1]))+'.</div><button class="btn line" type="button" id="rdone">Schließen</button>';
+    } else { tmsg((x.j && x.j.error) || "Das hat nicht geklappt."); b.disabled = false; b.textContent = "Termin speichern"; }
+  }).catch(function(){ tmsg("Gerade keine Verbindung. Bitte später noch einmal versuchen."); b.disabled = false; b.textContent = "Termin speichern"; });
+}
+function mergeSpielerTermine(list){
+  (list||[]).forEach(function(t){
+    if(IDS.indexOf(t.a)<0 || IDS.indexOf(t.b)<0) return;
+    var k = key(t.a,t.b), c = CONFIG.spieltermine[k];
+    if(!c || !c.am || (t.t && t.t > c.am)) CONFIG.spieltermine[k] = { datum:t.datum, zeit:t.zeit||"", am:t.t||"" };
+  });
+}
+
+/* ---------- Klicks ---------- */
+document.addEventListener("click", function(e){
+  var t = e.target.closest ? e.target.closest("button,a,[data-team],[data-cal],[data-report],[data-mine]") : null;
+  if(!t) { if(e.target.id==="modal") closeModal(); return; }
+  if(t.id==="mclose" || t.id==="rdone"){ closeModal(); return; }
+  if(t.hasAttribute("data-termin")){
+    var tp = t.getAttribute("data-termin");
+    if(!document.getElementById("modal").hidden) closeModal();
+    openTermin(tp); return;
+  }
+  if(t.hasAttribute("data-ftag")){ FTAG = t.getAttribute("data-ftag"); renderFotos(); return; }
+  if(t.hasAttribute("data-fotoup")){ openFotoUp(); return; }
+  if(t.hasAttribute("data-foto")){
+    var fo = FOTOS.filter(function(f){ return f.id===t.getAttribute("data-foto"); })[0];
+    if(fo) openModal('<h3 class="mt">'+FNAMES[fo.tag]+'</h3><img class="bigimg" src="'+esc(fo.f)+'" alt="Foto von '+esc(fo.von)+'"><p class="note">Foto: '+esc(fo.von)+'</p>');
+    return;
+  }
+  if(t.hasAttribute("data-team")){ openModal(teamCard(t.getAttribute("data-team"),true)); return; }
+  if(t.hasAttribute("data-mine")){
+    var id = t.getAttribute("data-mine");
+    if(id){ setMy(id); closeModal(); var s = document.getElementById("meinteam"); if(s) s.scrollIntoView(); }
+    else { setMy(""); }
+    return;
+  }
+  if(t.hasAttribute("data-report")){
+    var pre = t.getAttribute("data-report");
+    if(!document.getElementById("modal").hidden) closeModal();
+    openReport(pre); return;
+  }
+  if(t.hasAttribute("data-cal")){
+    var c = t.getAttribute("data-cal").split(":");
+    if(c[0]==="day"){ var ev = dayEvent(+c[1]); if(ev) downloadICS("Eagles-Matchplay-Spieltag-"+(+c[1]+1)+".ics",[ev]); }
+    else { var evs = teamEvents(c[1]); if(evs.length) downloadICS("Eagles-Matchplay-"+plain(c[1]).replace(/[^A-Za-z0-9äöüÄÖÜß]+/g,"-")+".ics",evs); }
+    return;
+  }
+});
+document.addEventListener("change", function(e){
+  if(e.target.id==="meinteamwahl") setMy(e.target.value);
+  if(e.target.id==="rm") syncReportNames();
+  if(e.target.id==="rtyp"){
+    var tm = e.target.value==="termin";
+    document.getElementById("rscorebox").hidden = tm; document.getElementById("rdatebox").hidden = !tm;
+    document.getElementById("rsend").textContent = tm ? "Termin melden" : "Ergebnis melden";
+  }
+});
+document.addEventListener("submit", function(e){
+  if(e.target.id==="termform"){ e.preventDefault(); sendTermin(); return; }
+  if(e.target.id==="fotoform"){ e.preventDefault(); sendFotos(); return; }
+  if(e.target.id==="repform"){ e.preventDefault(); sendReport(); }
+});
+document.addEventListener("keydown", function(e){
+  if(e.key==="Escape" && !document.getElementById("modal").hidden) closeModal();
+});
+
+compute();
+fetch("data.json?t=" + Date.now(), { cache: "no-store" })
+  .then(function(r){ if(!r.ok) throw new Error("keine Daten"); return r.json(); })
+  .then(normalize)
+  .catch(function(){})
+  .then(function(){
+    return fetch("api.php?action=termine&t=" + Date.now(), { cache:"no-store" }).then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.ok) mergeSpielerTermine(j.termine); }).catch(function(){});
+  })
+  .then(render);
+loadFotos();
+</script>
+</body>
+</html>

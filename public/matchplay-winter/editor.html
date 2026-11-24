@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eagle Golfers Dribbdebach · Matchplay-Editor</title>
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#122848; --surface:#1A3A5C; --border:#2F5A8C; --field:#0F2038;
+  --text:#F1F5F9; --muted:#B4C0D0; --gold:#F5C518; --accent:#5CB063; --red:#FF8A80; --green:#7BE0A0;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:18px;line-height:1.55}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0;line-height:1.2}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted)}
+.small{font-size:16px}
+
+/* Buttons und Felder */
+button,.btn{font:inherit;cursor:pointer;min-height:48px;padding:0 22px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+button.gold{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+button.gold:disabled{opacity:.6;cursor:wait}
+button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+input[type=text],input[type=password],input[type=number],select{font:inherit;font-size:18px;width:100%;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid #5A7DB0;background:var(--field);color:var(--text)}
+input::placeholder{color:#8FA3C2}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:16px;color:var(--muted);font-weight:600}
+
+/* Anmeldung */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.box{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:18px}
+.logo{width:44px;height:44px;border-radius:10px;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700}
+.msg{border-radius:8px;padding:12px 14px;font-size:16px}
+.msg.err{background:#3A1A22;border:1px solid #7A3340;color:#FFC9C4}
+.msg.info{background:#10294A;border:1px solid #2A5A8A;color:#CDE6FF}
+.msg.ok{background:#12301F;border:1px solid #2A6A45;color:#C8F5D8}
+
+/* Kopfzeile */
+.top{position:sticky;top:0;z-index:10;background:rgba(18,40,72,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding-top:12px;padding-bottom:12px}
+.who{display:flex;align-items:center;gap:12px;min-width:0}
+.who b{font-size:18px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.state{font-size:16px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green)}
+.state.dirty .dot{background:var(--gold)}
+.state.dirty{color:var(--gold)}
+
+/* Reiter */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 20px}
+.tabs button{min-height:52px;flex:1 1 200px}
+.tabs button[aria-selected=true]{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+.panel h2{font-size:26px;margin-bottom:6px}
+.panel > p{margin:0 0 20px;color:var(--muted);max-width:720px}
+
+/* Teams */
+.groups{display:flex;flex-wrap:wrap;gap:20px}
+.gcard{flex:1 1 440px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.gcard h3{font-size:22px}
+.team{border-top:1px solid var(--border);padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team .tid{grid-column:1/-1;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.team .full{grid-column:1/-1}
+@media (max-width:520px){.team{grid-template-columns:1fr}}
+
+/* Spieltage */
+.day{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:18px}
+.dayhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.dayhead h3{font-size:22px}
+.dayhead label.f{flex:0 1 320px;min-width:min(100%,240px)}
+.dgroups{display:flex;flex-wrap:wrap;gap:16px}
+.dg{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.dg .lab{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.match{border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.score{display:flex;align-items:flex-end;gap:10px}
+.score label.f{flex:1;min-width:0}
+.score label.f span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.score input{text-align:center;font-size:24px;font-weight:700}
+.pnote:not(:empty){background:#10294A;border:1px solid #2A5A8A;color:#CDE6FF;border-radius:8px;padding:10px 12px;font-size:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.mdate{display:flex;gap:10px;flex-wrap:wrap}
+.mdate label.f{flex:1 1 150px;min-width:0}
+.mdate input{min-height:48px}
+.colon{font-size:26px;font-weight:700;padding-bottom:8px;color:var(--muted)}
+.fb{font-size:16px;color:var(--muted)}
+.fb.win{color:var(--green)}
+.fb.warn{color:var(--gold)}
+.free{font-size:16px;color:var(--muted);font-style:italic}
+
+/* Vorschau */
+.preview{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+.pv{flex:1 1 380px;min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.pv h3{font-size:18px;padding:14px 16px 8px}
+.pv table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:16px}
+.pv th{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;padding:6px 4px}
+.pv td{border-top:1px solid var(--border);padding:8px 4px;text-align:center}
+.pv th.l,.pv td.l{text-align:left;padding-left:16px}
+.pv td.p{color:var(--gold);font-weight:700}
+
+/* Weitere Angaben */
+.stack{display:flex;flex-direction:column;gap:16px;max-width:560px}
+
+/* Meldung unten */
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;max-width:min(92vw,560px);width:max-content}
+#toast .msg{box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.bottom{display:flex;justify-content:center;padding:24px 0 80px}
+.crest{display:block;height:84px;width:auto;flex:none}
+.box>.crest{align-self:flex-start}
+.crest.sm{height:42px}
+
+/* Auslosung, Fortschritt, Verlauf, Konto */
+button:disabled{opacity:.55;cursor:not-allowed}
+button.danger.arm{background:#7A3340;border-color:#B8525F}
+.dayttl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.chip{font-size:15px;font-weight:600;padding:4px 12px;border-radius:99px;border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+.chip.done{border-color:#2A6A45;background:#12301F;color:var(--green)}
+.hist{display:flex;flex-direction:column;gap:14px;max-width:760px}
+.he{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.he .hh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 14px;align-items:baseline;margin-bottom:8px}
+.he .hh b{font-size:18px}
+.he ul{margin:0 0 12px;padding-left:20px;font-size:16px;color:var(--text)}
+.he li{margin:2px 0;overflow-wrap:anywhere}
+.he details summary{cursor:pointer;color:var(--accent);font-size:16px;margin:4px 0 6px}
+.he .tag{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.hr{margin:30px 0 8px;border:0;border-top:1px solid var(--border)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px}
+textarea{font:inherit;font-size:17px;width:100%;padding:12px 14px;border-radius:8px;border:1px solid #5A7DB0;background:var(--field);color:var(--text);line-height:1.45;resize:vertical}
+textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.chk{display:flex;align-items:center;gap:10px;font-size:17px;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--gold)}
+.tabs button .badge{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:0 7px;border-radius:99px;background:var(--red);color:#2a0a0a;font-size:15px;font-weight:700}
+button.danger.arm{background:#7A3340;border-color:#B8525F}
+.finsec{margin-top:28px}
+.finsec h2{font-size:26px;margin-bottom:6px}
+.finsec>p{margin:0 0 16px;color:var(--muted);max-width:720px}
+.finsec .dgroups .dg{flex:1 1 300px}
+</style>
+</head>
+<body>
+
+<!-- ================= ANMELDUNG ================= -->
+<div class="login" id="login">
+  <form class="box" id="loginform" autocomplete="on">
+    <img class="crest" src="logo.png" alt="Eagle Golfers Dribbdebach" width="74" height="84">
+    <div>
+      <h1 style="font-size:26px">Matchplay-Editor</h1>
+      <p class="muted" style="margin:6px 0 0">Hier trägst du Teams und Ergebnisse ein.</p>
+    </div>
+    <div id="loginmsg" class="msg err" hidden></div>
+    <div id="serverpart">
+      <label class="f">Wer bist du?
+        <select id="user" required></select>
+      </label>
+      <label class="f" style="margin-top:14px">Passwort
+        <input type="password" id="pass" autocomplete="current-password" required>
+      </label>
+      <button class="gold" type="submit" id="loginbtn" style="width:100%;margin-top:18px">Anmelden</button>
+    </div>
+    <a class="btn" href="../index.html" style="width:100%;justify-content:center;text-align:center;display:flex;align-items:center">&larr; Zur Hauptseite</a>
+    <div id="offlinepart" hidden>
+      <div class="msg info">Die Speicher-Funktion auf dem Server (api.php) ist nicht erreichbar. Du kannst trotzdem arbeiten: Am Ende lädst du die fertige Datei <b>data.json</b> herunter und ersetzt sie bei IONOS.</div>
+      <button class="gold" type="button" id="offlinebtn" style="width:100%;margin-top:14px">Ohne Anmeldung bearbeiten</button>
+    </div>
+  </form>
+</div>
+
+<!-- ================= EDITOR ================= -->
+<div id="app" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="who">
+        <img class="crest sm" src="logo.png" alt="" width="37" height="42">
+        <div><b>Matchplay-Editor</b><div class="small muted" id="wholine"></div></div>
+      </div>
+      <div class="actions">
+        <span class="state" id="state"><span class="dot"></span><span id="statetext">Alles gespeichert</span></span>
+        <a class="btn" href="../index.html">&larr; Zur Hauptseite</a>
+        <a class="btn" href="index.html" target="_blank" rel="noopener">Seite ansehen</a>
+        <button class="gold" id="savebtn" type="button">Speichern</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="offlinebar" class="msg info" style="margin-top:16px" hidden>Datei-Modus: „Speichern“ lädt die Datei <b>data.json</b> herunter. Diese Datei bei IONOS hochladen und die alte ersetzen.</div>
+
+    <div class="tabs" role="tablist" aria-label="Bereiche">
+      <button role="tab" id="tab1" aria-controls="p1" aria-selected="true" type="button">1 · Teams</button>
+      <button role="tab" id="tab2" aria-controls="p2" aria-selected="false" type="button">2 · Spieltage und Ergebnisse</button>
+      <button role="tab" id="tab3" aria-controls="p3" aria-selected="false" type="button">3 · Meldungen <span class="badge" id="mbadge" hidden>0</span></button>
+      <button role="tab" id="tab4" aria-controls="p4" aria-selected="false" type="button">4 · Nachricht für die Gruppe</button>
+      <button role="tab" id="tab5" aria-controls="p5" aria-selected="false" type="button">5 · Weitere Angaben</button>
+      <button role="tab" id="tab6" aria-controls="p6" aria-selected="false" type="button">6 · Verlauf und Konto</button>
+      <button role="tab" id="tab7" aria-controls="p7" aria-selected="false" type="button">7 · Fotos <span class="badge" id="fbadge" hidden>0</span></button>
+    </div>
+
+    <section class="panel" id="p1" role="tabpanel" aria-labelledby="tab1">
+      <h2>Teams eintragen</h2>
+      <p>Pro Team ein Name und die zwei Spieler. Du kannst auch erst nur die Teamnamen eintragen. Leere Felder zeigt die Seite als „Team A1“ usw. an.</p>
+      <div class="groups" id="teamgroups"></div>
+    </section>
+
+    <section class="panel" id="p2" role="tabpanel" aria-labelledby="tab2" hidden>
+      <h2>Spieltage und Ergebnisse</h2>
+      <p>Trage nach jedem Spiel das Ergebnis ein, zum Beispiel 4 und 3. Noch nicht gespielte Spiele bleiben leer. Gleiche Zahlen zählen als geteiltes Match (1 Punkt für beide). Bei jedem Spiel kannst du außerdem den vereinbarten <b>Spieltermin</b> (Datum und Uhrzeit) eintragen, er erscheint auf der Seite beim Spiel. Am Ende auf <b>Speichern</b> drücken.</p>
+      <div id="days"></div>
+      <div class="finsec" id="finalsec"></div>
+      <h2 style="margin-top:28px">So sieht die Tabelle aktuell aus</h2>
+      <div class="preview" id="preview"></div>
+    </section>
+
+    <section class="panel" id="p3" role="tabpanel" aria-labelledby="tab3" hidden>
+      <h2>Gemeldete Ergebnisse</h2>
+      <p>Hier erscheinen Ergebnisse, die Teams über die Seite melden. Mit „Übernehmen“ landet das Ergebnis im Spielplan (Reiter 2), danach auf <b>Speichern</b> drücken. Mit „Verwerfen“ löschst du die Meldung.</p>
+      <div class="hist" id="meld"></div>
+    </section>
+
+    <section class="panel" id="p4" role="tabpanel" aria-labelledby="tab4" hidden>
+      <h2>Nachricht für die Gruppe</h2>
+      <p>Fertiger Text für WhatsApp mit Ergebnissen und Tabelle. Du kannst ihn vor dem Senden noch ändern. Er enthält den aktuellen Stand im Editor, speichere vorher, damit die Seite dazu passt.</p>
+      <div class="stack" style="max-width:760px">
+        <label class="f">Was soll drin stehen?<select id="wasel"></select></label>
+        <label class="chk"><input type="checkbox" id="watab" checked> Tabellen anhängen</label>
+        <label class="f">Text<textarea id="watext" rows="16"></textarea></label>
+        <div class="btnrow"><button type="button" class="gold" id="wacopy">Text kopieren</button><a class="btn" id="wasend" href="#" target="_blank" rel="noopener">In WhatsApp öffnen</a></div>
+      </div>
+    </section>
+
+    <section class="panel" id="p5" role="tabpanel" aria-labelledby="tab5" hidden>
+      <h2>Weitere Angaben</h2>
+      <p>Diese Angaben sind freiwillig und erscheinen auf der Seite, sobald sie ausgefüllt sind.</p>
+      <div class="stack">
+        <label class="f">Termin Finaltag (April)
+          <input type="text" data-term="finale" maxlength="40" placeholder="zum Beispiel Sa, 17.04.2027">
+        </label>
+        <label class="f">Wohin sollen Ergebnisse gemeldet werden?
+          <input type="text" id="kontakt" maxlength="120" placeholder="zum Beispiel Niki, 0170 1234567">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel" id="p6" role="tabpanel" aria-labelledby="tab6" hidden>
+      <h2>Verlauf</h2>
+      <p>Hier steht, wer wann was gespeichert hat. Mit „Zustand davor wiederherstellen“ machst du diese Änderung und alle späteren rückgängig. Das Wiederherstellen selbst steht danach wieder im Verlauf, du kannst es also auch zurücknehmen.</p>
+      <div class="hist" id="hist"></div>
+      <hr class="hr">
+      <h2>Mein Passwort ändern</h2>
+      <p>Das neue Passwort gilt ab sofort für deinen Namen. Es wird verschlüsselt auf dem Server gespeichert. Mindestens 8 Zeichen.</p>
+      <form class="stack" id="pwform" autocomplete="off" novalidate>
+        <label class="f">Neues Passwort<input type="password" id="pw1" autocomplete="new-password" minlength="8"></label>
+        <label class="f">Neues Passwort wiederholen<input type="password" id="pw2" autocomplete="new-password" minlength="8"></label>
+        <div id="pwmsg" class="msg err" hidden></div>
+        <button type="submit" id="pwbtn" class="gold" style="align-self:flex-start">Passwort ändern</button>
+      </form>
+    </section>
+
+    <section class="panel" id="p7" role="tabpanel" aria-labelledby="tab7" hidden>
+      <h2>Fotos</h2>
+      <p>Hier lädst du Fotos zu einem Spieltag hoch. Sie sind sofort auf der Seite sichtbar und brauchen kein „Speichern“. Fotos, die Teilnehmer einschicken, erscheinen unten unter „Wartet auf Freigabe“.</p>
+      <div class="stack" style="max-width:560px">
+        <label class="f">Zu welchem Termin?<select id="fotag"></select></label>
+        <label class="f">Fotos auswählen (auch mehrere)<input type="file" id="fofile" accept="image/*" multiple></label>
+        <div id="fomsg" class="msg err" hidden></div>
+        <button type="button" class="gold" id="fosend" style="align-self:flex-start">Hochladen</button>
+      </div>
+      <hr class="hr">
+      <h2>Wartet auf Freigabe</h2>
+      <div id="fowait"></div>
+      <hr class="hr">
+      <h2>Freigegeben</h2>
+      <div id="fofrei"></div>
+    </section>
+
+    <div class="bottom"><button class="gold" id="savebtn2" type="button" style="min-width:240px">Speichern</button></div>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var RUNDEN = [
+  { monat: "November 2026", p: [[6,1],[5,2],[3,4]] },
+  { monat: "Dezember 2026", p: [[1,5],[4,6],[2,3]] },
+  { monat: "Januar 2027", p: [[4,1],[3,5],[6,2]] },
+  { monat: "Februar 2027", p: [[1,3],[2,4],[5,6]] },
+  { monat: "März 2027", p: [[1,2],[3,6],[4,5]] }
+];
+var IDS = ["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","B5","B6"];
+var S = { teams:{}, termine:{}, kontakt:"", res:{}, rev:0, geaendert:null };
+var AUTH = { user:"", pass:"", offline:false };
+var dirty = false, built = false;
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+function pairKey(a,b){ return [a,b].sort().join("-"); }
+function tname(id){ var t=S.teams[id]; return (t && t.name.trim()) ? t.name.trim() : "Team "+id; }
+function isScore(v){ return /^\d{1,2}$/.test(v); }
+
+/* ---------- Daten ---------- */
+function emptyState(){
+  S = { teams:{}, termine:{1:"",2:"",3:"",4:"",5:"",finale:""}, kontakt:"", res:{}, fin:{}, rev:0, geaendert:null };
+  for(var fk=1;fk<=6;fk++) S.fin[fk] = { ga:"", gb:"" };
+  IDS.forEach(function(id){ S.teams[id] = { name:"", s1:"", s2:"" }; });
+  RUNDEN.forEach(function(r){
+    ["A","B"].forEach(function(g){
+      for(var k=0;k<3;k++){
+        var a=g+r.p[k][0], b=g+r.p[k][1];
+        S.res[pairKey(a,b)] = { a:a, b:b, ga:"", gb:"", datum:"", zeit:"" };
+      }
+    });
+  });
+}
+function applyData(d){
+  emptyState();
+  if(!d || typeof d!=="object") return;
+  S.rev = parseInt(d.rev,10) || 0;
+  S.geaendert = d.geaendert || null;
+  IDS.forEach(function(id){
+    var t = (d.teams && d.teams[id]) || {};
+    var s1 = t.s1 || "", s2 = t.s2 || "";
+    if(!s1 && !s2 && t.spieler){ var p = String(t.spieler).split("/"); s1 = (p[0]||"").trim(); s2 = (p[1]||"").trim(); }
+    S.teams[id] = { name:t.name||"", s1:s1, s2:s2 };
+  });
+  ["1","2","3","4","5","finale"].forEach(function(k){ S.termine[k] = (d.termine && d.termine[k]) || ""; });
+  S.kontakt = d.kontakt || "";
+  (d.finalspiele||[]).forEach(function(r){
+    var k = parseInt(r.k,10);
+    if(S.fin[k]){ S.fin[k].ga = String(r.ga); S.fin[k].gb = String(r.gb); }
+  });
+  (d.spieltermine||[]).forEach(function(r){
+    var row = S.res[pairKey(r.a,r.b)];
+    if(row){ row.datum = r.datum || ""; row.zeit = r.zeit || ""; }
+  });
+  (d.ergebnisse||[]).forEach(function(r){
+    var row = S.res[pairKey(r.a,r.b)];
+    if(!row) return;
+    if(row.a===r.a){ row.ga=String(r.ga); row.gb=String(r.gb); } else { row.ga=String(r.gb); row.gb=String(r.ga); }
+  });
+}
+function toData(){
+  var teams = {};
+  IDS.forEach(function(id){ var t=S.teams[id]; teams[id] = { name:t.name.trim(), s1:t.s1.trim(), s2:t.s2.trim() }; });
+  var erg = [];
+  Object.keys(S.res).forEach(function(k){
+    var r = S.res[k];
+    if(isScore(r.ga) && isScore(r.gb)) erg.push({ a:r.a, b:r.b, ga:parseInt(r.ga,10), gb:parseInt(r.gb,10) });
+  });
+  var spt = [];
+  Object.keys(S.res).forEach(function(k){
+    var r = S.res[k];
+    if(/^\d{4}-\d{2}-\d{2}$/.test(r.datum||"")) spt.push({ a:r.a, b:r.b, datum:r.datum, zeit:/^\d{2}:\d{2}$/.test(r.zeit||"") ? r.zeit : "" });
+  });
+  var fin = [];
+  for(var k=1;k<=6;k++){
+    var f = S.fin[k];
+    if(isScore(f.ga) && isScore(f.gb)) fin.push({ k:k, ga:parseInt(f.ga,10), gb:parseInt(f.gb,10) });
+  }
+  return { version:1, rev:S.rev, teams:teams, termine:S.termine, kontakt:S.kontakt.trim(), ergebnisse:erg, finalspiele:fin, spieltermine:spt };
+}
+function loadData(){
+  return fetch("data.json?t="+Date.now(), { cache:"no-store" }).then(function(r){
+    if(!r.ok) throw new Error("keine Datei");
+    return r.json();
+  });
+}
+
+/* ---------- Anzeige aufbauen ---------- */
+function buildTeams(){
+  var h = "";
+  ["A","B"].forEach(function(g){
+    h += '<div class="gcard"><h3>Gruppe '+g+'</h3>';
+    for(var i=1;i<=6;i++){
+      var id = g+i, t = S.teams[id];
+      h += '<div class="team"><div class="tid">Platz '+id+'</div>'+
+        '<label class="f full">Teamname<input type="text" maxlength="40" data-t="'+id+'" data-f="name" value="'+esc(t.name)+'" placeholder="Team '+id+'"></label>'+
+        '<label class="f">Spieler 1<input type="text" maxlength="40" data-t="'+id+'" data-f="s1" value="'+esc(t.s1)+'" placeholder="Vor- und Nachname"></label>'+
+        '<label class="f">Spieler 2<input type="text" maxlength="40" data-t="'+id+'" data-f="s2" value="'+esc(t.s2)+'" placeholder="Vor- und Nachname"></label></div>';
+    }
+    h += '</div>';
+  });
+  $("teamgroups").innerHTML = h;
+}
+function buildDays(){
+  var h = "";
+  RUNDEN.forEach(function(r,i){
+    h += '<div class="day"><div class="dayhead"><div class="dayttl"><h3>Spieltag '+(i+1)+' · '+esc(r.monat)+'</h3><span class="chip" id="prog-'+(i+1)+'"></span></div>'+
+         '<label class="f">Termin dieses Spieltags (frei eintragbar)<input type="text" maxlength="40" data-term="'+(i+1)+'" value="'+esc(S.termine[i+1]||"")+'" placeholder="z. B. Sa, 21.11.2026"></label></div><div class="dgroups">';
+    ["A","B"].forEach(function(g){
+      h += '<div class="dg"><div class="lab">Gruppe '+g+'</div>';
+      for(var k=0;k<3;k++){
+        var a=g+r.p[k][0], b=g+r.p[k][1], key=pairKey(a,b), row=S.res[key];
+        h += '<div class="match"><div class="score">'+
+          '<label class="f"><span class="tn tn-'+a+'">'+esc(tname(a))+'</span><input type="number" inputmode="numeric" min="0" max="99" step="1" data-r="'+key+'" data-w="ga" value="'+esc(row.ga)+'" aria-label="Ergebnis '+esc(tname(a))+'"></label>'+
+          '<span class="colon">:</span>'+
+          '<label class="f"><span class="tn tn-'+b+'">'+esc(tname(b))+'</span><input type="number" inputmode="numeric" min="0" max="99" step="1" data-r="'+key+'" data-w="gb" value="'+esc(row.gb)+'" aria-label="Ergebnis '+esc(tname(b))+'"></label>'+
+          '</div><div class="mdate"><label class="f">Spieltermin<input type="date" min="2026-10-01" max="2027-12-31" data-md="'+key+'" data-mf="datum" value="'+esc(row.datum||"")+'"></label>'+
+          '<label class="f">Uhrzeit<input type="time" data-md="'+key+'" data-mf="zeit" value="'+esc(row.zeit||"")+'"></label></div>'+
+          '<div class="pnote" id="pn-'+key+'"></div><div class="fb" id="fb-'+key+'"></div></div>';
+      }
+      h += '</div>';
+    });
+    h += '</div></div>';
+  });
+  $("days").innerHTML = h;
+  Object.keys(S.res).forEach(updateFeedback);
+  updateProgress();
+  renderPNotes();
+  buildFinal();
+}
+var FLAB = ["Finale","Spiel um Platz 3","Spiel um Platz 5","Spiel um Platz 7","Spiel um Platz 9","Spiel um Platz 11"];
+function finTeams(k){
+  if(!Object.keys(S.res).some(function(x){ return isScore(S.res[x].ga) && isScore(S.res[x].gb); })) return null;
+  return [standings("A")[k-1].id, standings("B")[k-1].id];
+}
+function finNames(k){
+  var t = finTeams(k);
+  return t ? [tname(t[0]), tname(t[1])] : [k+". Gruppe A", k+". Gruppe B"];
+}
+function buildFinal(){
+  var h = '<h2>Finaltag (April)</h2><p>Die Paarungen ergeben sich aus der Tabelle. Trage die Ergebnisse erst am Finaltag ein, wenn die Gruppenphase beendet ist.</p><div class="dgroups"><div class="dg">';
+  for(var k=1;k<=6;k++){
+    var n = finNames(k);
+    h += '<div class="match"><div class="lab">'+FLAB[k-1]+'</div><div class="score">'+
+      '<label class="f"><span id="fna-'+k+'">'+esc(n[0])+'</span><input type="number" inputmode="numeric" min="0" max="99" step="1" data-fk="'+k+'" data-w="ga" value="'+esc(S.fin[k].ga)+'"></label>'+
+      '<span class="colon">:</span>'+
+      '<label class="f"><span id="fnb-'+k+'">'+esc(n[1])+'</span><input type="number" inputmode="numeric" min="0" max="99" step="1" data-fk="'+k+'" data-w="gb" value="'+esc(S.fin[k].gb)+'"></label>'+
+      '</div><div class="fb" id="fb-fin'+k+'"></div></div>';
+  }
+  h += '</div></div>';
+  $("finalsec").innerHTML = h;
+  for(var j=1;j<=6;j++) updateFinFeedback(j);
+}
+function updateFinNames(){
+  for(var k=1;k<=6;k++){
+    var n = finNames(k), a = $("fna-"+k), b = $("fnb-"+k);
+    if(a) a.textContent = n[0];
+    if(b) b.textContent = n[1];
+    updateFinFeedback(k);
+  }
+}
+function updateFinFeedback(k){
+  var r = S.fin[k], box = $("fb-fin"+k);
+  if(!box) return;
+  var ea = r.ga==="", eb = r.gb==="";
+  box.className = "fb";
+  if(ea && eb){ box.textContent = "Noch nicht gespielt"; return; }
+  if(ea || eb || !isScore(r.ga) || !isScore(r.gb)){ box.className = "fb warn"; box.textContent = "Bitte beide Ergebnisse eintragen (Zahlen von 0 bis 99)."; return; }
+  var x = parseInt(r.ga,10), y = parseInt(r.gb,10), n = finNames(k);
+  box.className = "fb win";
+  box.textContent = x===y ? "Geteiltes Match" : "Sieg für "+(x>y?n[0]:n[1]);
+  if(x>18 || y>18){ box.className = "fb warn"; box.textContent += " · Achtung: Zahl über 18, bitte noch einmal prüfen."; }
+}
+function updateProgress(){
+  RUNDEN.forEach(function(r,i){
+    var n = 0;
+    ["A","B"].forEach(function(g){
+      for(var k=0;k<3;k++){
+        var row = S.res[pairKey(g+r.p[k][0], g+r.p[k][1])];
+        if(row && isScore(row.ga) && isScore(row.gb)) n++;
+      }
+    });
+    var c = $("prog-"+(i+1));
+    if(!c) return;
+    c.textContent = n===6 ? "alle 6 Ergebnisse eingetragen" : (n===0 ? "noch keine Ergebnisse" : n+" von 6 Ergebnissen eingetragen");
+    c.className = "chip"+(n===6?" done":"");
+  });
+}
+function updateFeedback(key){
+  var r = S.res[key], box = $("fb-"+key);
+  if(!box) return;
+  var ea = r.ga==="", eb = r.gb==="";
+  box.className = "fb";
+  if(ea && eb){ box.textContent = "Noch nicht gespielt"; return; }
+  if(ea || eb || !isScore(r.ga) || !isScore(r.gb)){ box.className = "fb warn"; box.textContent = "Bitte beide Ergebnisse eintragen (Zahlen von 0 bis 99)."; return; }
+  var x = parseInt(r.ga,10), y = parseInt(r.gb,10);
+  if(x===y){ box.className = "fb win"; box.textContent = "Geteiltes Match: je 1 Punkt"; }
+  else { box.className = "fb win"; box.textContent = "Sieg für "+tname(x>y?r.a:r.b)+": 3 Punkte"; }
+  if(x>18 || y>18){ box.className = "fb warn"; box.textContent += " · Achtung: Zahl über 18, bitte noch einmal prüfen."; }
+}
+function standings(g){
+  var st = {};
+  for(var i=1;i<=6;i++){ st[g+i] = {id:g+i,sp:0,pkt:0,f:0,a:0}; }
+  Object.keys(S.res).forEach(function(k){
+    var r = S.res[k];
+    if(r.a.charAt(0)!==g || !isScore(r.ga) || !isScore(r.gb)) return;
+    var ga=parseInt(r.ga,10), gb=parseInt(r.gb,10), x=st[r.a], y=st[r.b];
+    x.sp++; y.sp++; x.f+=ga; x.a+=gb; y.f+=gb; y.a+=ga;
+    if(ga>gb) x.pkt+=3; else if(ga<gb) y.pkt+=3; else { x.pkt++; y.pkt++; }
+  });
+  var arr = Object.keys(st).map(function(k){return st[k];});
+  arr.sort(function(p,q){
+    if(q.pkt!==p.pkt) return q.pkt-p.pkt;
+    var dp=p.f-p.a, dq=q.f-q.a;
+    if(dq!==dp) return dq-dp;
+    if(q.f!==p.f) return q.f-p.f;
+    return p.id<q.id?-1:1;
+  });
+  return arr;
+}
+function updatePreview(){
+  var h = "";
+  ["A","B"].forEach(function(g){
+    h += '<div class="pv"><h3>Gruppe '+g+'</h3><table><thead><tr><th>#</th><th class="l">Team</th><th>Sp</th><th>Pkt</th><th>Ergebnis</th></tr></thead><tbody>';
+    standings(g).forEach(function(t,i){
+      h += '<tr><td>'+(i+1)+'</td><td class="l">'+esc(tname(t.id))+'</td><td>'+t.sp+'</td><td class="p">'+t.pkt+'</td><td>'+t.f+':'+t.a+'</td></tr>';
+    });
+    h += '</tbody></table></div>';
+  });
+  $("preview").innerHTML = h;
+  updateFinNames();
+}
+
+/* ---------- Änderungen erfassen ---------- */
+function setDirty(v){
+  dirty = v;
+  $("state").className = "state"+(v?" dirty":"");
+  $("statetext").textContent = v ? "Ungespeicherte Änderungen" : "Alles gespeichert";
+}
+document.addEventListener("input", function(e){
+  var t = e.target;
+  if(!t || !t.dataset) return;
+  if(t.dataset.t){
+    S.teams[t.dataset.t][t.dataset.f] = t.value;
+    if(t.dataset.f==="name"){
+      var els = document.getElementsByClassName("tn-"+t.dataset.t);
+      for(var i=0;i<els.length;i++) els[i].textContent = tname(t.dataset.t);
+      Object.keys(S.res).forEach(updateFeedback);
+      updatePreview();
+    }
+    setDirty(true);
+  } else if(t.dataset.md){
+    S.res[t.dataset.md][t.dataset.mf] = t.value;
+    setDirty(true);
+  } else if(t.dataset.r){
+    S.res[t.dataset.r][t.dataset.w] = t.value.trim();
+    updateFeedback(t.dataset.r);
+    updatePreview();
+    updateProgress();
+    setDirty(true);
+  } else if(t.dataset.fk){
+    S.fin[t.dataset.fk][t.dataset.w] = t.value.trim();
+    updateFinFeedback(t.dataset.fk);
+    setDirty(true);
+  } else if(t.dataset.term){
+    S.termine[t.dataset.term] = t.value;
+    setDirty(true);
+  } else if(t.id==="kontakt"){
+    S.kontakt = t.value;
+    setDirty(true);
+  }
+});
+window.addEventListener("beforeunload", function(e){
+  if(dirty){ e.preventDefault(); e.returnValue = ""; }
+});
+
+/* ---------- Reiter ---------- */
+function showTab(n){
+  for(var i=1;i<=7;i++){
+    $("p"+i).hidden = (i!==n);
+    $("tab"+i).setAttribute("aria-selected", i===n ? "true" : "false");
+  }
+  window.scrollTo(0,0);
+  if(n===3) loadMeldungen();
+  if(n===4) genMsg(true);
+  if(n===6) loadHistory();
+  if(n===7) loadFotos();
+}
+[1,2,3,4,5,6,7].forEach(function(n){ $("tab"+n).addEventListener("click", function(){ showTab(n); }); });
+
+/* ---------- Meldungen ---------- */
+var toastTimer;
+function toast(text, kind, sticky){
+  var t = $("toast");
+  t.innerHTML = '<div class="msg '+(kind||"ok")+'">'+esc(text)+'</div>';
+  clearTimeout(toastTimer);
+  if(!sticky) toastTimer = setTimeout(function(){ t.innerHTML = ""; }, 4500);
+}
+
+/* ---------- Speichern ---------- */
+function incomplete(){
+  var bad = [];
+  Object.keys(S.res).forEach(function(k){
+    var r = S.res[k];
+    var one = (r.ga==="") !== (r.gb==="");
+    var wrong = (r.ga!=="" && !isScore(r.ga)) || (r.gb!=="" && !isScore(r.gb));
+    if(one || wrong) bad.push(k);
+  });
+  for(var k=1;k<=6;k++){
+    var f = S.fin[k];
+    var one2 = (f.ga==="") !== (f.gb==="");
+    var wrong2 = (f.ga!=="" && !isScore(f.ga)) || (f.gb!=="" && !isScore(f.gb));
+    if(one2 || wrong2) bad.push("fin"+k);
+  }
+  return bad;
+}
+function download(data){
+  var blob = new Blob([JSON.stringify(data,null,2)], { type:"application/json" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "data.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+}
+function save(){
+  var bad = incomplete();
+  if(bad.length){
+    showTab(2);
+    toast("Bei "+bad.length+(bad.length===1?" Spiel fehlt":" Spielen fehlt")+" eine Zahl. Bitte beide Ergebnisse eintragen oder beide Felder leeren.", "err", true);
+    var f = document.getElementById("fb-"+bad[0]); if(f) f.scrollIntoView({block:"center"});
+    return;
+  }
+  var data = toData();
+  if(AUTH.offline){
+    download(data);
+    setDirty(false);
+    toast("Datei data.json wurde heruntergeladen. Jetzt bei IONOS hochladen und die alte ersetzen.", "ok", true);
+    return;
+  }
+  var b1=$("savebtn"), b2=$("savebtn2");
+  b1.disabled = b2.disabled = true; b1.textContent = "Speichert …";
+  fetch("api.php", { method:"POST", headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ action:"save", user:AUTH.user, pass:AUTH.pass, data:data }) })
+  .then(function(r){ return r.json().then(function(j){ return { status:r.status, j:j }; }); })
+  .then(function(x){
+    if(x.j && x.j.ok){
+      S.rev = x.j.rev; S.geaendert = x.j.geaendert; setDirty(false); showWho();
+      toast(x.j.unchanged ? "Nichts geändert, es gab nichts zu speichern." : "Gespeichert. Die Seite ist aktualisiert.", "ok");
+      finishApplied();
+    } else if(x.status===409){
+      toast((x.j && x.j.error) || "Es gab einen Konflikt.", "err", true);
+    } else {
+      toast((x.j && x.j.error) || "Speichern hat nicht geklappt.", "err", true);
+    }
+  })
+  .catch(function(){ toast("Keine Verbindung. Bitte Internet prüfen und noch einmal versuchen. Deine Eingaben sind noch da.", "err", true); })
+  .then(function(){ b1.disabled = b2.disabled = false; b1.textContent = "Speichern"; });
+}
+$("savebtn").addEventListener("click", save);
+$("savebtn2").addEventListener("click", save);
+
+/* ---------- Meldungen ---------- */
+var MELD = [], APPLIED = [];
+function dayOfPair(a,b){
+  var key = pairKey(a,b);
+  for(var i=0;i<RUNDEN.length;i++){
+    var g = a.charAt(0);
+    for(var k=0;k<3;k++){
+      if(pairKey(g+RUNDEN[i].p[k][0], g+RUNDEN[i].p[k][1])===key) return i+1;
+    }
+  }
+  return 0;
+}
+function updateBadge(){
+  var n = MELD.filter(function(m){ return APPLIED.indexOf(m.id)<0; }).length;
+  var b = $("mbadge"); b.textContent = n; b.hidden = n===0;
+}
+function renderMeld(){
+  var box = $("meld");
+  if(!MELD.length){ box.innerHTML = '<p class="muted">Keine neuen Meldungen.</p>'; updateBadge(); return; }
+  box.innerHTML = MELD.slice().reverse().map(function(m){
+    var key = pairKey(m.a,m.b), row = S.res[key], applied = APPLIED.indexOf(m.id)>=0;
+    var cur = "";
+    if(m.typ==="termin"){
+      var dd = dayOfPair(m.a,m.b);
+      var old = row && row.datum ? '<li>Achtung: Eingetragen ist bereits '+esc(fmtDatum(row.datum,row.zeit))+'. „Übernehmen“ ersetzt es.</li>' : "";
+      return '<div class="he"><div class="hh"><b>Spieltermin · Spieltag '+dd+' · Gruppe '+m.a.charAt(0)+'</b><span class="muted small">'+esc(fmtTime(m.t))+'</span></div>'+
+        '<ul><li><b>'+esc(tname(m.a))+' – '+esc(tname(m.b))+': '+esc(fmtDatum(m.datum,m.zeit))+'</b></li><li>Gemeldet von '+esc(m.von)+'</li>'+(m.notiz?'<li>Hinweis: '+esc(m.notiz)+'</li>':'')+old+'</ul>'+
+        (applied ? '<span class="tag">Übernommen, bitte speichern</span>' :
+         '<div class="btnrow"><button type="button" class="gold" data-apply="'+m.id+'">Übernehmen</button><button type="button" data-drop="'+m.id+'">Verwerfen</button></div>')+'</div>';
+    }
+    if(row && isScore(row.ga) && isScore(row.gb) && !applied){
+      var ca = row.a===m.a ? row.ga+":"+row.gb : row.gb+":"+row.ga;
+      cur = ca===(m.ga+":"+m.gb) ? '<li>Dieses Ergebnis ist schon so eingetragen.</li>' : '<li>Achtung: Eingetragen ist bereits '+esc(ca)+'. „Übernehmen“ ersetzt es.</li>';
+    }
+    var d = dayOfPair(m.a,m.b);
+    return '<div class="he"><div class="hh"><b>Spieltag '+d+' · Gruppe '+m.a.charAt(0)+'</b><span class="muted small">'+esc(fmtTime(m.t))+'</span></div>'+
+      '<ul><li><b>'+esc(tname(m.a))+' '+m.ga+' : '+m.gb+' '+esc(tname(m.b))+'</b></li><li>Gemeldet von '+esc(m.von)+'</li>'+(m.notiz?'<li>Hinweis: '+esc(m.notiz)+'</li>':'')+cur+'</ul>'+
+      (applied ? '<span class="tag">Übernommen, bitte speichern</span>' :
+       '<div class="btnrow"><button type="button" class="gold" data-apply="'+m.id+'">Übernehmen</button><button type="button" data-drop="'+m.id+'">Verwerfen</button></div>')+'</div>';
+  }).join("");
+  updateBadge();
+}
+function loadMeldungen(quiet){
+  if(AUTH.offline) return;
+  api({ action:"meldungen" }).then(function(x){
+    if(x.j && x.j.ok){ MELD = x.j.meldungen || []; renderMeld(); }
+    else if(!quiet) $("meld").innerHTML = '<div class="msg err">'+esc((x.j&&x.j.error)||"Meldungen konnten nicht geladen werden.")+'</div>';
+  }).catch(function(){ if(!quiet) $("meld").innerHTML = '<div class="msg err">Keine Verbindung zum Server.</div>'; });
+}
+function finishApplied(){
+  if(AUTH.offline || !APPLIED.length) return;
+  var ids = APPLIED.slice(); APPLIED = [];
+  api({ action:"meldung_erledigt", ids:ids }).then(function(){ loadMeldungen(true); }).catch(function(){ loadMeldungen(true); });
+}
+var dropArmed = null, dropTimer;
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-apply],[data-drop]") : null;
+  if(!b) return;
+  var id;
+  if(b.hasAttribute("data-apply")){
+    id = parseInt(b.getAttribute("data-apply"),10);
+    var m = MELD.filter(function(x){ return x.id===id; })[0];
+    if(!m) return;
+    var row = S.res[pairKey(m.a,m.b)];
+    if(!row){ toast("Dieses Spiel gibt es im Spielplan nicht.", "err"); return; }
+    if(m.typ==="termin"){ row.datum = m.datum; row.zeit = m.zeit || ""; }
+    else if(row.a===m.a){ row.ga = String(m.ga); row.gb = String(m.gb); } else { row.ga = String(m.gb); row.gb = String(m.ga); }
+    APPLIED.push(id);
+    buildDays(); updatePreview(); setDirty(true); renderMeld();
+    toast("Übernommen. Auf „Speichern“ drücken, damit es auf der Seite erscheint.", "ok");
+    return;
+  }
+  id = b.getAttribute("data-drop");
+  if(dropArmed !== id){
+    dropArmed = id;
+    var all = document.querySelectorAll("[data-drop]");
+    for(var i=0;i<all.length;i++){ all[i].textContent = "Verwerfen"; all[i].className = ""; }
+    b.textContent = "Wirklich verwerfen?"; b.className = "danger arm";
+    clearTimeout(dropTimer);
+    dropTimer = setTimeout(function(){ dropArmed = null; b.textContent = "Verwerfen"; b.className = ""; }, 5000);
+    return;
+  }
+  dropArmed = null; clearTimeout(dropTimer);
+  api({ action:"meldung_erledigt", ids:[parseInt(id,10)] }).then(function(x){
+    if(x.j && x.j.ok){ toast("Meldung verworfen.", "ok"); loadMeldungen(true); }
+    else toast((x.j && x.j.error) || "Hat nicht geklappt.", "err", true);
+  }).catch(function(){ toast("Keine Verbindung zum Server.", "err", true); });
+});
+
+/* ---------- Nachricht für die Gruppe ---------- */
+var waEdited = false;
+function fillWaSel(){
+  var last = 0;
+  RUNDEN.forEach(function(r,i){
+    var any = false;
+    ["A","B"].forEach(function(g){ for(var k=0;k<3;k++){ var row = S.res[pairKey(g+r.p[k][0], g+r.p[k][1])]; if(row && isScore(row.ga) && isScore(row.gb)) any = true; } });
+    if(any) last = i+1;
+  });
+  var o = "";
+  RUNDEN.forEach(function(r,i){ o += '<option value="d'+(i+1)+'"'+((i+1)===(last||1)?' selected':'')+'>Spieltag '+(i+1)+' · '+esc(r.monat)+'</option>'; });
+  o += '<option value="t">Nur die Tabellen</option><option value="f">Finaltag</option>';
+  $("wasel").innerHTML = o;
+}
+function scoreStr(a,b){
+  var row = S.res[pairKey(a,b)];
+  if(!row || !isScore(row.ga) || !isScore(row.gb)) return "noch offen";
+  return row.a===a ? row.ga+":"+row.gb : row.gb+":"+row.ga;
+}
+/* Adresse der öffentlichen Seite (Ordner, in dem der Editor liegt), nie die Editor-Adresse */
+function siteUrl(){
+  try{
+    var u = new URL("./", location.href);
+    u.search = ""; u.hash = "";
+    if(u.protocol === "http:" && u.hostname !== "localhost" && u.hostname !== "127.0.0.1") u.protocol = "https:";
+    return u.href;
+  }catch(e){ return location.href.split("#")[0].split("?")[0].replace(/[^\/]*$/,""); }
+}
+function matchWhen(a,b){
+  var r = S.res[pairKey(a,b)];
+  if(!r || !/^\d{4}-\d{2}-\d{2}$/.test(r.datum||"")) return "";
+  var q = r.datum.split("-"), dt = new Date(+q[0],+q[1]-1,+q[2]);
+  return " (" + dt.toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit"}).replace(",","") + (r.zeit ? ", "+r.zeit+" Uhr" : "") + ")";
+}
+function genMsg(onlyIfClean){
+  if(onlyIfClean && waEdited) return;
+  var v = $("wasel").value, L = [], base = siteUrl();
+  if(v.charAt(0)==="d"){
+    var i = parseInt(v.slice(1),10)-1, r = RUNDEN[i], tt = S.termine[i+1];
+    L.push("🏌️ *Winter Matchplay Serie · Spieltag "+(i+1)+"* ("+r.monat+")");
+    if(tt) L.push("Termin: "+tt);
+    ["A","B"].forEach(function(g){
+      L.push(""); L.push("*Gruppe "+g+"*");
+      for(var k=0;k<3;k++){
+        var a=g+r.p[k][0], b=g+r.p[k][1];
+        L.push("• "+tname(a)+" – "+tname(b)+": "+scoreStr(a,b)+matchWhen(a,b));
+      }
+    });
+  } else if(v==="f"){
+    L.push("🏆 *Winter Matchplay Serie · Finaltag*");
+    if(S.termine.finale) L.push("Termin: "+S.termine.finale);
+    L.push("");
+    for(var k=1;k<=6;k++){
+      var n = finNames(k), f = S.fin[k], res = (isScore(f.ga)&&isScore(f.gb)) ? ": "+f.ga+":"+f.gb : "";
+      L.push(FLAB[k-1]+": "+n[0]+" gegen "+n[1]+res);
+    }
+  } else {
+    L.push("🏌️ *Winter Matchplay Serie · Zwischenstand*");
+  }
+  if(v==="t" || $("watab").checked){
+    ["A","B"].forEach(function(g){
+      L.push(""); L.push("*Tabelle Gruppe "+g+"*");
+      standings(g).forEach(function(t,i){ L.push((i+1)+". "+tname(t.id)+" · "+t.pkt+" Pkt · "+t.f+":"+t.a); });
+    });
+  }
+  L.push(""); L.push("Spielplan, Tabellen, Fotos und Termine: "+base);
+  if(v.charAt(0)==="d" || v==="t") L.push("Ergebnis oder vereinbarten Termin bitte direkt auf der Seite melden.");
+  $("watext").value = L.join("\n");
+  waEdited = false; updateWaLink();
+}
+function updateWaLink(){ $("wasend").href = "https://wa.me/?text="+encodeURIComponent($("watext").value); }
+$("wasel").addEventListener("change", function(){ genMsg(false); });
+$("watab").addEventListener("change", function(){ genMsg(false); });
+$("watext").addEventListener("input", function(){ waEdited = true; updateWaLink(); });
+$("wacopy").addEventListener("click", function(){
+  var t = $("watext");
+  function done(ok){ toast(ok ? "Text kopiert. In WhatsApp einfügen." : "Kopieren hat nicht geklappt. Bitte den Text markieren und selbst kopieren.", ok ? "ok" : "err"); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t.value).then(function(){ done(true); }).catch(function(){ t.select(); var ok=false; try{ ok = document.execCommand("copy"); }catch(e){} done(ok); });
+  } else { t.select(); var ok=false; try{ ok = document.execCommand("copy"); }catch(e){} done(ok); }
+});
+
+/* ---------- Verlauf ---------- */
+function api(body){
+  body.user = AUTH.user; body.pass = AUTH.pass;
+  return fetch("api.php", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) })
+    .then(function(r){ return r.json().then(function(j){ return { status:r.status, j:j }; }); });
+}
+function fmtDatum(d,z){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");
+  if(!m) return "";
+  var dt = new Date(+m[1],+m[2]-1,+m[3]);
+  return dt.toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"})+(z?", "+z+" Uhr":"");
+}
+function fmtTime(iso){
+  var d = new Date(iso);
+  if(isNaN(d)) return "";
+  return d.toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"})+", "+d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})+" Uhr";
+}
+function loadHistory(){
+  if(AUTH.offline) return;
+  var box = $("hist");
+  box.innerHTML = '<p class="muted">Lädt …</p>';
+  api({ action:"history" }).then(function(x){
+    if(!x.j || !x.j.ok){ box.innerHTML = '<div class="msg err">'+esc((x.j&&x.j.error)||"Verlauf konnte nicht geladen werden.")+'</div>'; return; }
+    var list = x.j.history || [];
+    if(!list.length){ box.innerHTML = '<p class="muted">Noch keine Änderungen gespeichert.</p>'; return; }
+    box.innerHTML = list.map(function(e){
+      var ch = e.changes || [], head = ch.slice(0,6), rest = ch.slice(6);
+      var lis = head.map(function(c){ return "<li>"+esc(c)+"</li>"; }).join("");
+      var more = rest.length ? '<details><summary>'+rest.length+' weitere anzeigen</summary><ul>'+rest.map(function(c){ return "<li>"+esc(c)+"</li>"; }).join("")+'</ul></details>' : "";
+      return '<div class="he"><div class="hh"><b>'+esc(fmtTime(e.t))+' · '+esc(e.user)+'</b>'+(e.kind==="restore"?'<span class="tag">Wiederherstellung</span>':'')+'</div>'+
+        '<ul>'+(lis||"<li>Keine Details</li>")+'</ul>'+more+
+        '<button type="button" data-restore="'+e.id+'">Zustand davor wiederherstellen</button></div>';
+    }).join("");
+  }).catch(function(){ box.innerHTML = '<div class="msg err">Keine Verbindung zum Server.</div>'; });
+}
+var restoreArmed = null, restoreTimer;
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-restore]") : null;
+  if(!b) return;
+  if(dirty){ toast("Du hast ungespeicherte Änderungen. Bitte zuerst speichern, dann wiederherstellen.", "err", true); return; }
+  var id = b.getAttribute("data-restore");
+  if(restoreArmed !== id){
+    restoreArmed = id;
+    var all = document.querySelectorAll("[data-restore]");
+    for(var i=0;i<all.length;i++){ all[i].textContent = "Zustand davor wiederherstellen"; all[i].className = ""; }
+    b.textContent = "Wirklich wiederherstellen?"; b.className = "danger arm";
+    clearTimeout(restoreTimer);
+    restoreTimer = setTimeout(function(){ restoreArmed = null; b.textContent = "Zustand davor wiederherstellen"; b.className = ""; }, 5000);
+    return;
+  }
+  restoreArmed = null; clearTimeout(restoreTimer);
+  b.disabled = true; b.textContent = "Stellt wieder her …";
+  api({ action:"restore", id:parseInt(id,10), rev:S.rev }).then(function(x){
+    if(x.j && x.j.ok){
+      applyData(x.j.data);
+      buildTeams(); buildDays(); updatePreview(); fillWaSel(); renderMeld();
+      $("kontakt").value = S.kontakt;
+      document.querySelector('[data-term="finale"]').value = S.termine.finale || "";
+      setDirty(false); showWho();
+      toast("Wiederhergestellt. Die Seite ist aktualisiert.", "ok");
+    } else {
+      toast((x.j && x.j.error) || "Wiederherstellen hat nicht geklappt.", "err", true);
+    }
+    loadHistory();
+  }).catch(function(){ toast("Keine Verbindung zum Server.", "err", true); loadHistory(); });
+});
+
+/* ---------- Passwort ändern ---------- */
+function pwMsg(text, ok){ var m=$("pwmsg"); m.textContent = text; m.className = "msg "+(ok?"ok":"err"); m.hidden = !text; }
+$("pwform").addEventListener("submit", function(e){
+  e.preventDefault();
+  var a = $("pw1").value, b = $("pw2").value;
+  pwMsg("");
+  if(a.length<8){ pwMsg("Das neue Passwort braucht mindestens 8 Zeichen."); return; }
+  if(a!==b){ pwMsg("Die beiden Passwörter sind nicht gleich."); return; }
+  $("pwbtn").disabled = true;
+  api({ action:"passwd", newpass:a }).then(function(x){
+    if(x.j && x.j.ok){
+      AUTH.pass = a; $("pw1").value = ""; $("pw2").value = "";
+      pwMsg("Passwort geändert. Ab jetzt meldest du dich mit dem neuen Passwort an.", true);
+    } else pwMsg((x.j && x.j.error) || "Passwort konnte nicht geändert werden.");
+  }).catch(function(){ pwMsg("Keine Verbindung zum Server."); })
+  .then(function(){ $("pwbtn").disabled = false; });
+});
+
+
+/* ---------- Von Spielern eingetragene Termine ---------- */
+var PT = {};
+function loadPT(){
+  if(AUTH.offline) return;
+  fetch("api.php?action=termine&t="+Date.now(), { cache:"no-store" }).then(function(r){ return r.json(); }).then(function(j){
+    PT = {};
+    if(j && j.ok) (j.termine||[]).forEach(function(t){ PT[pairKey(t.a,t.b)] = t; });
+    renderPNotes();
+  }).catch(function(){});
+}
+function renderPNotes(){
+  Object.keys(S.res).forEach(function(k){
+    var el = $("pn-"+k); if(!el) return;
+    var t = PT[k];
+    el.innerHTML = t ? '<span>Von Spielern eingetragen: <b>'+esc(fmtDatum(t.datum,t.zeit))+'</b> ('+esc(t.von)+'). Auf der Seite gilt der zuletzt eingetragene Termin.</span><button type="button" class="danger" data-ptdel="'+k+'">Entfernen</button>' : "";
+  });
+}
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-ptdel]") : null;
+  if(!b) return;
+  var k = b.getAttribute("data-ptdel"), t = PT[k];
+  if(!t) return;
+  api({ action:"termin_loeschen", a:t.a, b:t.b }).then(function(x){
+    if(x.j && x.j.ok){ delete PT[k]; renderPNotes(); toast("Termin der Spieler entfernt.", "ok"); }
+    else toast((x.j&&x.j.error)||"Hat nicht geklappt.", "err");
+  });
+});
+
+/* ---------- Fotos ---------- */
+var FOT = [];
+var FOTN = { "1":"Spieltag 1","2":"Spieltag 2","3":"Spieltag 3","4":"Spieltag 4","5":"Spieltag 5","finale":"Finaltag" };
+$("fotag").innerHTML = Object.keys(FOTN).map(function(k){ return '<option value="'+k+'">'+FOTN[k]+'</option>'; }).join("");
+function fotoPost(fields, file){
+  var fd = new FormData();
+  fd.append("user", AUTH.user); fd.append("pass", AUTH.pass);
+  Object.keys(fields).forEach(function(k){ fd.append(k, fields[k]); });
+  if(file) fd.append("foto", file, "foto.jpg");
+  return fetch("foto.php", { method:"POST", body:fd }).then(function(r){ return r.json().catch(function(){ return { ok:false, error:"Antwort vom Server unlesbar. Fehlt die Datei foto.php?" }; }); });
+}
+function renderFot(){
+  var w = FOT.filter(function(f){ return f.status==="wartend"; });
+  var fr = FOT.filter(function(f){ return f.status==="frei"; });
+  var b = $("fbadge"); b.textContent = w.length; b.hidden = w.length===0;
+  function card(f, wait){
+    return '<div class="he" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="'+esc(f.f)+'" target="_blank" rel="noopener"><img src="'+esc(f.th)+'" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:8px;display:block"></a>'+
+      '<div style="flex:1 1 180px"><b>'+esc(FOTN[f.tag]||f.tag)+'</b><br><span class="muted small">von '+esc(f.von)+' · '+esc(fmtTime(f.t))+'</span>'+
+      '<div class="btnrow" style="margin-top:8px">'+(wait?'<button type="button" class="gold" data-ffrei="'+f.id+'">Freigeben</button>':'')+'<button type="button" class="danger" data-fdel="'+f.id+'">Löschen</button></div></div></div>';
+  }
+  $("fowait").innerHTML = w.length ? '<div class="hist">'+w.map(function(f){ return card(f,true); }).join("")+'</div>' : '<p class="muted">Nichts wartet auf Freigabe.</p>';
+  $("fofrei").innerHTML = fr.length ? '<div class="hist">'+fr.map(function(f){ return card(f,false); }).join("")+'</div>' : '<p class="muted">Noch keine freigegebenen Fotos.</p>';
+}
+function loadFotos(quiet){
+  if(AUTH.offline) return;
+  fotoPost({ action:"liste" }).then(function(j){
+    if(j && j.ok){ FOT = j.fotos || []; renderFot(); }
+    else if(!quiet) $("fowait").innerHTML = '<div class="msg err">'+esc((j&&j.error)||"Fotos konnten nicht geladen werden.")+'</div>';
+  }).catch(function(){ if(!quiet) $("fowait").innerHTML = '<div class="msg err">Keine Verbindung zum Server.</div>'; });
+}
+function shrinkFoto(file){
+  return new Promise(function(res){
+    function fin(src,w,h){
+      var k = Math.min(1,1600/Math.max(w,h)), c = document.createElement("canvas");
+      c.width = Math.round(w*k); c.height = Math.round(h*k);
+      var x = c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.drawImage(src,0,0,c.width,c.height);
+      c.toBlob(function(b){ res(b || file); }, "image/jpeg", 0.85);
+    }
+    if(window.createImageBitmap) createImageBitmap(file,{imageOrientation:"from-image"}).then(function(bm){ fin(bm,bm.width,bm.height); }, function(){ res(file); });
+    else res(file);
+  });
+}
+$("fosend").addEventListener("click", function(){
+  var files = $("fofile").files, m = $("fomsg"), btn = $("fosend");
+  m.hidden = true;
+  if(!files.length){ m.className="msg err"; m.textContent="Bitte zuerst Fotos auswählen."; m.hidden=false; return; }
+  btn.disabled = true;
+  var i = 0, ok = 0, err = "";
+  (function next(){
+    if(i>=files.length){
+      btn.disabled = false; btn.textContent = "Hochladen"; $("fofile").value = "";
+      if(ok) toast(ok+(ok===1?" Foto":" Fotos")+" hochgeladen und sichtbar."+(err?" Fehler: "+err:""), err?"err":"ok");
+      else { m.className="msg err"; m.textContent = err || "Hochladen hat nicht geklappt."; m.hidden=false; }
+      loadFotos(true); return;
+    }
+    btn.textContent = "Lädt hoch "+(i+1)+" von "+files.length+" …";
+    shrinkFoto(files[i]).then(function(bl){ return fotoPost({ action:"upload", tag:$("fotag").value, von:AUTH.user }, bl); })
+      .then(function(j){ if(j && j.ok) ok++; else err = (j&&j.error)||"Fehler."; })
+      .catch(function(){ err = "Keine Verbindung."; })
+      .then(function(){ i++; next(); });
+  })();
+});
+var fdelArmed = null, fdelTimer;
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("[data-ffrei],[data-fdel]") : null;
+  if(!b) return;
+  if(b.hasAttribute("data-ffrei")){
+    fotoPost({ action:"frei", ids:JSON.stringify([b.getAttribute("data-ffrei")]) }).then(function(j){
+      if(j && j.ok){ FOT = j.fotos; renderFot(); toast("Foto freigegeben, es ist jetzt auf der Seite.", "ok"); } else toast((j&&j.error)||"Hat nicht geklappt.", "err");
+    });
+    return;
+  }
+  var id = b.getAttribute("data-fdel");
+  if(fdelArmed !== id){
+    fdelArmed = id; b.textContent = "Wirklich löschen?"; b.classList.add("arm");
+    clearTimeout(fdelTimer); fdelTimer = setTimeout(function(){ fdelArmed = null; renderFot(); }, 4000);
+    return;
+  }
+  fdelArmed = null;
+  fotoPost({ action:"loeschen", ids:JSON.stringify([id]) }).then(function(j){
+    if(j && j.ok){ FOT = j.fotos; renderFot(); toast("Foto gelöscht.", "ok"); } else toast((j&&j.error)||"Hat nicht geklappt.", "err");
+  });
+});
+
+/* ---------- Start ---------- */
+function showWho(){
+  var t = AUTH.offline ? "Datei-Modus" : "Angemeldet als "+AUTH.user;
+  if(S.geaendert && S.geaendert.am){
+    var d = new Date(S.geaendert.am);
+    if(!isNaN(d)) t += " · zuletzt gespeichert von "+S.geaendert.von+" am "+d.toLocaleDateString("de-DE")+", "+d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})+" Uhr";
+  }
+  $("wholine").textContent = t;
+}
+function openApp(){
+  buildTeams(); buildDays(); updatePreview();
+  $("kontakt").value = S.kontakt;
+  document.querySelector('[data-term="finale"]').value = S.termine.finale || "";
+  $("login").hidden = true; $("app").hidden = false;
+  $("offlinebar").hidden = !AUTH.offline;
+  $("tab3").hidden = AUTH.offline; $("tab6").hidden = AUTH.offline; $("tab7").hidden = AUTH.offline;
+  fillWaSel();
+  if(!AUTH.offline){ loadMeldungen(true); loadFotos(true); loadPT(); }
+  showWho(); setDirty(false); showTab(1);
+}
+function loginMsg(text){ var m=$("loginmsg"); m.textContent = text; m.hidden = !text; }
+
+$("loginform").addEventListener("submit", function(e){
+  e.preventDefault();
+  loginMsg("");
+  var u = $("user").value, p = $("pass").value;
+  $("loginbtn").disabled = true; $("loginbtn").textContent = "Prüfe …";
+  fetch("api.php", { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ action:"login", user:u, pass:p }) })
+  .then(function(r){ return r.json().then(function(j){ return { status:r.status, j:j }; }); })
+  .then(function(x){
+    if(x.j && x.j.ok){
+      AUTH.user = u; AUTH.pass = p; AUTH.offline = false;
+      try{ localStorage.setItem("matchplayUser", u); }catch(err){}
+      return loadData().catch(function(){ return null; }).then(function(d){ applyData(d); openApp(); });
+    }
+    loginMsg((x.j && x.j.error) || "Anmeldung nicht möglich.");
+  })
+  .catch(function(){ loginMsg("Keine Verbindung zum Server. Bitte noch einmal versuchen."); })
+  .then(function(){ $("loginbtn").disabled = false; $("loginbtn").textContent = "Anmelden"; });
+});
+
+$("offlinebtn").addEventListener("click", function(){
+  AUTH.offline = true; AUTH.user = "";
+  loadData().catch(function(){ return null; }).then(function(d){ applyData(d); openApp(); });
+});
+
+(function init(){
+  emptyState();
+  fetch("api.php?action=users", { cache:"no-store" })
+  .then(function(r){ return r.json(); })
+  .then(function(j){
+    if(!j || !j.users) throw new Error("kein Server");
+    var saved = ""; try{ saved = localStorage.getItem("matchplayUser") || ""; }catch(err){}
+    $("user").innerHTML = j.users.map(function(n){ return '<option'+(n===saved?' selected':'')+'>'+esc(n)+'</option>'; }).join("");
+    $("serverpart").hidden = false; $("offlinepart").hidden = true;
+  })
+  .catch(function(){
+    $("serverpart").hidden = true; $("offlinepart").hidden = false;
+  });
+})();
+</script>
+</body>
+</html>

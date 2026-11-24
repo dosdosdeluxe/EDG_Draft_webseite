@@ -52,6 +52,7 @@ jobs:
             open -u \"$SFTP_USER\",\"$SFTP_PASS\" sftp://$SFTP_HOST;
             mirror --reverse --delete --verbose --parallel=4 \
                    --exclude-glob .git* \
+                   --exclude '^matchplay-winter/(api\.php|data\.json|data\.bak\.json|users\.php|verlauf\.php|meldungen\.php|fotos\.php|terminspieler\.php|sperre\.lock|fotos/.*)$' \
                    dist/ \"$SFTP_PFAD\";
           "
 

@@ -42,7 +42,7 @@ function seitenSammeln(ordner, pfadTeil = '') {
 export function sitemapSchreiben(ordner, grundadresse, basis = '/') {
   const heute = new Date().toISOString().slice(0, 10);
   const seiten = seitenSammeln(ordner)
-    .filter((s) => !s.startsWith('/vorschau'))
+    .filter((s) => !s.startsWith('/vorschau') && !s.startsWith('/matchplay-winter'))
     .sort();
 
   const eintraege = seiten
