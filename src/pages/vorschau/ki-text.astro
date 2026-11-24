@@ -1,0 +1,167 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+---
+
+<Base titel="Textkorrektur (Vorschau)">
+  <VorschauHinweis phase="4" was="So soll die Textkorrektur aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Vorschlag zur Rechtschreibung</h1>
+      <p class="einleitung">
+        Wir haben Ihren Text auf Rechtschreibung und Zeichensetzung
+        durchgesehen. Sie entscheiden, was veröffentlicht wird.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <div class="gegenueber">
+        <article class="spalte spalte--eigen">
+          <header>
+            <h2>Ihr Text</h2>
+            <span class="marke marke--eigen">Voreingestellt</span>
+          </header>
+          <div class="text">
+            <p>
+              Bei bestem wetter haben wir gestern den fünften stop der eagle
+              tour gespielt der Platz war in hervoragendem zustand die greens
+              schnell. Andreas hat mit 38 punkten das beste ergebniss
+              abgeliefert und sich damit an die spitze der jahreswertung
+              gespielt.
+            </p>
+          </div>
+        </article>
+
+        <article class="spalte spalte--vorschlag">
+          <header>
+            <h2>Unser Vorschlag</h2>
+            <span class="marke marke--vorschlag">6 Änderungen</span>
+          </header>
+          <div class="text">
+            <p>
+              Bei bestem <mark>W</mark>etter haben wir gestern den fünften
+              <mark>S</mark>top der <mark>E</mark>agle <mark>T</mark>our
+              gespielt<mark>.</mark> Der Platz war in
+              <mark>hervorragendem</mark> <mark>Z</mark>ustand<mark>,</mark>
+              die <mark>G</mark>reens schnell. Andreas hat mit 38
+              <mark>P</mark>unkten das beste <mark>Ergebnis</mark>
+              abgeliefert und sich damit an die <mark>S</mark>pitze der
+              <mark>J</mark>ahreswertung gespielt.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="aenderungen-titel">Was geändert wurde</h3>
+      <ul class="aenderungen">
+        <li><span aria-hidden="true">&#9679;</span> Groß- und Kleinschreibung an neun Stellen</li>
+        <li><span aria-hidden="true">&#9679;</span> „hervoragendem“ zu „hervorragendem“</li>
+        <li><span aria-hidden="true">&#9679;</span> „Ergebniss“ zu „Ergebnis“</li>
+        <li><span aria-hidden="true">&#9679;</span> Zwei fehlende Satzzeichen ergänzt</li>
+      </ul>
+
+      <div class="wahl">
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Meinen Text behalten
+        </button>
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Vorschlag übernehmen
+        </button>
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Selbst ändern
+        </button>
+      </div>
+      <p class="wahl-hilfe">
+        Wenn Sie nichts auswählen, wird Ihr eigener Text veröffentlicht.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap schmal">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128274;</span>
+        <div>
+          <h4>Was die Korrektur nicht tut</h4>
+          <p>
+            Sie ändert keine Namen, keine Zahlen, keine Ergebnisse und keine
+            Platzbezeichnungen. Sie schreibt den Text nicht um und macht keine
+            Werbesprache daraus. Ihr Tonfall bleibt Ihr Tonfall &mdash; es geht
+            nur um Rechtschreibung und Zeichensetzung.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 760px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+
+  .gegenueber {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 20px;
+  }
+
+  .spalte {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .spalte--eigen { border-color: var(--green); }
+
+  .spalte header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+    padding: 16px 22px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .spalte h2 { font-size: var(--fs-lg); }
+
+  .marke {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 2px solid;
+  }
+  .marke--eigen     { background: #e8f3e9; color: #1f5424; border-color: #2a5c2e; }
+  .marke--vorschlag { background: #e4edf7; color: #123a63; border-color: #1a3a5c; }
+
+  .text { padding: 24px 22px; }
+  .text p { max-width: none; }
+
+  /* Die Änderungen sind zusätzlich unterstrichen, nicht nur farbig —
+     sonst sieht sie niemand mit Farbsehschwäche (WCAG 1.4.1). */
+  mark {
+    background: #fdf0c4;
+    color: #4a3a0c;
+    padding: 1px 3px;
+    border-radius: 3px;
+    border-bottom: 2px solid #8A6D25;
+    font-weight: 700;
+  }
+  :global(:root[data-theme='dark']) mark { background: #453a12; color: #ffe9b0; }
+
+  .aenderungen-titel { margin: 36px 0 14px; }
+  .aenderungen { list-style: none; display: grid; gap: 8px; max-width: 60ch; }
+  .aenderungen li { display: flex; gap: 12px; color: var(--text2); }
+  .aenderungen span { color: var(--gold-text); }
+
+  .wahl { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .wahl-hilfe { margin-top: 14px; color: var(--text3); font-size: var(--fs-sm); }
+</style>

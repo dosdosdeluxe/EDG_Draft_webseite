@@ -1,0 +1,146 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+---
+
+<Base titel="Beitrag schreiben (Vorschau)">
+  <VorschauHinweis phase="3" was="So soll das Schreiben eines Beitrags aussehen." />
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h1>Beitrag schreiben</h1>
+      <p class="einleitung">
+        Erzählen Sie vom Turnier. Ein paar Sätze genügen, Fotos sind
+        willkommen, aber kein Muss.
+      </p>
+
+      <ol class="schritte" aria-label="Drei Schritte zum Beitrag">
+        <li class="schritt schritt--aktiv">
+          <span class="schritt__nr" aria-hidden="true">1</span>
+          <span>Fotos wählen</span>
+        </li>
+        <li class="schritt">
+          <span class="schritt__nr" aria-hidden="true">2</span>
+          <span>Text schreiben</span>
+        </li>
+        <li class="schritt">
+          <span class="schritt__nr" aria-hidden="true">3</span>
+          <span>Veröffentlichen</span>
+        </li>
+      </ol>
+
+      <div class="formular-karte">
+        <div class="feld">
+          <label for="fotos">Fotos</label>
+          <div class="ablage">
+            <span class="ablage__icon" aria-hidden="true">&#128247;</span>
+            <p><strong>Fotos hier ablegen</strong></p>
+            <p class="hilfe">oder antippen, um sie auf dem Handy auszuwählen</p>
+          </div>
+          <p class="hilfe">
+            Die Bilder werden beim Hochladen automatisch verkleinert und
+            gedreht. Standortangaben aus den Fotos werden entfernt.
+          </p>
+        </div>
+
+        <div class="feld">
+          <label for="titel">Überschrift</label>
+          <input type="text" id="titel" value="Eagle Tour Stop 5 in Bad Homburg" readonly />
+        </div>
+
+        <div class="feld">
+          <label for="text">Ihr Text</label>
+          <textarea id="text" readonly>Bei bestem Wetter haben wir gestern den fünften Stop der Eagle Tour gespielt. Der Platz war in hervorragendem Zustand, die Greens schnell. Andreas hat mit 38 Punkten das beste Ergebnis abgeliefert und sich damit an die Spitze der Jahreswertung gespielt. Nach der Runde saßen wir noch lange zusammen.</textarea>
+          <p class="hilfe">
+            Wird beim Tippen automatisch gespeichert. Wenn der Browser
+            zugeht, ist nichts verloren.
+          </p>
+        </div>
+
+        <div class="knopfreihe">
+          <button class="btn btn--primary" type="button" aria-disabled="true">
+            Weiter zur Vorschau
+          </button>
+          <button class="btn btn--ghost" type="button" aria-disabled="true">
+            Als Entwurf sichern
+          </button>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:36px">
+        <span class="note__icon" aria-hidden="true">&#9203;</span>
+        <div>
+          <h2>Was nach dem Absenden passiert</h2>
+          <p>
+            Ein Moderator schaut kurz drüber und gibt den Beitrag frei. Passiert
+            das nicht innerhalb von zwei Tagen, erscheint er von selbst &mdash;
+            damit nichts liegenbleibt, wenn gerade jemand im Urlaub ist.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 760px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .schritte {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    margin: 32px 0 28px;
+    flex-wrap: wrap;
+  }
+  .schritt {
+    flex: 1;
+    min-width: 150px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-weight: 600;
+    color: var(--text3);
+  }
+  .schritt__nr {
+    width: 30px; height: 30px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--border); color: var(--text2);
+    border-radius: 50%; font-size: var(--fs-xs); font-weight: 700;
+  }
+  .schritt--aktiv {
+    background: var(--bg);
+    border-color: var(--green);
+    color: var(--text);
+  }
+  .schritt--aktiv .schritt__nr { background: var(--green); color: #fff; }
+
+  .formular-karte {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .ablage {
+    border: 3px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+    text-align: center;
+    background: var(--bg2);
+  }
+  .ablage__icon { font-size: 2.6rem; display: block; margin-bottom: 10px; }
+  .ablage p { max-width: none; }
+
+  .knopfreihe { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>

@@ -1,0 +1,33 @@
+{
+  "_hinweis": "PLATZHALTERDATEN. Echte Punktestände aus dem PC-Caddie-Export hier eintragen.",
+
+  "eagleTour": {
+    "titel": "Eagle Tour 2026",
+    "erklaerung": "Nach jedem Turnier gibt es Punkte. Die vier besten Ergebnisse jedes Spielers zählen für die Jahreswertung.",
+    "standAm": "2026-09-13",
+    "wertung": [
+      { "platz": 1, "spieler": "T. Richter",  "hcp": "12,4", "turniere": 5, "punkte": 186 },
+      { "platz": 2, "spieler": "M. Schulz",   "hcp": "15,8", "turniere": 5, "punkte": 174 },
+      { "platz": 3, "spieler": "A. Berger",   "hcp": "18,2", "turniere": 4, "punkte": 168 },
+      { "platz": 4, "spieler": "K. Petersen", "hcp": "21,0", "turniere": 5, "punkte": 155 },
+      { "platz": 5, "spieler": "H. Wagner",   "hcp": "24,6", "turniere": 4, "punkte": 149 },
+      { "platz": 6, "spieler": "R. Neumann",  "hcp": "16,3", "turniere": 3, "punkte": 132 }
+    ]
+  },
+
+  "holyMountain": {
+    "titel": "Holy Mountain",
+    "erklaerung": "Wer im Laufe der Saison die meisten Höhenmeter auf dem Platz sammelt, gewinnt den Berg.",
+    "wertung": [
+      { "platz": 1, "spieler": "A. Berger",   "wert": 2840, "einheit": "Höhenmeter" },
+      { "platz": 2, "spieler": "T. Richter",  "wert": 2610, "einheit": "Höhenmeter" },
+      { "platz": 3, "spieler": "H. Wagner",   "wert": 2395, "einheit": "Höhenmeter" }
+    ]
+  },
+
+  "hallOfFame": [
+    { "jahr": 2025, "titel": "Clubmeister", "name": "M. Schulz" },
+    { "jahr": 2024, "titel": "Clubmeister", "name": "T. Richter" },
+    { "jahr": 2023, "titel": "Clubmeister", "name": "A. Berger" }
+  ]
+}

@@ -1,0 +1,311 @@
+---
+import Base from '../layouts/Base.astro';
+import daten from '../data/matchplay.json';
+import { lang } from '../utils/datum.js';
+import { pfad } from '../utils/url.js';
+
+const { titel, standAm, runden } = daten;
+
+// Wer steht noch im Turnier? Aus der letzten Runde mit offener Partie.
+const offeneNamen = runden
+  .flatMap((r) => r.partien)
+  .filter((p) => p.status !== 'gespielt')
+  .flatMap((p) => [p.a, p.b])
+  .filter((n, i, alle) => n && alle.indexOf(n) === i);
+---
+
+<Base
+  titel="Matchplay"
+  beschreibung="Turnierbaum des Matchplay beim Eagle Golfers Dribbdebach e.V. — Paarungen, Ergebnisse und aktueller Stand."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>{titel}</h1>
+      <p class="einleitung">
+        Mann gegen Mann im K.-o.-System. Gewonnen wird Loch für Loch, nicht
+        nach Gesamtschlägen. Wer verliert, scheidet aus.
+      </p>
+      <p class="stand">Stand: {lang(standAm)}</p>
+
+      <p class="draft-note" style="margin-top:24px">
+        <strong>Entwurfsfassung.</strong> Die Namen und Ergebnisse sind
+        Platzhalter.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127941;</span> Turnierbaum
+      </h2>
+
+      <div class="baum">
+        {runden.map((runde) => (
+          <section class="runde" aria-labelledby={`runde-${runde.kuerzel}`}>
+            <h3 class="runde__titel" id={`runde-${runde.kuerzel}`}>{runde.name}</h3>
+
+            <ol class="runde__partien">
+              {runde.partien.map((p) => (
+                <li class={`partie partie--${p.status}`}>
+                  <div class={`spieler ${p.sieger === 'a' ? 'spieler--sieger' : ''}`}>
+                    <span class="spieler__name">{p.a}</span>
+                    {p.sieger === 'a' && (
+                      <span class="spieler__marke">
+                        <span aria-hidden="true">&#10003;</span>
+                        <span class="sr-only">Sieger</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div class="partie__trenner" aria-hidden="true">gegen</div>
+
+                  <div class={`spieler ${p.sieger === 'b' ? 'spieler--sieger' : ''}`}>
+                    <span class="spieler__name">{p.b}</span>
+                    {p.sieger === 'b' && (
+                      <span class="spieler__marke">
+                        <span aria-hidden="true">&#10003;</span>
+                        <span class="sr-only">Sieger</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div class="partie__fuss">
+                    {p.status === 'gespielt' && (
+                      <>
+                        <span class="badge badge--done">
+                          <span aria-hidden="true">&#10003;</span> {p.ergebnis}
+                        </span>
+                        <span class="partie__datum">{lang(p.datum)}</span>
+                      </>
+                    )}
+                    {p.status === 'wartet_freigabe' && (
+                      <>
+                        <span class="badge badge--running">
+                          <span aria-hidden="true">&#9203;</span> Wartet auf Freigabe
+                        </span>
+                        <span class="partie__datum">gespielt am {lang(p.datum)}</span>
+                      </>
+                    )}
+                    {p.status === 'offen' && (
+                      <>
+                        <span class="badge badge--open">
+                          <span aria-hidden="true">&#9679;</span> Termin offen
+                        </span>
+                        {p.hinweis && <span class="partie__datum">{p.hinweis}</span>}
+                      </>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9876;&#65039;</span> Noch im Rennen
+      </h2>
+      <ul class="dabei">
+        {offeneNamen.map((n) => <li>{n}</li>)}
+      </ul>
+      <p class="dabei__hinweis">
+        Diese Spieler bekommen eine E-Mail, sobald ihre nächste Paarung
+        feststeht.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128247;</span> Wie Ergebnisse hier hereinkommen
+      </h2>
+
+      <ol class="ablauf">
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">1</span>
+          <div>
+            <strong>Scorekarte abfotografieren</strong>
+            <p>
+              Direkt nach der Runde, mit dem Handy, im Beisein beider Spieler.
+              Funktioniert auf iPhone und Android ohne App.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">2</span>
+          <div>
+            <strong>Die Auswertung liest die Karte aus</strong>
+            <p>
+              Schläge pro Loch, Vorgabenverteilung nach Stroke Index, daraus
+              der Lochgewinn und das Endergebnis. Unsichere Stellen werden
+              markiert und können vor Ort korrigiert werden.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">3</span>
+          <div>
+            <strong>Beide Spieler bestätigen</strong>
+            <p>
+              Auf demselben Gerät, jeder tippt auf seinen Namen. Ohne beide
+              Bestätigungen geht nichts weiter.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">4</span>
+          <div>
+            <strong>Der Spielführer gibt frei</strong>
+            <p>
+              Erst danach erscheint das Ergebnis hier im Turnierbaum, und erst
+              danach gehen die Benachrichtigungen raus.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/matchplay-erfassen/')}>
+          Ablauf im Detail ansehen
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap schmal">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128220;</span>
+        <div>
+          <h3>Die unterschriebene Karte bleibt maßgeblich</h3>
+          <p>
+            Das Foto ist eine Kopie zur schnelleren Erfassung, nicht der
+            Ersatz für die Scorekarte. Die unterschriebene Karte wird wie
+            bisher beim Spielführer abgegeben. Bei Abweichungen gilt die
+            Karte, nicht der Eintrag auf dieser Seite.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+  .stand { color: var(--text3); font-size: var(--fs-sm); margin-top: 10px; }
+  .schmal { max-width: 760px; }
+
+  /* ── Turnierbaum ────────────────────────────────────────────
+     Am Desktop drei Spalten nebeneinander, auf dem Handy
+     untereinander. Bewusst ohne Verbindungslinien: die brechen
+     beim Umbruch und tragen für Screenreader nichts bei.     */
+  .baum {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+  @media (max-width: 899px) {
+    .baum { grid-template-columns: 1fr; }
+  }
+
+  .runde__titel {
+    font-size: var(--fs-lg);
+    color: var(--blue);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    border-bottom: 3px solid var(--gold-text);
+  }
+  :global(:root[data-theme='dark']) .runde__titel { color: var(--gold-lt); }
+
+  .runde__partien { list-style: none; display: grid; gap: 16px; }
+
+  .partie {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .partie--wartet_freigabe { border-color: var(--blue); }
+  .partie--offen { border-style: dashed; }
+
+  .spieler {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+  .spieler__name { font-size: var(--fs-sm); }
+
+  /* Der Sieger ist doppelt gekennzeichnet: Haken UND fette Schrift.
+     Nur Farbe reicht nach WCAG 1.4.1 nicht aus.                  */
+  .spieler--sieger {
+    background: #e8f3e9;
+    font-weight: 700;
+  }
+  .spieler--sieger .spieler__name { color: #1f5424; }
+  :global(:root[data-theme='dark']) .spieler--sieger { background: #16301a; }
+  :global(:root[data-theme='dark']) .spieler--sieger .spieler__name { color: #9edea3; }
+
+  .spieler__marke {
+    margin-left: auto;
+    color: #2a5c2e;
+    font-weight: 700;
+  }
+  :global(:root[data-theme='dark']) .spieler__marke { color: #9edea3; }
+
+  .partie__trenner {
+    font-size: var(--fs-xs);
+    color: var(--text3);
+    text-align: center;
+    padding: 2px 0;
+  }
+
+  .partie__fuss {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .partie__datum { font-size: var(--fs-xs); color: var(--text3); }
+
+  /* ── Noch im Rennen ─────────────────────────────────────── */
+  .dabei {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .dabei li {
+    background: var(--bg);
+    border: 2px solid var(--gold-text);
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 600;
+  }
+  .dabei__hinweis { margin-top: 18px; color: var(--text3); font-size: var(--fs-sm); }
+
+  /* ── Ablauf ─────────────────────────────────────────────── */
+  .ablauf { list-style: none; display: grid; gap: 20px; max-width: 760px; }
+  .ablauf li { display: flex; gap: 20px; align-items: flex-start; }
+  .ablauf__nr {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%; font-weight: 700; font-size: 1.2rem;
+  }
+  .ablauf strong { display: block; margin-bottom: 4px; }
+  .ablauf p { color: var(--text2); font-size: var(--fs-sm); }
+</style>

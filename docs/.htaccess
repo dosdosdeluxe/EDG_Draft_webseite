@@ -1,0 +1,60 @@
+# ═══════════════════════════════════════════════════════════════
+#  Apache-Konfiguration für Alfahosting
+#  Diese Datei wird beim Build unverändert nach dist/ kopiert.
+# ═══════════════════════════════════════════════════════════════
+
+# ── Immer verschlüsselt ausliefern ────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # www entfernen, damit es nur eine Adresse gibt
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ── Eigene Fehlerseite ────────────────────────────────────────
+ErrorDocument 404 /404.html
+
+# ── Sicherheits-Kopfzeilen ────────────────────────────────────
+<IfModule mod_headers.c>
+  # Verhindert, dass die Seite in fremde Rahmen eingebettet wird
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Browser soll Dateitypen nicht erraten
+  Header always set X-Content-Type-Options "nosniff"
+  # Keine Weitergabe der Herkunftsadresse an fremde Seiten
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Kamera, Mikrofon und Standort werden nicht benötigt
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ── Zwischenspeicherung im Browser ────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Schriften und Bilder ändern sich praktisch nie
+  ExpiresByType font/woff2  "access plus 1 year"
+  ExpiresByType image/png   "access plus 6 months"
+  ExpiresByType image/jpeg  "access plus 6 months"
+  ExpiresByType image/webp  "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+
+  ExpiresByType text/css         "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+  # HTML nur kurz, damit Änderungen schnell sichtbar werden
+  ExpiresByType text/html "access plus 10 minutes"
+</IfModule>
+
+# ── Komprimierung ─────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ── Verzeichnisinhalte nicht auflisten ────────────────────────
+Options -Indexes

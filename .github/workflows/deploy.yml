@@ -1,0 +1,64 @@
+name: Website bauen und veröffentlichen
+
+# Läuft bei jedem Push auf den Hauptzweig.
+# Der Build erzeugt fertiges HTML; auf dem Webserver läuft kein Node.js.
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:      # erlaubt manuelles Auslösen im GitHub-Reiter "Actions"
+
+jobs:
+  bauen-und-hochladen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Quelltext holen
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pakete installieren
+        run: npm ci
+
+      - name: Website bauen
+        run: npm run build
+
+      # Hochladen per SFTP mit lftp. Bewusst ohne fremde Action:
+      # die Zugangsdaten bleiben so in diesem Arbeitsablauf.
+      - name: lftp installieren
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Auf Alfahosting hochladen
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASS: ${{ secrets.SFTP_PASS }}
+          SFTP_PFAD: ${{ secrets.SFTP_PFAD }}
+        run: |
+          lftp -c "
+            set sftp:auto-confirm yes;
+            open -u \"$SFTP_USER\",\"$SFTP_PASS\" sftp://$SFTP_HOST;
+            mirror --reverse --delete --verbose --parallel=4 \
+                   --exclude-glob .git* \
+                   dist/ \"$SFTP_PFAD\";
+          "
+
+# ═══════════════════════════════════════════════════════════════
+#  EINMALIG EINZURICHTEN
+#  ───────────────────────────────────────────────────────────────
+#  Im GitHub-Repository unter
+#     Settings -> Secrets and variables -> Actions -> New secret
+#  diese vier Werte anlegen:
+#
+#     SFTP_HOST   Servername von Alfahosting, z.B. ssh.alfahosting.de
+#     SFTP_USER   SSH-Benutzername aus dem Alfahosting-Kundenmenü
+#     SFTP_PASS   zugehöriges Passwort
+#     SFTP_PFAD   Zielverzeichnis, meist /htdocs oder /html
+#
+#  Die Werte sind danach nicht mehr einsehbar — auch nicht für
+#  Administratoren. Wer sie verliert, legt sie neu an.
+# ═══════════════════════════════════════════════════════════════

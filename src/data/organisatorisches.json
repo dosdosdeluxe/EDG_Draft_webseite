@@ -1,0 +1,240 @@
+{
+  "_hinweis": "Checklisten und Blaupausen für Turniere und Mitgliederversammlung. Reiner Text, keine Mitgliederdaten. WICHTIG: Die Fristen unter 'versammlung.fristen' sind Platzhalter. Verbindlich ist ausschließlich die Satzung des Vereins. Wer hier eine Zahl ändert, muss sie vorher in der Satzung nachlesen.",
+
+  "turnier": {
+    "einleitung": "Drei Phasen, drei Checklisten. Wer ein Turnier ausrichtet, arbeitet sie von oben nach unten ab. Die Listen sind aus der Praxis der Eagle Tour entstanden und dürfen ergänzt werden.",
+
+    "phasen": [
+      {
+        "id": "vorbereitung",
+        "nummer": 1,
+        "titel": "Vorbereitung",
+        "icon": "📋",
+        "kurz": "Von der Platzanfrage bis zur Startliste. Der größte Teil der Arbeit liegt hier.",
+        "bloecke": [
+          {
+            "wann": "Acht bis zwölf Wochen vorher",
+            "punkte": [
+              "Platz anfragen und Startzeiten verbindlich reservieren, möglichst als Block",
+              "Greenfee und Gruppenkondition schriftlich bestätigen lassen",
+              "Spielleitung benennen: eine Person, die am Turniertag entscheidet",
+              "Spielform festlegen (Einzel-Zählspiel, Stableford, Vierer, Scramble) und ob die Runde vorgabenwirksam sein soll",
+              "Termin mit dem Vereinskalender und den Nachbarclubs abgleichen"
+            ]
+          },
+          {
+            "wann": "Sechs Wochen vorher",
+            "punkte": [
+              "Ausschreibung schreiben: Spielform, Wertungsklassen, Zählweise, Startgeld, Meldeschluss, Preise",
+              "Wettspielbedingungen und Platzregeln des Gastgeberplatzes einholen",
+              "Regelung für Gleichstand festlegen (üblich: letzte 9, 6, 3, 1 Löcher)",
+              "Einladung an alle Mitglieder verschicken, mit Meldeschluss im Betreff",
+              "Startgeldkonto und Barzahlung klären, falls vor Ort kassiert wird"
+            ]
+          },
+          {
+            "wann": "Zwei Wochen vorher",
+            "punkte": [
+              "Meldeschluss setzen und Meldeliste einfrieren",
+              "Warteliste führen und Nachrücker anschreiben",
+              "Flights einteilen, gemischt nach Vorgabe und Spielstärke",
+              "Prüfen, wer in diesem Jahr schon miteinander gespielt hat, und Paarungen entsprechend drehen",
+              "Preise besorgen und Budget gegen die Kasse prüfen"
+            ]
+          },
+          {
+            "wann": "Drei Tage vorher",
+            "punkte": [
+              "Startliste an alle Teilnehmer verschicken, mit Treffpunkt und Uhrzeit",
+              "Scorekarten vorbereiten oder im Sekretariat des Platzes bestellen",
+              "Verpflegung und Tisch für die Siegerehrung reservieren",
+              "Wetterlage prüfen und Ausweichregelung festlegen",
+              "Absagen einarbeiten und Flights nachziehen"
+            ]
+          }
+        ],
+        "dateien": [
+          { "name": "Ausschreibung (Vorlage)", "datei": null, "format": "DOCX" },
+          { "name": "Meldeliste (Vorlage)", "datei": null, "format": "XLSX" },
+          { "name": "Checkliste Vorbereitung", "datei": null, "format": "PDF" }
+        ]
+      },
+
+      {
+        "id": "durchfuehrung",
+        "nummer": 2,
+        "titel": "Durchführung",
+        "icon": "⛳",
+        "kurz": "Der Turniertag selbst. Hier zählt, dass jemand zuständig und erreichbar ist.",
+        "bloecke": [
+          {
+            "wann": "Eine Stunde vor dem ersten Abschlag",
+            "punkte": [
+              "Empfang aufbauen, Teilnehmer abhaken, Startgeld kassieren",
+              "Scorekarten ausgeben, Zähler eintragen, Vorgaben prüfen",
+              "Platzregeln und Wettspielbedingungen aushängen oder austeilen",
+              "Kurze Ansprache: Spielform, Zeitplan, wo die Spielleitung erreichbar ist",
+              "Telefonnummer der Spielleitung an alle Flights durchgeben"
+            ]
+          },
+          {
+            "wann": "Während der Runde",
+            "punkte": [
+              "Spieltempo im Blick behalten und bei Bedarf freundlich erinnern",
+              "Regelfragen entscheiden oder auf die Klärung nach der Runde verweisen",
+              "Bei Gewitter oder Unwetter das Spiel unterbrechen, das Signal vorher bekannt geben",
+              "Nachzügler und Absagen dokumentieren"
+            ]
+          },
+          {
+            "wann": "Nach der Runde",
+            "punkte": [
+              "Scorekarten einsammeln, unterschrieben von Spieler und Zähler",
+              "Ergebnisse rechnen, Gleichstände nach der vorher bekannten Regel auflösen",
+              "Ergebnisliste zum Nachlesen aushängen, bevor die Siegerehrung beginnt",
+              "Siegerehrung: Klassen der Reihe nach, Fotos machen, Einwilligung für die Veröffentlichung einholen",
+              "Scorekarten aufbewahren, sie sind der Nachweis"
+            ]
+          }
+        ],
+        "dateien": [
+          { "name": "Startliste (Vorlage)", "datei": null, "format": "PDF" },
+          { "name": "Wettspielbedingungen (Muster)", "datei": null, "format": "PDF" },
+          { "name": "Zählkarte Spielleitung", "datei": null, "format": "PDF" }
+        ]
+      },
+
+      {
+        "id": "nachbereitung",
+        "nummer": 3,
+        "titel": "Nachbereitung",
+        "icon": "📤",
+        "kurz": "Innerhalb einer Woche erledigt, sonst bleibt es liegen. Hier entsteht auch die Grundlage für die Auslosung im nächsten Jahr.",
+        "bloecke": [
+          {
+            "wann": "Innerhalb von zwei Tagen",
+            "punkte": [
+              "Ergebnisliste auf der Website veröffentlichen",
+              "Vorgabenwirksame Runden an den Heimatclub beziehungsweise über das DGV-Intranet melden",
+              "Begegnungen festhalten: wer hat mit wem in einem Flight gespielt, wer gegen wen im Matchplay"
+            ]
+          },
+          {
+            "wann": "Innerhalb einer Woche",
+            "punkte": [
+              "Abrechnung: Startgelder, Greenfee, Verpflegung, Preise, Belege an die Kasse",
+              "Turnierbericht schreiben und Fotos hochladen, nur mit Einwilligung der abgebildeten Personen",
+              "Dank an Platz, Sekretariat und Helfer",
+              "Was hat nicht funktioniert? In zwei Sätzen notieren, das spart im nächsten Jahr Zeit"
+            ]
+          },
+          {
+            "wann": "Zum Saisonabschluss",
+            "punkte": [
+              "Jahreswertung fortschreiben und veröffentlichen",
+              "Termin und Platz für das nächste Jahr vormerken",
+              "Die Checklisten hier oben ergänzen, solange die Erinnerung frisch ist"
+            ]
+          }
+        ],
+        "dateien": [
+          { "name": "Abrechnungsbogen (Vorlage)", "datei": null, "format": "XLSX" },
+          { "name": "Checkliste Nachbereitung", "datei": null, "format": "PDF" }
+        ]
+      }
+    ]
+  },
+
+  "versammlung": {
+    "einleitung": "Die Mitgliederversammlung ist der einzige Ort, an dem der Verein Beschlüsse fasst, die für alle gelten. Formfehler bei Einladung oder Fristen können jeden Beschluss angreifbar machen. Deshalb hier der Ablauf in der Reihenfolge, in der er abzuarbeiten ist.",
+
+    "satzungsvorbehalt": "Alle Fristen in dieser Tabelle sind Platzhalter und müssen mit der Satzung des Eagle Golfers Dribbdebach e.V. abgeglichen werden. Verbindlich ist ausschließlich die Satzung. Das Gesetz schreibt keine allgemeine Einladungsfrist vor, es verweist auf die Satzung (§ 32 BGB).",
+
+    "fristen": [
+      {
+        "frist": "10 Wochen vorher",
+        "wer": "Vorstand",
+        "was": "Termin, Uhrzeit und Raum festlegen. Raum reservieren.",
+        "quelle": "Praxiswert"
+      },
+      {
+        "frist": "8 Wochen vorher",
+        "wer": "Vorstand",
+        "was": "Kassenprüfung beauftragen. Die Prüfer brauchen Zeit vor der Versammlung.",
+        "quelle": "Satzung prüfen"
+      },
+      {
+        "frist": "4 Wochen vorher",
+        "wer": "Vorstand",
+        "was": "Einladung mit vollständiger Tagesordnung verschicken.",
+        "quelle": "Aus der Satzung",
+        "platzhalter": true
+      },
+      {
+        "frist": "2 Wochen vorher",
+        "wer": "Mitglieder",
+        "was": "Anträge zur Tagesordnung schriftlich beim Vorstand einreichen.",
+        "quelle": "Aus der Satzung",
+        "platzhalter": true
+      },
+      {
+        "frist": "1 Woche vorher",
+        "wer": "Vorstand",
+        "was": "Ergänzte Tagesordnung nachreichen, falls Anträge eingegangen sind.",
+        "quelle": "Aus der Satzung",
+        "platzhalter": true
+      },
+      {
+        "frist": "Am Tag der Versammlung",
+        "wer": "Versammlungsleitung",
+        "was": "Anwesenheitsliste führen, Beschlussfähigkeit feststellen, Protokoll führen.",
+        "quelle": "Satzung prüfen"
+      },
+      {
+        "frist": "4 Wochen danach",
+        "wer": "Vorstand",
+        "was": "Protokoll an die Mitglieder. Bei Satzungsänderung oder Vorstandswechsel Anmeldung beim Vereinsregister.",
+        "quelle": "Praxiswert, Registeranmeldung gesetzlich"
+      }
+    ],
+
+    "agenda": [
+      { "punkt": "Begrüßung und Feststellung der Beschlussfähigkeit", "hinweis": "Anwesenheitsliste unterschreiben lassen. Die Beschlussfähigkeit richtet sich nach der Satzung." },
+      { "punkt": "Wahl der Versammlungsleitung und der Protokollführung", "hinweis": "Nur, wenn die Satzung das nicht bereits regelt." },
+      { "punkt": "Feststellung der ordnungsgemäßen Einladung", "hinweis": "Ins Protokoll: Datum und Weg der Einladung. Das ist der häufigste Angriffspunkt." },
+      { "punkt": "Genehmigung des Protokolls der letzten Versammlung", "hinweis": null },
+      { "punkt": "Bericht des Vorstands", "hinweis": "Sportjahr, Mitgliederentwicklung, Vorhaben." },
+      { "punkt": "Kassenbericht", "hinweis": "Einnahmen, Ausgaben, Kassenstand zum Stichtag." },
+      { "punkt": "Bericht der Kassenprüfer", "hinweis": "Die Prüfer beantragen die Entlastung." },
+      { "punkt": "Entlastung des Vorstands", "hinweis": "Abstimmung. Die Betroffenen stimmen über ihre eigene Entlastung nicht mit ab." },
+      { "punkt": "Wahlen", "hinweis": "Nur wenn Amtszeiten auslaufen. Jedes Amt einzeln, die Wahlannahme protokollieren." },
+      { "punkt": "Beiträge und Haushalt", "hinweis": "Eine Beitragsänderung muss in der Einladung als Gegenstand benannt sein." },
+      { "punkt": "Anträge der Mitglieder", "hinweis": "Nur die fristgerecht eingegangenen und in der Tagesordnung benannten Anträge." },
+      { "punkt": "Termine und Spielplan der kommenden Saison", "hinweis": null },
+      { "punkt": "Verschiedenes", "hinweis": "Aussprache ja, Beschlüsse nein. Unter diesem Punkt kann nicht wirksam beschlossen werden." }
+    ],
+
+    "einladung": {
+      "betreff": "Einladung zur Mitgliederversammlung am [Datum]",
+      "text": "Liebe Mitglieder,\n\nhiermit lade ich Sie im Namen des Vorstands zur ordentlichen Mitgliederversammlung des Eagle Golfers Dribbdebach e.V. ein.\n\nTermin:   [Wochentag], [Datum], [Uhrzeit]\nOrt:      [Name des Raums], [Straße], [PLZ] Frankfurt am Main\nEinlass:  ab [Uhrzeit]\n\nTagesordnung\n\n 1. Begrüßung und Feststellung der Beschlussfähigkeit\n 2. Feststellung der ordnungsgemäßen Einladung\n 3. Genehmigung des Protokolls vom [Datum der letzten Versammlung]\n 4. Bericht des Vorstands\n 5. Kassenbericht\n 6. Bericht der Kassenprüfer\n 7. Entlastung des Vorstands\n 8. [Wahlen zum Vorstand: Amt, Amt, Amt]\n 9. [Beschluss über die Anpassung des Mitgliedsbeitrags auf … Euro]\n10. Anträge der Mitglieder\n11. Termine der Saison [Jahr]\n12. Verschiedenes\n\nAnträge zur Tagesordnung bitte bis zum [Datum] schriftlich an [E-Mail-Adresse]. Später eingehende Anträge können unter Punkt 12 besprochen, aber nicht beschlossen werden.\n\nBitte geben Sie uns bis zum [Datum] eine kurze Rückmeldung, ob Sie teilnehmen. Das hilft bei der Planung des Raums.\n\nMit sportlichen Grüßen\n\n[Name]\n[Amt], Eagle Golfers Dribbdebach e.V."
+    },
+
+    "rechtshinweise": [
+      "Jeder Gegenstand, über den beschlossen werden soll, muss bereits in der Einladung benannt sein. Fehlt er, ist der Beschluss angreifbar (§ 32 Absatz 1 BGB). Deshalb gehört eine geplante Beitragsanpassung in die Tagesordnung und nicht unter Verschiedenes.",
+      "Einladungsfrist und Einladungsweg ergeben sich aus der Satzung. Eine Einladung per E-Mail ist nur wirksam, wenn die Satzung sie zulässt. Steht dort Schriftform, reicht eine E-Mail nicht.",
+      "Eine Satzungsänderung braucht nach dem Gesetz drei Viertel der abgegebenen Stimmen, eine Änderung des Vereinszwecks die Zustimmung aller Mitglieder (§ 33 BGB). Die Satzung kann strengere Mehrheiten vorsehen.",
+      "Satzungsänderungen und jeder Wechsel im Vorstand sind beim Vereinsregister anzumelden. Die Anmeldung muss öffentlich beglaubigt werden (§ 77 BGB), praktisch also über einen Notar.",
+      "Verlangt der in der Satzung bestimmte Teil der Mitglieder schriftlich und unter Angabe des Zwecks eine Versammlung, muss der Vorstand einberufen. Fehlt eine Regelung in der Satzung, gilt ein Zehntel der Mitglieder (§ 37 BGB).",
+      "Das Protokoll hält fest: Ort, Zeit, Zahl der Anwesenden, Feststellung der ordnungsgemäßen Einladung, jeden Antrag im Wortlaut und das Stimmenergebnis. Es ist der einzige Nachweis, wenn später jemand fragt.",
+      "Anwesenheitslisten und Protokolle enthalten personenbezogene Daten. Sie gehören in den Mitgliederbereich hinter die Anmeldung, nicht auf die öffentliche Website."
+    ],
+
+    "dateien": [
+      { "name": "Einladung (Vorlage)", "datei": null, "format": "DOCX" },
+      { "name": "Tagesordnung (Vorlage)", "datei": null, "format": "DOCX" },
+      { "name": "Protokoll (Vorlage)", "datei": null, "format": "DOCX" },
+      { "name": "Anwesenheitsliste (Vorlage)", "datei": null, "format": "PDF" },
+      { "name": "Satzung des Vereins", "datei": null, "format": "PDF" }
+    ]
+  }
+}

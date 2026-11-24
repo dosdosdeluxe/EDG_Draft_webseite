@@ -1,0 +1,38 @@
+{
+  "_hinweis": "Die Wettbewerbsformate des Vereins. Texte hier anpassen.",
+
+  "wettbewerbe": [
+    {
+      "kuerzel": "eagle-tour",
+      "icon": "🦅",
+      "name": "Eagle Tour",
+      "kurz": "Die Jahreswertung über sechs Turniere",
+      "text": "Über die Saison verteilt spielen wir sechs Turniere auf wechselnden Plätzen der Rhein-Main-Region. Nach jedem Turnier gibt es Punkte nach Platzierung. Für die Jahreswertung zählen die vier besten Ergebnisse jedes Spielers, damit niemand benachteiligt ist, der einmal verhindert war.",
+      "teilnahme": "Alle Mitglieder mit gültiger Stammvorgabe."
+    },
+    {
+      "kuerzel": "matchplay",
+      "icon": "⚔️",
+      "name": "Matchplay",
+      "kurz": "Mann gegen Mann im K.-o.-System",
+      "text": "Im Matchplay treten jeweils zwei Spieler direkt gegeneinander an. Gewonnen wird Loch für Loch, nicht nach Gesamtschlägen. Die Paarungen werden ausgelost, die Termine vereinbaren die Spieler untereinander. Wer verliert, scheidet aus.",
+      "teilnahme": "Anmeldung zu Saisonbeginn, begrenzte Teilnehmerzahl."
+    },
+    {
+      "kuerzel": "clubmeisterschaft",
+      "icon": "🏆",
+      "name": "Clubmeisterschaft",
+      "kurz": "Der wichtigste Titel der Saison",
+      "text": "Einmal im Jahr wird der Clubmeister ausgespielt, im Zählspiel über 18 Loch ohne Vorgabe. Der Titel gilt bis zur nächsten Saison und wird in der Hall of Fame festgehalten.",
+      "teilnahme": "Qualifikation über die Eagle Tour."
+    },
+    {
+      "kuerzel": "holy-mountain",
+      "icon": "⛰️",
+      "name": "Holy Mountain",
+      "kurz": "Die Nebenwertung mit Augenzwinkern",
+      "text": "Eine Wertung für alle, die über die Saison die meisten Höhenmeter auf dem Platz zurücklegen. Gezählt wird, was die Uhr anzeigt. Gewonnen wird nicht mit dem besten Schlag, sondern mit Ausdauer.",
+      "teilnahme": "Offen für alle, Teilnahme freiwillig."
+    }
+  ]
+}

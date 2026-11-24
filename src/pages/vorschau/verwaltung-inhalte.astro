@@ -1,0 +1,391 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+const beitraege = [
+  { titel: 'Unser Ausflug nach Kronberg', autor: 'H. Wagner',   datum: '26.09.2026', medien: 4, status: 'wartet' },
+  { titel: 'Ergebnisse vom Seniorenturnier', autor: 'K. Petersen', datum: '25.09.2026', medien: 0, status: 'wartet' },
+  { titel: 'Eagle Tour Stop 5 in Bad Homburg', autor: 'A. Berger', datum: '14.09.2026', medien: 7, status: 'online' },
+  { titel: 'Neuer Platzrekord beim Sommerturnier', autor: 'T. Richter', datum: '02.08.2026', medien: 3, status: 'online' },
+  { titel: 'Rückblick auf die Clubmeisterschaft', autor: 'M. Schulz', datum: '18.07.2026', medien: 12, status: 'online' },
+  { titel: 'Gedanken zur neuen Saison', autor: 'A. Berger',     datum: '—',          medien: 0, status: 'entwurf' },
+];
+
+const medien = [
+  { art: 'bild',  name: 'kronberg-abschlag.jpg',  groesse: '1,2 MB',  von: 'H. Wagner',   alt: true,  verwendet: 1 },
+  { art: 'bild',  name: 'kronberg-gruppe.jpg',    groesse: '0,9 MB',  von: 'H. Wagner',   alt: false, verwendet: 1 },
+  { art: 'video', name: 'siegerehrung.mp4',       groesse: '48 MB',   von: 'M. Schulz',   alt: true,  verwendet: 1, dauer: '1:24', zustand: 'fertig' },
+  { art: 'bild',  name: 'bad-homburg-green.jpg',  groesse: '1,5 MB',  von: 'A. Berger',   alt: true,  verwendet: 2 },
+  { art: 'video', name: 'abschlag-zeitlupe.mp4',  groesse: '112 MB',  von: 'T. Richter',  alt: false, verwendet: 0, dauer: '0:38', zustand: 'wird umgewandelt' },
+  { art: 'bild',  name: 'clubhaus-abend.jpg',     groesse: '2,1 MB',  von: 'K. Petersen', alt: true,  verwendet: 0 },
+];
+
+const wartend  = beitraege.filter((b) => b.status === 'wartet').length;
+const online   = beitraege.filter((b) => b.status === 'online').length;
+const ohneAlt  = medien.filter((m) => !m.alt).length;
+
+// Belegter Speicher in Prozent des Tarifs (75 GB bei Alfahosting Multi L)
+const belegtGB = 8.4;
+const tarifGB  = 75;
+const belegt   = Math.round((belegtGB / tarifGB) * 100);
+---
+
+<Base titel="Inhalte verwalten (Vorschau)">
+  <VorschauHinweis phase="3" was="So soll die Inhaltsverwaltung im Backend aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Inhalte verwalten</h1>
+      <p class="einleitung">
+        Alle Beiträge und Mediendateien an einer Stelle. Wer schreiben darf,
+        schreibt selbst &mdash; wer freigeben darf, sieht hier, was ansteht.
+      </p>
+
+      <ul class="kennzahlen">
+        <li><span class="kennzahlen__wert">{wartend}</span><span class="kennzahlen__label">warten auf Freigabe</span></li>
+        <li><span class="kennzahlen__wert">{online}</span><span class="kennzahlen__label">veröffentlicht</span></li>
+        <li><span class="kennzahlen__wert">{medien.length}</span><span class="kennzahlen__label">Mediendateien</span></li>
+        <li><span class="kennzahlen__wert">{ohneAlt}</span><span class="kennzahlen__label">ohne Bildbeschreibung</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ BEITRÄGE ════════════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128221;</span> Beiträge
+      </h2>
+
+      <div class="werkzeuge">
+        <div class="feld feld--breit">
+          <label for="b-suche">Suchen</label>
+          <input type="text" id="b-suche" placeholder="Titel oder Verfasser" readonly />
+        </div>
+        <div class="feld">
+          <label for="b-status">Status</label>
+          <select id="b-status" disabled>
+            <option>Alle</option><option>Wartet auf Freigabe</option>
+            <option>Veröffentlicht</option><option>Entwurf</option>
+          </select>
+        </div>
+        <div class="feld">
+          <label for="b-autor">Verfasser</label>
+          <select id="b-autor" disabled>
+            <option>Alle</option><option>A. Berger</option><option>H. Wagner</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Liste der Beiträge, seitlich scrollbar">
+        <table>
+          <caption>{beitraege.length} Beiträge</caption>
+          <thead>
+            <tr>
+              <th scope="col">Titel</th>
+              <th scope="col">Verfasser</th>
+              <th scope="col">Datum</th>
+              <th scope="col">Medien</th>
+              <th scope="col">Status</th>
+              <th scope="col">Aktion</th>
+            </tr>
+          </thead>
+          <tbody>
+            {beitraege.map((b) => (
+              <tr>
+                <td><strong>{b.titel}</strong></td>
+                <td>{b.autor}</td>
+                <td class="zahl">{b.datum}</td>
+                <td class="zahl">{b.medien || '—'}</td>
+                <td>
+                  {b.status === 'online' && (
+                    <span class="badge badge--done"><span aria-hidden="true">&#10003;</span> Online</span>
+                  )}
+                  {b.status === 'wartet' && (
+                    <span class="badge badge--open"><span aria-hidden="true">&#9203;</span> Wartet</span>
+                  )}
+                  {b.status === 'entwurf' && (
+                    <span class="badge badge--running"><span aria-hidden="true">&#9679;</span> Entwurf</span>
+                  )}
+                </td>
+                <td>
+                  <button class="klein" type="button" aria-disabled="true">
+                    {b.status === 'wartet' ? 'Freigeben' : 'Bearbeiten'}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MEDIEN ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128193;</span> Medienbibliothek
+      </h2>
+
+      <div class="ablage">
+        <span class="ablage__icon" aria-hidden="true">&#11015;&#65039;</span>
+        <p><strong>Bilder oder Videos hier ablegen</strong></p>
+        <p class="hilfe">
+          Bilder bis 25 MB, Videos bis 500 MB und 10 Minuten.
+          Beim Hochladen werden Bilder verkleinert und Standortdaten entfernt.
+        </p>
+      </div>
+
+      {ohneAlt > 0 && (
+        <p class="warnung">
+          <span aria-hidden="true">&#9888;&#65039;</span>
+          <span>
+            <strong>{ohneAlt} Dateien haben noch keine Bildbeschreibung.</strong>
+            Ohne sie können blinde Besucher nicht erfahren, was zu sehen ist.
+            Ein Vorschlag wird automatisch erzeugt, muss aber bestätigt werden.
+          </span>
+        </p>
+      )}
+
+      <ul class="medien">
+        {medien.map((m) => (
+          <li class={`medium ${m.zustand === 'wird umgewandelt' ? 'medium--arbeit' : ''}`}>
+            <div class={`medium__bild medium__bild--${m.art}`} aria-hidden="true">
+              <span>{m.art === 'video' ? '\u{1F3AC}' : '\u{1F5BC}️'}</span>
+              {m.dauer && <span class="medium__dauer">{m.dauer}</span>}
+            </div>
+
+            <div class="medium__daten">
+              <p class="medium__name">{m.name}</p>
+              <p class="medium__meta">{m.groesse} &middot; von {m.von}</p>
+
+              <ul class="medium__marken">
+                {m.alt ? (
+                  <li class="marke marke--ok">
+                    <span aria-hidden="true">&#10003;</span> Beschreibung vorhanden
+                  </li>
+                ) : (
+                  <li class="marke marke--warn">
+                    <span aria-hidden="true">&#9888;&#65039;</span> Beschreibung fehlt
+                  </li>
+                )}
+                {m.zustand === 'wird umgewandelt' && (
+                  <li class="marke marke--arbeit">
+                    <span aria-hidden="true">&#9203;</span> wird umgewandelt
+                  </li>
+                )}
+                <li class="marke marke--neutral">
+                  {m.verwendet === 0
+                    ? 'nirgends verwendet'
+                    : `in ${m.verwendet} Beitrag${m.verwendet > 1 ? 'en' : ''}`}
+                </li>
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ SPEICHER ════════════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128202;</span> Speicherplatz
+      </h2>
+
+      <div class="speicher">
+        <p class="speicher__zahl">
+          <strong>{belegtGB.toString().replace('.', ',')} GB</strong> von {tarifGB} GB belegt
+          <span class="speicher__prozent">({belegt} Prozent)</span>
+        </p>
+        <div class="balken" role="img"
+             aria-label={`Speicherplatz: ${belegt} Prozent von ${tarifGB} Gigabyte belegt`}>
+          <div class="balken__gefuellt" style={`width:${belegt}%`}></div>
+        </div>
+        <ul class="speicher__teile">
+          <li><span>Videos</span><strong>6,1 GB</strong></li>
+          <li><span>Bilder</span><strong>2,0 GB</strong></li>
+          <li><span>Sonstiges</span><strong>0,3 GB</strong></li>
+        </ul>
+      </div>
+
+      <div class="note" style="margin-top:32px">
+        <span class="note__icon" aria-hidden="true">&#127909;</span>
+        <div>
+          <h3>Videos sind der teure Teil &mdash; und die offene Frage</h3>
+          <p>
+            Ein dreiminütiges Handyvideo ist roh 300 bis 500 MB groß. Zwei
+            Dutzend davon pro Saison füllen den Tarif schneller, als einem
+            lieb ist. Dazu kommt das Umwandeln: Das braucht Rechenzeit, die
+            ein Webhoster nicht bereitstellt.
+          </p>
+          <p>
+            <strong>Drei Wege stehen zur Wahl.</strong> Selbst speichern und
+            umwandeln ist technisch der aufwendigste. Videos unangetastet
+            ausliefern spart Aufwand, lädt aber auf dem Handy im Mobilfunk
+            zäh. Oder ihr stellt Videos unlisted bei YouTube oder Vimeo ein
+            und bindet sie nur ein &mdash; dann trägt jemand anderes Speicher
+            und Rechenzeit, dafür fließen Daten der Besucher dorthin ab, was
+            in der Datenschutzerklärung stehen muss.
+          </p>
+          <p>
+            Diese Entscheidung gehört vor die Programmierung, nicht danach.
+            Sie ändert, was gebaut werden muss.
+          </p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:20px">
+        <span class="note__icon" aria-hidden="true">&#128465;&#65039;</span>
+        <div>
+          <h4>Löschen prüft die Verwendung</h4>
+          <p>
+            Eine Datei, die noch in einem Beitrag steckt, lässt sich nicht
+            versehentlich löschen &mdash; die Liste zeigt bei jeder Datei, wo
+            sie verwendet wird. Was nirgends eingebunden ist, kann weg.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/beitrag/')}>
+          So schreiben Mitglieder einen Beitrag
+        </a>
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>Zur Übersicht</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 820px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+
+  .kennzahlen {
+    list-style: none; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+    gap: 16px; margin-top: 32px;
+  }
+  .kennzahlen li {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+  }
+  .kennzahlen__wert {
+    display: block; font-size: 2.2rem; font-weight: 700;
+    color: var(--gold-text); line-height: 1.1;
+  }
+  .kennzahlen__label { font-size: var(--fs-sm); color: var(--text3); }
+
+  .werkzeuge {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px; margin-bottom: 24px;
+  }
+  @media (max-width: 720px) { .werkzeuge { grid-template-columns: 1fr; } }
+  .werkzeuge .feld { margin-bottom: 0; }
+
+  .zahl { font-variant-numeric: tabular-nums; }
+
+  .klein {
+    min-height: var(--touch);
+    padding: 8px 16px;
+    font-family: var(--font); font-size: var(--fs-xs); font-weight: 600;
+    background: transparent; color: var(--blue);
+    border: 2px solid var(--blue); border-radius: 8px;
+    cursor: pointer; white-space: nowrap;
+  }
+  :global(:root[data-theme='dark']) .klein { color: var(--gold-lt); border-color: var(--gold-lt); }
+
+  /* ── Upload ──────────────────────────────────────────── */
+  .ablage {
+    border: 3px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--bg2);
+    padding: 40px 24px; text-align: center;
+    margin-bottom: 24px;
+  }
+  .ablage__icon { font-size: 2.6rem; display: block; margin-bottom: 10px; }
+  .ablage p { max-width: none; }
+
+  .warnung {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #fdf4dd; border: 2px solid #8A6D25;
+    border-radius: var(--radius); padding: 18px 22px;
+    margin-bottom: 24px; color: #4a3a0c; max-width: none;
+  }
+  :global(:root[data-theme='dark']) .warnung { background: #2e2710; color: #f0dca0; }
+
+  /* ── Medienraster ────────────────────────────────────── */
+  .medien {
+    list-style: none; display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  }
+  .medium {
+    display: flex; gap: 16px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+  }
+  .medium--arbeit { border-color: var(--blue); }
+
+  .medium__bild {
+    position: relative;
+    width: 84px; height: 84px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--bg3); border-radius: 10px;
+    font-size: 1.9rem;
+  }
+  .medium__dauer {
+    position: absolute; right: 4px; bottom: 4px;
+    background: rgba(0,0,0,.75); color: #fff;
+    font-size: 11px; font-weight: 600;
+    padding: 2px 6px; border-radius: 4px;
+  }
+
+  .medium__name {
+    font-weight: 600; font-size: var(--fs-sm);
+    word-break: break-all; margin-bottom: 2px;
+  }
+  .medium__meta { font-size: var(--fs-xs); color: var(--text3); margin-bottom: 10px; }
+
+  .medium__marken { list-style: none; display: grid; gap: 5px; }
+  .marke {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: var(--fs-xs); font-weight: 600;
+  }
+  .marke--ok      { color: #1f5424; }
+  .marke--warn    { color: #6b5310; }
+  .marke--arbeit  { color: #123a63; }
+  .marke--neutral { color: var(--text3); font-weight: 500; }
+  :global(:root[data-theme='dark']) .marke--ok     { color: #9edea3; }
+  :global(:root[data-theme='dark']) .marke--warn   { color: #F5C518; }
+  :global(:root[data-theme='dark']) .marke--arbeit { color: #9cc2ea; }
+
+  /* ── Speicheranzeige ─────────────────────────────────── */
+  .speicher {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 28px;
+  }
+  .speicher__zahl { font-size: var(--fs-lg); margin-bottom: 14px; max-width: none; }
+  .speicher__zahl strong { color: var(--gold-text); }
+  .speicher__prozent { color: var(--text3); font-size: var(--fs-sm); }
+
+  /* Der Balken ist Beiwerk — die Zahl darüber trägt die Aussage,
+     damit die Angabe auch ohne Farbwahrnehmung ankommt.          */
+  .balken {
+    height: 16px; background: var(--bg3);
+    border-radius: 999px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .balken__gefuellt { height: 100%; background: var(--blue); }
+
+  .speicher__teile { list-style: none; display: grid; gap: 8px; margin-top: 20px; }
+  .speicher__teile li {
+    display: flex; justify-content: space-between; gap: 16px;
+    font-size: var(--fs-sm);
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .speicher__teile span { color: var(--text3); }
+  .speicher__teile strong { font-variant-numeric: tabular-nums; }
+</style>

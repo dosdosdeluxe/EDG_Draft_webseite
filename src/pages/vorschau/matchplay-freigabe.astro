@@ -1,0 +1,376 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+const warteschlange = [
+  {
+    runde: 'Halbfinale',
+    a: 'A. Berger', b: 'S. Hoffmann',
+    ergebnis: 'A. Berger gewinnt 5&4',
+    eingereicht: 'vor 20 Minuten',
+    bestaetigtA: true, bestaetigtB: true,
+    sicherheit: 'hoch',
+    hinweis: null,
+  },
+  {
+    runde: 'Viertelfinale Trostrunde',
+    a: 'R. Neumann', b: 'F. Lorenz',
+    ergebnis: 'R. Neumann gewinnt 2&1',
+    eingereicht: 'vor 3 Stunden',
+    bestaetigtA: true, bestaetigtB: false,
+    sicherheit: 'mittel',
+    hinweis: 'F. Lorenz hat widersprochen: Loch 12 sei geteilt gewesen, nicht an Neumann.',
+  },
+];
+---
+
+<Base titel="Ergebnisse freigeben (Vorschau)">
+  <VorschauHinweis phase="3" was="So soll die Freigabe durch den Spielführer aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Ergebnisse freigeben</h1>
+      <p class="einleitung">
+        Kein Matchplay-Ergebnis erscheint im Turnierbaum, bevor der
+        Spielführer es freigegeben hat.
+      </p>
+
+      <ul class="kennzahlen">
+        <li><span class="kennzahlen__wert">2</span><span class="kennzahlen__label">warten auf Freigabe</span></li>
+        <li><span class="kennzahlen__wert">1</span><span class="kennzahlen__label">davon mit Widerspruch</span></li>
+        <li><span class="kennzahlen__wert">7</span><span class="kennzahlen__label">diese Saison freigegeben</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9203;</span> Warteschlange
+      </h2>
+
+      <div class="liste">
+        {warteschlange.map((e) => (
+          <article class={`eintrag ${e.hinweis ? 'eintrag--strittig' : ''}`}>
+            <div class="eintrag__kopf">
+              <div>
+                <p class="eintrag__runde">{e.runde}</p>
+                <h3>{e.a} gegen {e.b}</h3>
+                <p class="eintrag__zeit">eingereicht {e.eingereicht}</p>
+              </div>
+              {e.hinweis ? (
+                <span class="badge badge--open">
+                  <span aria-hidden="true">&#9888;&#65039;</span> Widerspruch
+                </span>
+              ) : (
+                <span class="badge badge--done">
+                  <span aria-hidden="true">&#10003;</span> Beide bestätigt
+                </span>
+              )}
+            </div>
+
+            <div class="eintrag__koerper">
+              <div class="foto" aria-hidden="true">
+                <span>&#128247;</span>
+                <p>Foto der Scorekarte</p>
+              </div>
+
+              <div class="eintrag__daten">
+                <p class="eintrag__ergebnis">{e.ergebnis}</p>
+
+                <dl class="pruefliste">
+                  <div>
+                    <dt>Lesesicherheit</dt>
+                    <dd>{e.sicherheit === 'hoch' ? 'hoch, keine unsicheren Stellen' : 'mittel, zwei Stellen korrigiert'}</dd>
+                  </div>
+                  <div>
+                    <dt>{e.a}</dt>
+                    <dd>{e.bestaetigtA ? '✓ bestätigt' : '✗ nicht bestätigt'}</dd>
+                  </div>
+                  <div>
+                    <dt>{e.b}</dt>
+                    <dd>{e.bestaetigtB ? '✓ bestätigt' : '✗ nicht bestätigt'}</dd>
+                  </div>
+                </dl>
+
+                {e.hinweis && (
+                  <p class="widerspruch">
+                    <strong>Widerspruch:</strong> {e.hinweis}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div class="eintrag__knoepfe">
+              {e.hinweis ? (
+                <>
+                  <button class="btn btn--primary" type="button" aria-disabled="true">
+                    Karte ansehen und entscheiden
+                  </button>
+                  <button class="btn btn--ghost" type="button" aria-disabled="true">
+                    Beide Spieler anrufen
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button class="btn btn--primary" type="button" aria-disabled="true">
+                    <span aria-hidden="true">&#10003;</span> Freigeben
+                  </button>
+                  <button class="btn btn--ghost" type="button" aria-disabled="true">
+                    Zurückweisen
+                  </button>
+                </>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9993;&#65039;</span> Was die Freigabe auslöst
+      </h2>
+
+      <ol class="folgen">
+        <li>
+          <span class="folgen__nr" aria-hidden="true">1</span>
+          <div>
+            <strong>Der Turnierbaum wird aktualisiert</strong>
+            <p>Das Ergebnis erscheint öffentlich, der Sieger rückt in die nächste Runde.</p>
+          </div>
+        </li>
+        <li>
+          <span class="folgen__nr" aria-hidden="true">2</span>
+          <div>
+            <strong>Der Sieger bekommt eine E-Mail</strong>
+            <p>Mit der nächsten Paarung und dem Hinweis, den Termin zu vereinbaren.</p>
+          </div>
+        </li>
+        <li>
+          <span class="folgen__nr" aria-hidden="true">3</span>
+          <div>
+            <strong>Der nächste Gegner wird informiert</strong>
+            <p>Damit beide wissen, wer auf wen trifft, und sich abstimmen können.</p>
+          </div>
+        </li>
+        <li>
+          <span class="folgen__nr" aria-hidden="true">4</span>
+          <div>
+            <strong>Der Unterlegene bekommt eine kurze Nachricht</strong>
+            <p>Sachlich, mit dem Ergebnis und dem Dank fürs Mitspielen.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h3 class="zwischen">So sieht die E-Mail aus</h3>
+
+      <div class="mail">
+        <div class="mail__kopf">
+          <p><span>Von</span> Eagle Golfers Dribbdebach e.V.</p>
+          <p><span>An</span> A. Berger</p>
+          <p><span>Betreff</span> Sie stehen im Finale des Matchplay 2026</p>
+        </div>
+        <div class="mail__text">
+          <p>Hallo Andreas,</p>
+          <p>
+            Ihr Halbfinale gegen S. Hoffmann ist freigegeben: Sie haben
+            <strong>5&amp;4</strong> gewonnen. Damit stehen Sie im Finale.
+          </p>
+          <p>
+            <strong>Ihr Gegner im Finale:</strong> T. Richter<br />
+            Bitte vereinbaren Sie den Termin direkt untereinander und geben
+            Sie ihn dem Spielführer durch.
+          </p>
+          <p>Viel Erfolg.</p>
+          <p class="mail__fuss">
+            Diese Nachricht ging an alle Spieler, die noch im Turnier sind.
+            Abmelden können Sie sich unten in jeder E-Mail.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#9201;&#65039;</span>
+        <div>
+          <h4>Damit die Freigabe nicht zum Nadelöhr wird</h4>
+          <p>
+            Liegen beide Bestätigungen vor und gab es keine unsichere
+            Stelle, erscheint das Ergebnis nach 24 Stunden von selbst &mdash;
+            der Spielführer wird vorher per Nachricht erinnert. Strittige
+            Fälle laufen nie automatisch durch, die bleiben liegen, bis
+            jemand entscheidet.
+          </p>
+          <p>
+            Ohne diese Regel steht das Turnier still, sobald der Spielführer
+            im Urlaub ist. Genau daran scheitern solche Abläufe in der Praxis.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>Zurück zur Übersicht</a>
+        <a class="btn btn--ghost" href={pfad('/matchplay/')}>Zum Turnierbaum</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 780px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+
+  .kennzahlen {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .kennzahlen li {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .kennzahlen__wert {
+    display: block; font-size: 2.2rem; font-weight: 700;
+    color: var(--gold-text); line-height: 1.1;
+  }
+  .kennzahlen__label { font-size: var(--fs-sm); color: var(--text3); }
+
+  .liste { display: grid; gap: 20px; }
+
+  .eintrag {
+    min-width: 0;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    box-shadow: var(--shadow);
+  }
+  .eintrag--strittig { border-color: #8A6D25; }
+
+  .eintrag__kopf {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    justify-content: space-between; align-items: flex-start;
+    margin-bottom: 22px;
+  }
+  .eintrag__runde {
+    font-size: var(--fs-xs); font-weight: 700;
+    color: var(--gold-text);
+    text-transform: uppercase; letter-spacing: .07em;
+  }
+  .eintrag__kopf h3 { color: var(--blue); margin: 4px 0; }
+  :global(:root[data-theme='dark']) .eintrag__kopf h3 { color: var(--gold-lt); }
+  .eintrag__zeit { font-size: var(--fs-xs); color: var(--text3); }
+
+  .eintrag__koerper {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 620px) {
+    .eintrag__koerper { grid-template-columns: 1fr; }
+  }
+
+  .foto {
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 28px 12px;
+    text-align: center;
+    opacity: .65;
+  }
+  .foto span { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+  .foto p { font-size: var(--fs-xs); max-width: none; }
+
+  .eintrag__ergebnis {
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .pruefliste { display: grid; gap: 8px; }
+  .pruefliste > div {
+    display: flex; justify-content: space-between; gap: 16px;
+    font-size: var(--fs-sm);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pruefliste dt { color: var(--text3); }
+  .pruefliste dd { font-weight: 600; text-align: right; }
+
+  .widerspruch {
+    margin-top: 16px;
+    background: #fdf4dd;
+    border-left: 4px solid #8A6D25;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-size: var(--fs-sm);
+    color: #4a3a0c;
+    max-width: none;
+  }
+  :global(:root[data-theme='dark']) .widerspruch { background: #2e2710; color: #f0dca0; }
+
+  .eintrag__knoepfe {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 24px; padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Folgen der Freigabe ────────────────────────────── */
+  .folgen { list-style: none; display: grid; gap: 18px; }
+  .folgen li { display: flex; gap: 20px; align-items: flex-start; }
+  .folgen__nr {
+    width: 40px; height: 40px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--green); color: #fff;
+    border-radius: 50%; font-weight: 700;
+  }
+  .folgen strong { display: block; margin-bottom: 3px; }
+  .folgen p { color: var(--text2); font-size: var(--fs-sm); }
+
+  .zwischen { margin-top: 48px; margin-bottom: 18px; }
+
+  /* ── E-Mail-Vorschau ────────────────────────────────── */
+  .mail {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .mail__kopf {
+    background: var(--bg2);
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mail__kopf p {
+    display: flex; gap: 14px;
+    font-size: var(--fs-sm);
+    max-width: none;
+    margin: 0;
+  }
+  .mail__kopf p + p { margin-top: 6px; }
+  .mail__kopf span {
+    width: 74px; flex-shrink: 0;
+    color: var(--text3); font-weight: 600;
+  }
+  .mail__text { padding: 24px; }
+  .mail__text p + p { margin-top: 14px; }
+  .mail__fuss {
+    margin-top: 22px !important;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: var(--fs-xs);
+    color: var(--text3);
+  }
+</style>

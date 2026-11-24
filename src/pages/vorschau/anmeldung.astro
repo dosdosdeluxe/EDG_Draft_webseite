@@ -1,0 +1,116 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+---
+
+<Base titel="Anmeldung (Vorschau)">
+  <VorschauHinweis phase="2" was="So soll die Anmeldung aussehen." />
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h1>Mitglieder-Anmeldung</h1>
+      <p class="einleitung">
+        Sie brauchen kein Passwort. Geben Sie Ihre E-Mail-Adresse ein, wir
+        schicken Ihnen einen Link zum Anmelden.
+      </p>
+
+      <div class="formular-karte">
+        <div class="feld">
+          <label for="mail">Ihre E-Mail-Adresse</label>
+          <input
+            type="email"
+            id="mail"
+            value="vorname.name@beispiel.de"
+            readonly
+            aria-describedby="mail-hilfe"
+          />
+          <p class="hilfe" id="mail-hilfe">
+            Die Adresse, die dem Verein vorliegt. Wenn Sie nicht sicher sind,
+            welche das ist, fragen Sie beim Vorstand nach.
+          </p>
+        </div>
+
+        <button class="btn btn--primary breit" type="button" aria-disabled="true">
+          Anmeldelink anfordern
+        </button>
+      </div>
+
+      <h2 class="zwischen">Wie es danach weitergeht</h2>
+
+      <ol class="ablauf">
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">1</span>
+          <div>
+            <strong>Sie bekommen eine E-Mail</strong>
+            <p>Meist innerhalb einer Minute. Falls nicht, schauen Sie bitte im
+            Spam-Ordner nach.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">2</span>
+          <div>
+            <strong>Sie tippen auf den Link in der E-Mail</strong>
+            <p>Damit sind Sie angemeldet. In der E-Mail steht zusätzlich ein
+            sechsstelliger Zahlencode, falls der Link nicht funktioniert.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ablauf__nr" aria-hidden="true">3</span>
+          <div>
+            <strong>Sie bleiben angemeldet</strong>
+            <p>Drei Monate lang, auf diesem Gerät. Sie müssen das also nur
+            selten wiederholen.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="note" style="margin-top:36px">
+        <span class="note__icon" aria-hidden="true">&#128161;</span>
+        <div>
+          <h3>Warum kein Passwort?</h3>
+          <p>
+            Weil fast alle Rückfragen bei Vereinsseiten vergessene Passwörter
+            betreffen. Was es nicht gibt, kann man nicht vergessen &mdash; und
+            es kann auch nicht gestohlen werden.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 720px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .formular-karte {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-top: 32px;
+  }
+  .breit { width: 100%; }
+
+  .zwischen { margin-top: 52px; margin-bottom: 24px; color: var(--blue); }
+  :global(:root[data-theme='dark']) .zwischen { color: var(--gold-lt); }
+
+  .ablauf { list-style: none; display: grid; gap: 18px; }
+  .ablauf li { display: flex; gap: 20px; align-items: flex-start; }
+  .ablauf__nr {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%; font-weight: 700; font-size: 1.2rem;
+  }
+  .ablauf strong { display: block; margin-bottom: 4px; }
+  .ablauf p { color: var(--text2); font-size: var(--fs-sm); }
+</style>

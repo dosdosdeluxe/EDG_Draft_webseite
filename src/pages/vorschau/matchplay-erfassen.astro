@@ -1,0 +1,401 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+// Durchgerechnetes Beispiel: A. Berger (Vorgabe 18,2) gegen
+// S. Hoffmann (Vorgabe 24,6). Differenz gerundet 6, also bekommt
+// Hoffmann auf den sechs schwersten Löchern (Stroke Index 1 bis 6)
+// je einen Schlag. Nach 14 Löchern steht Berger fünf Löcher vorn,
+// vier Löcher verbleiben — das Spiel endet 5&4.
+const loecher = [
+  { nr: 1,  si: 5,  a: 5, b: 6, vorgabe: true,  gewinner: 'geteilt', unsicher: false },
+  { nr: 2,  si: 11, a: 4, b: 6, vorgabe: false, gewinner: 'a',       unsicher: false },
+  { nr: 3,  si: 1,  a: 5, b: 7, vorgabe: true,  gewinner: 'a',       unsicher: false },
+  { nr: 4,  si: 15, a: 4, b: 5, vorgabe: false, gewinner: 'a',       unsicher: false },
+  { nr: 5,  si: 3,  a: 6, b: 6, vorgabe: true,  gewinner: 'b',       unsicher: false },
+  { nr: 6,  si: 9,  a: 4, b: 4, vorgabe: false, gewinner: 'geteilt', unsicher: false },
+  { nr: 7,  si: 17, a: 3, b: 4, vorgabe: false, gewinner: 'a',       unsicher: true  },
+  { nr: 8,  si: 7,  a: 5, b: 5, vorgabe: false, gewinner: 'geteilt', unsicher: false },
+  { nr: 9,  si: 13, a: 4, b: 6, vorgabe: false, gewinner: 'a',       unsicher: false },
+  { nr: 10, si: 2,  a: 5, b: 6, vorgabe: true,  gewinner: 'geteilt', unsicher: false },
+  { nr: 11, si: 12, a: 5, b: 4, vorgabe: false, gewinner: 'b',       unsicher: false },
+  { nr: 12, si: 6,  a: 4, b: 6, vorgabe: true,  gewinner: 'a',       unsicher: false },
+  { nr: 13, si: 16, a: 4, b: 4, vorgabe: false, gewinner: 'geteilt', unsicher: true  },
+  { nr: 14, si: 4,  a: 4, b: 6, vorgabe: true,  gewinner: 'a',       unsicher: false },
+];
+
+const gewonnenA = loecher.filter((l) => l.gewinner === 'a').length;
+const gewonnenB = loecher.filter((l) => l.gewinner === 'b').length;
+const geteilt   = loecher.filter((l) => l.gewinner === 'geteilt').length;
+const vorsprung = gewonnenA - gewonnenB;
+const verbleibend = 18 - loecher.length;
+const unsichere = loecher.filter((l) => l.unsicher).length;
+---
+
+<Base titel="Scorekarte erfassen (Vorschau)">
+  <VorschauHinweis phase="3" was="So soll die Ergebniserfassung im Matchplay aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Scorekarte erfassen</h1>
+      <p class="einleitung">
+        Direkt nach der Runde, auf dem Platz, im Beisein beider Spieler.
+        Vier Schritte, keine App, kein Rechner.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ SCHRITT 1 ═══════════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="schritt-titel">
+        <span class="schritt-nr" aria-hidden="true">1</span>
+        Karte fotografieren
+      </h2>
+
+      <div class="karte">
+        <p class="partie-kopf">
+          <strong>Halbfinale</strong> &middot; A. Berger gegen S. Hoffmann
+        </p>
+
+        <div class="kamera">
+          <span class="kamera__icon" aria-hidden="true">&#128247;</span>
+          <p><strong>Kamera öffnen</strong></p>
+          <p class="hilfe">
+            Karte flach hinlegen, alle 18 Zeilen im Bild, möglichst
+            ohne Schatten.
+          </p>
+        </div>
+
+        <p class="geraete">
+          <span aria-hidden="true">&#128241;</span>
+          Funktioniert auf iPhone und Android direkt im Browser &mdash;
+          die Kamera öffnet sich beim Antippen. Es muss nichts installiert
+          werden.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCHRITT 2 ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="schritt-titel">
+        <span class="schritt-nr" aria-hidden="true">2</span>
+        Auslesen und nachrechnen
+      </h2>
+
+      <p class="abschnitt-text">
+        Aus dem Foto werden die Schläge je Loch gelesen. Anschließend wird
+        die Vorgabendifferenz auf die Löcher verteilt und daraus Loch für
+        Loch der Gewinner bestimmt. <strong>Das Rechnen ist die eigentliche
+        Arbeit</strong> &mdash; Ziffern erkennen kann jeder Scanner.
+      </p>
+
+      <div class="vorgabe-hinweis">
+        <strong>Vorgabenverteilung dieser Partie:</strong>
+        A. Berger 18,2 &middot; S. Hoffmann 24,6 &middot; Differenz gerundet
+        <strong>6 Schläge</strong> für Hoffmann, vergeben auf den Löchern mit
+        Stroke Index 1 bis 6.
+      </div>
+
+      {unsichere > 0 && (
+        <p class="warnung">
+          <span aria-hidden="true">&#9888;&#65039;</span>
+          <span>
+            <strong>{unsichere} Stellen sind unsicher gelesen.</strong>
+            Sie sind unten markiert. Bitte mit der Karte vergleichen und
+            antippen, falls etwas nicht stimmt.
+          </span>
+        </p>
+      )}
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der gelesenen Schläge, seitlich scrollbar">
+        <table class="karte-tabelle">
+          <caption>
+            Gelesene Schläge und daraus abgeleiteter Lochgewinn
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Loch</th>
+              <th scope="col">SI</th>
+              <th scope="col">Berger</th>
+              <th scope="col">Hoffmann</th>
+              <th scope="col">Vorgabe</th>
+              <th scope="col">Loch geht an</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loecher.map((l) => (
+              <tr class={l.unsicher ? 'unsicher' : ''}>
+                <td class="nr">{l.nr}</td>
+                <td>{l.si}</td>
+                <td>{l.a}</td>
+                <td>
+                  {l.b}
+                  {l.unsicher && (
+                    <span class="marke-unsicher" title="unsicher gelesen">
+                      <span aria-hidden="true">&#9888;&#65039;</span>
+                      <span class="sr-only">unsicher gelesen, bitte prüfen</span>
+                    </span>
+                  )}
+                </td>
+                <td>{l.vorgabe ? '−1 Hoffmann' : '—'}</td>
+                <td>
+                  {l.gewinner === 'a' && <span class="gewinn gewinn--a">Berger</span>}
+                  {l.gewinner === 'b' && <span class="gewinn gewinn--b">Hoffmann</span>}
+                  {l.gewinner === 'geteilt' && <span class="gewinn gewinn--geteilt">geteilt</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rechnung">
+        <h3>Daraus ergibt sich</h3>
+        <ul>
+          <li><span>Löcher an Berger</span><strong>{gewonnenA}</strong></li>
+          <li><span>Löcher an Hoffmann</span><strong>{gewonnenB}</strong></li>
+          <li><span>geteilt</span><strong>{geteilt}</strong></li>
+          <li class="rechnung__summe">
+            <span>Vorsprung Berger nach {loecher.length} Löchern</span>
+            <strong>{vorsprung}</strong>
+          </li>
+          <li class="rechnung__summe">
+            <span>verbleibende Löcher</span><strong>{verbleibend}</strong>
+          </li>
+        </ul>
+        <p class="ergebnis">
+          Der Vorsprung ist größer als die Zahl der verbleibenden Löcher &mdash;
+          das Spiel ist entschieden.
+          <strong>A. Berger gewinnt {vorsprung}&amp;{verbleibend}.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCHRITT 3 ═══════════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="schritt-titel">
+        <span class="schritt-nr" aria-hidden="true">3</span>
+        Beide Spieler bestätigen
+      </h2>
+
+      <p class="abschnitt-text">
+        Auf demselben Gerät, direkt nacheinander. Jeder tippt auf seinen
+        eigenen Namen. Ohne beide Bestätigungen wird nichts weitergegeben.
+      </p>
+
+      <div class="karte">
+        <p class="ergebnis-gross">A. Berger gewinnt 5&amp;4</p>
+
+        <div class="bestaetigung">
+          <button class="btn btn--primary breit" type="button" aria-disabled="true">
+            <span aria-hidden="true">&#10003;</span>
+            Ich bin A. Berger &mdash; stimmt so
+          </button>
+          <button class="btn btn--primary breit" type="button" aria-disabled="true">
+            <span aria-hidden="true">&#10003;</span>
+            Ich bin S. Hoffmann &mdash; stimmt so
+          </button>
+          <button class="btn btn--ghost breit" type="button" aria-disabled="true">
+            Etwas stimmt nicht &mdash; korrigieren
+          </button>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:28px">
+        <span class="note__icon" aria-hidden="true">&#9878;&#65039;</span>
+        <div>
+          <h3>Bei Uneinigkeit passiert nichts</h3>
+          <p>
+            Widerspricht einer der beiden, wird nichts eingetragen. Der Fall
+            geht mit beiden Angaben an den Spielführer, der entscheidet.
+            So kann kein Ergebnis gegen den Willen eines Spielers im
+            Turnierbaum landen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SCHRITT 4 ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap schmal">
+      <h2 class="schritt-titel">
+        <span class="schritt-nr" aria-hidden="true">4</span>
+        Weiter an den Spielführer
+      </h2>
+
+      <p class="abschnitt-text">
+        Das Ergebnis liegt jetzt zur Freigabe bereit. Bis der Spielführer
+        bestätigt, steht im Turnierbaum „wartet auf Freigabe“ &mdash; für
+        alle sichtbar, damit niemand rätselt.
+      </p>
+
+      <div class="status-karte">
+        <span class="status-karte__icon" aria-hidden="true">&#9203;</span>
+        <div>
+          <strong>An den Spielführer übergeben</strong>
+          <p>
+            Beide Bestätigungen liegen vor. Sie bekommen eine Nachricht,
+            sobald freigegeben ist.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/matchplay-freigabe/')}>
+          Weiter zur Freigabe-Ansicht
+        </a>
+        <a class="btn btn--ghost" href={pfad('/matchplay/')}>
+          Zum Turnierbaum
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 780px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+  .abschnitt-text { max-width: 70ch; margin-bottom: 24px; }
+
+  .schritt-titel {
+    display: flex; align-items: center; gap: 16px;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+  :global(:root[data-theme='dark']) .schritt-titel { color: var(--gold-lt); }
+  .schritt-nr {
+    width: 48px; height: 48px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%; font-size: 1.3rem; font-weight: 700;
+  }
+
+  .karte {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .partie-kopf { color: var(--text2); margin-bottom: 20px; }
+
+  .kamera {
+    border: 3px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--bg2);
+    padding: 44px 24px;
+    text-align: center;
+  }
+  .kamera__icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .kamera p { max-width: none; }
+
+  .geraete {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-top: 20px;
+    font-size: var(--fs-sm);
+    color: var(--text2);
+  }
+
+  .vorgabe-hinweis {
+    background: var(--bg2);
+    border-left: 5px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: var(--fs-sm);
+  }
+
+  .warnung {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #fdf4dd;
+    border: 2px solid #8A6D25;
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    color: #4a3a0c;
+    max-width: none;
+  }
+  :global(:root[data-theme='dark']) .warnung { background: #2e2710; color: #f0dca0; }
+
+  /* ── Scorekarten-Tabelle ─────────────────────────────── */
+  .karte-tabelle { min-width: 620px; }
+  .karte-tabelle .nr { font-weight: 700; }
+  .karte-tabelle tr.unsicher { background: #fdf4dd; }
+  :global(:root[data-theme='dark']) .karte-tabelle tr.unsicher { background: #2e2710; }
+
+  .marke-unsicher { margin-left: 8px; }
+
+  .gewinn {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    border: 2px solid;
+  }
+  .gewinn--a       { background: #e8f3e9; color: #1f5424; border-color: #2a5c2e; }
+  .gewinn--b       { background: #e4edf7; color: #123a63; border-color: #1a3a5c; }
+  .gewinn--geteilt { background: var(--bg3); color: var(--text2); border-color: var(--border); }
+
+  /* ── Rechnung ────────────────────────────────────────── */
+  .rechnung {
+    margin-top: 28px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    max-width: 560px;
+  }
+  .rechnung h3 { margin-bottom: 16px; font-size: var(--fs-lg); }
+  .rechnung ul { list-style: none; display: grid; gap: 10px; }
+  .rechnung li {
+    display: flex; justify-content: space-between; gap: 20px;
+    font-size: var(--fs-sm);
+  }
+  .rechnung li strong { font-variant-numeric: tabular-nums; }
+  .rechnung__summe {
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .ergebnis {
+    margin-top: 20px; padding-top: 18px;
+    border-top: 3px solid var(--gold-text);
+    max-width: none;
+  }
+
+  .ergebnis-gross {
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+    font-weight: 700;
+    color: var(--blue);
+    text-align: center;
+    padding: 20px;
+    background: var(--bg2);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    max-width: none;
+  }
+  :global(:root[data-theme='dark']) .ergebnis-gross { color: var(--gold-lt); }
+
+  .bestaetigung { display: grid; gap: 12px; }
+  .breit { width: 100%; }
+
+  .status-karte {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: var(--bg);
+    border: 2px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+  }
+  .status-karte__icon { font-size: 2rem; flex-shrink: 0; }
+  .status-karte strong { display: block; margin-bottom: 6px; }
+  .status-karte p { color: var(--text2); font-size: var(--fs-sm); }
+</style>

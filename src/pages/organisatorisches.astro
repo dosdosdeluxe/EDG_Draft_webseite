@@ -1,0 +1,467 @@
+---
+import Base from '../layouts/Base.astro';
+import daten from '../data/organisatorisches.json';
+import { pfad } from '../utils/url.js';
+
+const { turnier, versammlung } = daten;
+---
+
+<Base
+  titel="Organisatorisches"
+  beschreibung="Checklisten für Turniervorbereitung, Durchführung und Nachbereitung sowie die Blaupause für die Mitgliederversammlung des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Organisatorisches</h1>
+      <p class="einleitung">
+        Alles, was hinter den Turnieren und hinter dem Vereinsjahr steckt:
+        Checklisten zum Abarbeiten, Fristen zum Einhalten und Vorlagen zum
+        Herunterladen. Damit niemand jedes Jahr von vorn anfangen muss.
+      </p>
+
+      <nav class="sprungmarken" aria-label="Abschnitte dieser Seite">
+        <ul>
+          {turnier.phasen.map((p) => (
+            <li>
+              <a href={`#${p.id}`}>
+                <span aria-hidden="true">{p.icon}</span> {p.titel}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="#versammlung">
+              <span aria-hidden="true">&#127963;&#65039;</span> Mitgliederversammlung
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127948;</span> Ein Turnier ausrichten
+      </h2>
+      <p class="abschnitt-text">{turnier.einleitung}</p>
+    </div>
+  </section>
+
+  {turnier.phasen.map((phase, i) => (
+    <section class={`section ${i % 2 === 1 ? 'section--grey' : ''}`} id={phase.id}>
+      <div class="wrap">
+        <div class="phase-kopf">
+          <p class="phase-nr">Phase {phase.nummer} von 3</p>
+          <h2>
+            <span aria-hidden="true">{phase.icon}</span> {phase.titel}
+          </h2>
+          <p class="phase-kurz">{phase.kurz}</p>
+        </div>
+
+        <div class="bloecke">
+          {phase.bloecke.map((b) => (
+            <article class="block">
+              <h3>{b.wann}</h3>
+              <ul class="check">
+                {b.punkte.map((p) => <li>{p}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="unterlagen">
+          <h3 class="unterlagen__titel">
+            <span aria-hidden="true">&#128206;</span> Unterlagen zu dieser Phase
+          </h3>
+          <ul class="datei-liste">
+            {phase.dateien.map((d) => (
+              <li>
+                {d.datei ? (
+                  <a href={pfad(d.datei)}>
+                    {d.name} <span class="datei-format">{d.format}</span>
+                  </a>
+                ) : (
+                  <span class="datei-leer">
+                    {d.name} <span class="datei-format">{d.format}</span>
+                    <em>noch nicht hinterlegt</em>
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" id="versammlung">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127963;&#65039;</span> Die Mitgliederversammlung
+      </h2>
+      <p class="abschnitt-text">{versammlung.einleitung}</p>
+
+      <p class="draft-note">
+        <strong>Fristen prüfen.</strong> {versammlung.satzungsvorbehalt}
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h3 class="unter-titel">
+        <span aria-hidden="true">&#9202;</span> Der Fristenplan
+      </h3>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Fristenplan der Mitgliederversammlung, seitlich scrollbar">
+        <table>
+          <caption>
+            Rückwärts gerechnet vom Versammlungstag. Die mit
+            &#8222;Aus der Satzung&#8220; gekennzeichneten Zeilen sind
+            Platzhalter und müssen ersetzt werden.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Wann</th>
+              <th scope="col">Wer</th>
+              <th scope="col">Was</th>
+              <th scope="col">Grundlage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {versammlung.fristen.map((f) => (
+              <tr>
+                <th scope="row" class="frist-zelle">{f.frist}</th>
+                <td>{f.wer}</td>
+                <td class="was-zelle">{f.was}</td>
+                <td>
+                  {f.platzhalter ? (
+                    <span class="badge badge--open">
+                      <span aria-hidden="true">&#9888;&#65039;</span> {f.quelle}
+                    </span>
+                  ) : (
+                    <span class="quelle-text">{f.quelle}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h3 class="unter-titel">
+        <span aria-hidden="true">&#128203;</span> Die Tagesordnung
+      </h3>
+      <p class="abschnitt-text">
+        Diese Reihenfolge hat sich eingespielt: erst prüfen, ob die
+        Versammlung überhaupt beschließen darf, dann berichten, dann
+        abstimmen. Punkte, die nicht anstehen, fallen weg.
+      </p>
+
+      <ol class="agenda">
+        {versammlung.agenda.map((a) => (
+          <li>
+            <span class="agenda__punkt">{a.punkt}</span>
+            {a.hinweis && <span class="agenda__hinweis">{a.hinweis}</span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h3 class="unter-titel">
+        <span aria-hidden="true">&#9993;&#65039;</span> Die Einladung
+      </h3>
+      <p class="abschnitt-text">
+        Zum Kopieren und Ausfüllen. Alles in eckigen Klammern wird ersetzt.
+        Die Tagesordnung gehört vollständig in die Einladung &mdash; nur
+        was dort benannt ist, darf später beschlossen werden.
+      </p>
+
+      <div class="muster">
+        <p class="muster__betreff">
+          <span class="muster__label">Betreff</span>
+          {versammlung.einladung.betreff}
+        </p>
+        <pre class="muster__text">{versammlung.einladung.text}</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h3 class="unter-titel">
+        <span aria-hidden="true">&#9878;&#65039;</span> Worauf es rechtlich ankommt
+      </h3>
+      <p class="abschnitt-text">
+        Sieben Punkte, an denen Vereinsbeschlüsse in der Praxis scheitern.
+        Das ist eine Zusammenstellung zur Orientierung und keine
+        Rechtsberatung &mdash; im Zweifel fragt der Vorstand einen
+        Fachanwalt für Vereinsrecht.
+      </p>
+
+      <ul class="recht-liste">
+        {versammlung.rechtshinweise.map((r) => <li>{r}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <div class="unterlagen">
+        <h3 class="unterlagen__titel">
+          <span aria-hidden="true">&#128206;</span> Unterlagen zur Versammlung
+        </h3>
+        <ul class="datei-liste">
+          {versammlung.dateien.map((d) => (
+            <li>
+              {d.datei ? (
+                <a href={pfad(d.datei)}>
+                  {d.name} <span class="datei-format">{d.format}</span>
+                </a>
+              ) : (
+                <span class="datei-leer">
+                  {d.name} <span class="datei-format">{d.format}</span>
+                  <em>noch nicht hinterlegt</em>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128274;</span>
+        <div>
+          <h4>Was hier öffentlich steht und was nicht</h4>
+          <p>
+            Öffentlich bleiben die Checklisten, der Fristenplan und die
+            Vorlagen: Sie enthalten keine Namen und helfen jedem, der einmal
+            ein Turnier ausrichtet.
+          </p>
+          <p>
+            Nicht öffentlich werden Einladungen mit Verteiler,
+            Anwesenheitslisten, Protokolle und die Meldelisten einzelner
+            Turniere. Die gehören hinter die Anmeldung in den
+            Mitgliederbereich &mdash; nachzusehen unter
+            <a href={pfad('/vorschau/')}>Vorschau kommender Funktionen</a>.
+            Sollte der Vorstand auch die Checklisten intern halten wollen,
+            lässt sich diese Seite mit einem Schritt dorthin verschieben.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:28px">
+        <a class="btn btn--ghost" href={pfad('/termine/')}>Zu den Terminen</a>
+        <a class="btn btn--ghost" href={pfad('/club/')}>Zum Club</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+  .abschnitt-text { max-width: 72ch; margin-bottom: 24px; }
+  .unter-titel { color: var(--blue); margin-bottom: 14px; }
+  :global(:root[data-theme='dark']) .unter-titel { color: var(--gold-lt); }
+
+  /* ── Sprungmarken ─────────────────────────────────────────── */
+  .sprungmarken { margin-top: 32px; }
+  .sprungmarken ul {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 12px;
+  }
+  .sprungmarken a {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: var(--touch);
+    padding: 10px 20px;
+    background: var(--bg2);
+    border: 2px solid var(--border);
+    border-radius: 999px;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .sprungmarken a:hover { border-color: var(--gold-text); }
+
+  /* ── Phasenkopf ───────────────────────────────────────────── */
+  .phase-kopf { margin-bottom: 28px; }
+  .phase-nr {
+    font-size: var(--fs-xs); font-weight: 700; color: var(--gold-text);
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px;
+  }
+  .phase-kurz { color: var(--text2); max-width: 70ch; margin-top: 10px; }
+
+  /* ── Checklisten ──────────────────────────────────────────── */
+  .bloecke {
+    display: grid; gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  }
+  .block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--blue);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 22px 26px;
+    box-shadow: var(--shadow);
+  }
+  .block h3 {
+    font-size: var(--fs-lg);
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+  :global(:root[data-theme='dark']) .block h3 { color: var(--gold-lt); }
+
+  /* Die Kästchen sind reine Verzierung: leeres content, damit
+     Screenreader sie nicht vorlesen. */
+  .check { list-style: none; display: grid; gap: 12px; }
+  .check li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: var(--fs-sm);
+    color: var(--text2);
+    /* Lange Komposita wie "Wettspielbedingungen" passen auf 320px nicht
+       neben das Kaestchen und muessen getrennt werden. */
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+  .check li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    margin-top: 3px;
+    border: 2px solid var(--gold-text);
+    border-radius: 4px;
+  }
+
+  /* ── Unterlagen ───────────────────────────────────────────── */
+  .unterlagen {
+    margin-top: 30px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+  }
+  .section--grey .unterlagen { background: var(--bg); }
+  .unterlagen__titel { font-size: var(--fs-lg); margin-bottom: 14px; }
+
+  .datei-liste { list-style: none; display: grid; gap: 10px; }
+  .datei-liste li { font-size: var(--fs-sm); }
+  .datei-liste a,
+  .datei-leer {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    min-height: var(--touch);
+  }
+  .datei-leer { color: var(--text3); }
+  .datei-format {
+    font-size: var(--fs-xs); font-weight: 700;
+    padding: 3px 9px; border-radius: 6px;
+    border: 2px solid var(--border);
+    color: var(--text3);
+  }
+  .datei-leer em { font-style: italic; }
+
+  /* ── Fristentabelle ───────────────────────────────────────── */
+  .frist-zelle { white-space: nowrap; }
+  .was-zelle { font-variant-numeric: normal; min-width: 260px; }
+  .quelle-text { color: var(--text3); font-size: var(--fs-xs); }
+  table th[scope='row'] {
+    background: var(--bg2);
+    color: var(--text);
+    position: static;
+  }
+  :global(:root[data-theme='dark']) table th[scope='row'] { color: var(--text); }
+
+  /* ── Tagesordnung ─────────────────────────────────────────── */
+  .agenda {
+    counter-reset: tagesordnung;
+    list-style: none;
+    display: grid; gap: 14px;
+    max-width: 860px;
+  }
+  .agenda li {
+    counter-increment: tagesordnung;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 4px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .agenda li::before {
+    content: counter(tagesordnung) '.';
+    grid-row: span 2;
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    color: var(--gold-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .agenda__punkt { font-weight: 600; }
+  .agenda__hinweis { font-size: var(--fs-xs); color: var(--text3); }
+  /* Ohne min-width: 0 bestimmt das laengste Wort die Breite der Zeile,
+     und die Karte ragt auf schmalen Telefonen ueber den Rand. */
+  .agenda li { min-width: 0; }
+  .agenda__punkt, .agenda__hinweis {
+    min-width: 0; hyphens: auto; overflow-wrap: anywhere;
+  }
+
+  /* ── Einladungsmuster ─────────────────────────────────────── */
+  .muster {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    max-width: 860px;
+  }
+  .muster__betreff {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    max-width: none;
+  }
+  .muster__label {
+    font-size: var(--fs-xs); font-weight: 700; color: var(--text3);
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .muster__text {
+    margin: 0;
+    padding: 24px;
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: var(--fs-xs);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    color: var(--text);
+  }
+
+  /* ── Rechtshinweise ───────────────────────────────────────── */
+  .recht-liste {
+    list-style: none;
+    display: grid; gap: 16px;
+    max-width: 860px;
+  }
+  .recht-liste li {
+    background: var(--bg2);
+    border-left: 5px solid var(--gold-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 22px;
+    font-size: var(--fs-sm);
+    color: var(--text2);
+  }
+  .section--grey .recht-liste li { background: var(--bg); }
+
+  @media (max-width: 560px) {
+    .agenda li { grid-template-columns: 34px 1fr; }
+  }
+</style>

@@ -1,0 +1,229 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+const wartend = [
+  {
+    autor: 'H. Wagner', wann: 'vor 2 Stunden',
+    titel: 'Unser Ausflug nach Kronberg',
+    anriss: 'Am Samstag waren wir mit acht Spielern in Kronberg unterwegs. Der Platz hat uns allen sehr gut gefallen…',
+    fotos: 4,
+  },
+  {
+    autor: 'K. Petersen', wann: 'gestern',
+    titel: 'Ergebnisse vom Seniorenturnier',
+    anriss: 'Die Wertung des Seniorenturniers steht fest. Gewonnen hat wie im Vorjahr…',
+    fotos: 0,
+  },
+];
+
+const kennzahlen = [
+  { wert: '2',  label: 'Beiträge warten' },
+  { wert: '47', label: 'Mitglieder' },
+  { wert: '39', label: 'haben sich angemeldet' },
+  { wert: '3',  label: 'Termine offen' },
+];
+---
+
+<Base titel="Verwaltung (Vorschau)">
+  <VorschauHinweis phase="3" was="So soll die Ansicht für Moderatoren und Vorstand aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Verwaltung</h1>
+      <p class="einleitung">
+        Was Moderatoren und Vorstandsmitglieder sehen. Für normale Mitglieder
+        ist dieser Bereich nicht erreichbar.
+      </p>
+
+      <ul class="kennzahlen">
+        {kennzahlen.map((k) => (
+          <li>
+            <span class="kennzahlen__wert">{k.wert}</span>
+            <span class="kennzahlen__label">{k.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9203;</span> Beiträge zur Freigabe
+      </h2>
+
+      <div class="warteliste">
+        {wartend.map((b) => (
+          <article class="wartend">
+            <div class="wartend__kopf">
+              <div>
+                <h3>{b.titel}</h3>
+                <p class="wartend__meta">
+                  von {b.autor} &middot; {b.wann}
+                  {b.fotos > 0 && <> &middot; {b.fotos} Fotos</>}
+                </p>
+              </div>
+              <span class="badge badge--open">
+                <span aria-hidden="true">&#9203;</span> Wartet
+              </span>
+            </div>
+            <p class="wartend__anriss">{b.anriss}</p>
+            <div class="wartend__knoepfe">
+              <button class="btn btn--primary" type="button" aria-disabled="true">
+                Freigeben
+              </button>
+              <button class="btn btn--ghost" type="button" aria-disabled="true">
+                Ansehen und bearbeiten
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="note" style="margin-top:28px">
+        <span class="note__icon" aria-hidden="true">&#128337;</span>
+        <div>
+          <h4>Automatische Freigabe nach zwei Tagen</h4>
+          <p>
+            Beiträge, die 48 Stunden liegenbleiben, erscheinen von selbst.
+            So bleibt die Seite lebendig, auch wenn gerade niemand Zeit hat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128233;</span> Nachricht an Mitglieder
+      </h2>
+
+      <div class="formular-karte">
+        <div class="feld">
+          <label for="empfaenger">Wer soll sie bekommen?</label>
+          <select id="empfaenger" disabled>
+            <option>Alle Mitglieder (47)</option>
+            <option>Teilnehmer Eagle Tour Stop 6 (18)</option>
+            <option>Nur Vorstand (5)</option>
+            <option>Einzelne auswählen…</option>
+          </select>
+        </div>
+
+        <div class="feld">
+          <label for="betreff">Betreff</label>
+          <input
+            type="text"
+            id="betreff"
+            value="Startzeiten für Stop 6 stehen fest"
+            readonly
+          />
+        </div>
+
+        <div class="feld">
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" readonly>Liebe Golffreunde,
+
+die Startzeiten für den letzten Stop der Eagle Tour am 11. Oktober stehen fest. Die erste Gruppe geht um 9:00 Uhr auf die Runde.
+
+Bitte seid eine halbe Stunde vorher da.</textarea>
+        </div>
+
+        <fieldset class="wege">
+          <legend>Auf welchem Weg?</legend>
+          <label><input type="checkbox" checked disabled /> Per E-Mail</label>
+          <label><input type="checkbox" checked disabled /> Als Mitteilung auf dem Handy</label>
+        </fieldset>
+
+        <p class="hinweis-versand">
+          Es werden nur Mitglieder erreicht, die dieser Art von Nachricht
+          zugestimmt haben. Wer abgemeldet ist, bekommt nichts &mdash; darum
+          müssen Sie sich nicht kümmern.
+        </p>
+
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Nachricht verschicken
+        </button>
+      </div>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 760px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+
+  .kennzahlen {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .kennzahlen li {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .kennzahlen__wert {
+    display: block;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--gold-text); line-height: 1.1;
+  }
+  .kennzahlen__label { font-size: var(--fs-sm); color: var(--text3); }
+
+  .warteliste { display: grid; gap: 18px; }
+  .wartend {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--gold-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 24px 26px;
+  }
+  .wartend__kopf {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    align-items: flex-start; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .wartend__kopf h3 { color: var(--blue); }
+  :global(:root[data-theme='dark']) .wartend__kopf h3 { color: var(--gold-lt); }
+  .wartend__meta   { font-size: var(--fs-sm); color: var(--text3); margin-top: 4px; }
+  .wartend__anriss { color: var(--text2); margin-bottom: 18px; }
+  .wartend__knoepfe { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .formular-karte {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .wege { border: 0; margin-bottom: 20px; }
+  .wege legend { font-weight: 600; font-size: var(--fs-sm); margin-bottom: 10px; }
+  .wege label {
+    display: flex; align-items: center; gap: 12px;
+    min-height: var(--touch);
+  }
+  .wege input { width: 26px; height: 26px; accent-color: var(--green); }
+
+  .hinweis-versand {
+    background: var(--bg2);
+    border-left: 4px solid var(--blue);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    font-size: var(--fs-sm);
+    color: var(--text2);
+    margin-bottom: 24px;
+  }
+</style>

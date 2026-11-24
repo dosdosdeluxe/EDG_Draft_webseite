@@ -1,0 +1,3 @@
+# Entwurfsfassung. Platzhalterdaten — gehoert nicht in die Suche.
+User-agent: *
+Disallow: /

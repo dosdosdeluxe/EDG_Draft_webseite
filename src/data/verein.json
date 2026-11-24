@@ -1,0 +1,28 @@
+{
+  "_hinweis": "Stammdaten des Vereins. Diese Datei mit echten Werten füllen. Die Felder unter 'impressum' sind rechtlich vorgeschrieben (Paragraf 5 DDG).",
+
+  "name": "Eagle Golfers Dribbdebach e.V.",
+  "kurzname": "EGD",
+  "gegruendet": 2010,
+  "ort": "Frankfurt am Main",
+  "motto": "Golf mit Leidenschaft, ohne Standesdünkel",
+
+  "zahlen": [
+    { "wert": "47",  "label": "Mitglieder" },
+    { "wert": "6",   "label": "Eagle Tour Stops" },
+    { "wert": "16",  "label": "Jahre aktiv" },
+    { "wert": "2026", "label": "Saison" }
+  ],
+
+  "impressum": {
+    "_status": "PLATZHALTER — vor dem Start durch echte Daten ersetzen",
+    "vereinsname": "Eagle Golfers Dribbdebach e.V.",
+    "strasse": "[Straße und Hausnummer eintragen]",
+    "plz_ort": "[PLZ] Frankfurt am Main",
+    "vertreten_durch": "[Name des 1. Vorsitzenden]",
+    "registergericht": "Amtsgericht Frankfurt am Main",
+    "registernummer": "[VR-Nummer eintragen]",
+    "email": "[E-Mail-Adresse eintragen]",
+    "telefon": "[optional]"
+  }
+}

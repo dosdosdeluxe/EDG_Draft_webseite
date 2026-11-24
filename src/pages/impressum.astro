@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import verein from '../data/verein.json';
+
+const i = verein.impressum;
+---
+
+<Base
+  titel="Impressum"
+  beschreibung="Impressum und Anbieterkennzeichnung des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Impressum</h1>
+
+      <p class="draft-note" style="margin-top:24px">
+        <strong>Wichtig &mdash; vor dem Start ausfüllen.</strong>
+        Die Angaben auf dieser Seite sind gesetzlich vorgeschrieben
+        (Paragraf 5 Digitale-Dienste-Gesetz). Fehlende oder falsche Angaben
+        können abgemahnt werden. Die Platzhalter in eckigen Klammern müssen
+        durch die echten Vereinsdaten ersetzt werden. Die Werte stehen in der
+        Datei <code>src/data/verein.json</code>.
+      </p>
+
+      <div class="impressum stack">
+        <section>
+          <h2>Angaben gemäß Paragraf 5 DDG</h2>
+          <p>
+            {i.vereinsname}<br />
+            {i.strasse}<br />
+            {i.plz_ort}
+          </p>
+        </section>
+
+        <section>
+          <h2>Vertreten durch</h2>
+          <p>{i.vertreten_durch}</p>
+        </section>
+
+        <section>
+          <h2>Registereintrag</h2>
+          <p>
+            Eingetragen im Vereinsregister<br />
+            Registergericht: {i.registergericht}<br />
+            Registernummer: {i.registernummer}
+          </p>
+        </section>
+
+        <section>
+          <h2>Kontakt</h2>
+          <p>
+            E-Mail: {i.email}
+            {i.telefon && i.telefon !== '[optional]' && (
+              <><br />Telefon: {i.telefon}</>
+            )}
+          </p>
+        </section>
+
+        <section>
+          <h2>Verantwortlich für den Inhalt</h2>
+          <p>
+            {i.vertreten_durch}<br />
+            Anschrift wie oben
+          </p>
+        </section>
+
+        <section>
+          <h2>Haftung für Inhalte</h2>
+          <p>
+            Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten
+            nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht
+            verpflichtet, übermittelte oder gespeicherte fremde Informationen
+            zu überwachen oder nach Umständen zu forschen, die auf eine
+            rechtswidrige Tätigkeit hinweisen.
+          </p>
+        </section>
+
+        <section>
+          <h2>Haftung für Links</h2>
+          <p>
+            Unser Angebot enthält Links zu externen Websites Dritter, auf
+            deren Inhalte wir keinen Einfluss haben. Für die Inhalte der
+            verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.
+          </p>
+        </section>
+
+        <section>
+          <h2>Urheberrecht</h2>
+          <p>
+            Die durch den Verein erstellten Inhalte und Werke auf diesen Seiten
+            unterliegen dem deutschen Urheberrecht. Fotos von Vereinsmitgliedern
+            werden nur mit deren Einwilligung veröffentlicht.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .impressum { max-width: 70ch; margin-top: 32px; }
+  .impressum h2 { font-size: var(--fs-lg); color: var(--blue); margin-bottom: 10px; }
+  .impressum section + section { margin-top: 32px; }
+  :global(:root[data-theme='dark']) .impressum h2 { color: var(--gold-lt); }
+  code {
+    background: var(--bg3);
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: .95em;
+  }
+</style>

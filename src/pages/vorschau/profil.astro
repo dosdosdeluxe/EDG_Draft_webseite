@@ -1,0 +1,179 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+// Erfundene Beispieldaten für die Darstellung.
+const verlauf = [
+  { datum: '2026-09-13', wert: '18,2', anlass: 'Eagle Tour Stop 5',  richtung: 'runter' },
+  { datum: '2026-07-19', wert: '18,9', anlass: 'Eagle Tour Stop 4',  richtung: 'runter' },
+  { datum: '2026-06-14', wert: '19,4', anlass: 'Eagle Tour Stop 3',  richtung: 'hoch'   },
+  { datum: '2026-05-10', wert: '19,1', anlass: 'Eagle Tour Stop 2',  richtung: 'runter' },
+  { datum: '2026-04-12', wert: '19,8', anlass: 'Saisonstart',        richtung: 'start'  },
+];
+
+const einwilligungen = [
+  { titel: 'Rundmails des Vereins',        text: 'Einladungen, Absagen, Mitgliederversammlung.', an: true },
+  { titel: 'Turnierergebnisse',            text: 'Nachricht, sobald eine Wertung fertig ist.',   an: true },
+  { titel: 'Fotos von mir veröffentlichen', text: 'Bilder, auf denen Sie erkennbar sind.',       an: true },
+  { titel: 'Name in Ergebnislisten',       text: 'Ihr Name erscheint öffentlich in den Wertungen.', an: false },
+];
+---
+
+<Base titel="Mein Profil (Vorschau)">
+  <VorschauHinweis phase="2" was="So soll das Mitgliederprofil aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="profil-kopf">
+        <div class="profil-kopf__bild" aria-hidden="true">AB</div>
+        <div>
+          <h1>Andreas Berger</h1>
+          <p class="profil-kopf__zeile">Mitglied seit 2014 &middot; Aktuelle Vorgabe 18,2</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128202;</span> Handicap-Verlauf
+      </h2>
+      <p style="margin-bottom:24px">
+        Jede Änderung wird mit Datum und Anlass festgehalten. So bleibt
+        nachvollziehbar, wie sich die Vorgabe entwickelt hat.
+      </p>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der Vorgabenentwicklung, seitlich scrollbar">
+        <table>
+          <caption>Vorgabenentwicklung Saison 2026</caption>
+          <thead>
+            <tr>
+              <th scope="col">Gültig ab</th>
+              <th scope="col">Vorgabe</th>
+              <th scope="col">Anlass</th>
+              <th scope="col">Entwicklung</th>
+            </tr>
+          </thead>
+          <tbody>
+            {verlauf.map((z) => (
+              <tr>
+                <td>{z.datum.split('-').reverse().join('.')}</td>
+                <td class="wert">{z.wert}</td>
+                <td>{z.anlass}</td>
+                <td>
+                  {z.richtung === 'runter' && (
+                    <span class="badge badge--done">
+                      <span aria-hidden="true">&#9660;</span> Verbessert
+                    </span>
+                  )}
+                  {z.richtung === 'hoch' && (
+                    <span class="badge badge--open">
+                      <span aria-hidden="true">&#9650;</span> Erhöht
+                    </span>
+                  )}
+                  {z.richtung === 'start' && (
+                    <span class="badge badge--running">
+                      <span aria-hidden="true">&#9679;</span> Saisonstart
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128100;</span> Meine Daten
+      </h2>
+
+      <div class="formular-karte">
+        <div class="feld">
+          <label for="p-name">Name</label>
+          <input type="text" id="p-name" value="Andreas Berger" readonly />
+        </div>
+        <div class="feld">
+          <label for="p-mail">E-Mail-Adresse</label>
+          <input type="email" id="p-mail" value="a.berger@beispiel.de" readonly />
+        </div>
+        <div class="feld">
+          <label for="p-tel">Telefon <span class="hilfe">(freiwillig)</span></label>
+          <input type="text" id="p-tel" value="0170 1234567" readonly />
+        </div>
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Änderungen speichern
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9989;</span> Meine Einwilligungen
+      </h2>
+      <p style="margin-bottom:24px">
+        Sie entscheiden, was der Verein mit Ihren Daten tun darf. Jede
+        Zustimmung lässt sich hier jederzeit zurücknehmen &mdash; das wirkt
+        sofort.
+      </p>
+
+      {einwilligungen.map((e, i) => (
+        <div class="schalter">
+          <input type="checkbox" id={`ew-${i}`} checked={e.an} disabled />
+          <label class="schalter__text" for={`ew-${i}`}>
+            <strong>{e.titel}</strong>
+            <span>{e.text}</span>
+          </label>
+        </div>
+      ))}
+
+      <div class="note" style="margin-top:32px">
+        <span class="note__icon" aria-hidden="true">&#128230;</span>
+        <div>
+          <h3>Meine Daten herunterladen</h3>
+          <p>
+            Sie können jederzeit eine Datei mit allem anfordern, was der Verein
+            über Sie gespeichert hat. Das ist Ihr Recht nach Artikel 15 DSGVO.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 760px; }
+
+  .profil-kopf { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .profil-kopf__bild {
+    width: 88px; height: 88px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%;
+    font-size: 2rem; font-weight: 700;
+  }
+  .profil-kopf__zeile { color: var(--text2); font-size: var(--fs-lg); margin-top: 6px; }
+
+  .wert { font-weight: 700; color: var(--gold-text); }
+
+  .formular-karte {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+</style>

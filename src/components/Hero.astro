@@ -1,0 +1,85 @@
+---
+import { pfad } from '../utils/url.js';
+const { titel, untertitel, zahlen = [] } = Astro.props;
+---
+
+<section class="hero" style={`--wappen: url('${pfad('/logo.png')}')`}>
+  <div class="hero__inner">
+    <h1>{titel}</h1>
+    {untertitel && <p class="hero__sub">{untertitel}</p>}
+
+    {zahlen.length > 0 && (
+      <ul class="hero__zahlen">
+        {zahlen.map((z) => (
+          <li>
+            <span class="hero__wert">{z.wert}</span>
+            <span class="hero__label">{z.label}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, var(--blue-dk) 0%, var(--blue) 60%, var(--blue-lt) 100%);
+    color: #fff;
+    padding: 72px 24px 56px;
+    text-align: center;
+  }
+
+  /* Vereinswappen als dezentes Wasserzeichen */
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -70px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 460px;
+    height: 460px;
+    background: var(--wappen) center / contain no-repeat;
+    opacity: .10;
+    pointer-events: none;
+  }
+
+  .hero__inner { position: relative; z-index: 1; max-width: var(--wrap); margin-inline: auto; }
+  .hero h1 { color: #fff; }
+
+  .hero__sub {
+    font-size: var(--fs-lg);
+    color: rgba(255, 255, 255, .95);
+    max-width: 44ch;
+    margin: 16px auto 44px;
+  }
+
+  .hero__zahlen {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 820px;
+    margin-inline: auto;
+  }
+  .hero__zahlen li {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 22px 14px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero__wert  { font-size: 2.1rem; font-weight: 700; color: var(--gold-text); line-height: 1.1; }
+  .hero__label { font-size: var(--fs-xs); color: var(--text3); font-weight: 500; }
+
+  @media (max-width: 767px) {
+    .hero { padding: 44px 16px 36px; }
+    .hero::after { width: 260px; height: 260px; right: -40px; opacity: .08; }
+    .hero__zahlen { grid-template-columns: repeat(2, 1fr); }
+    .hero__sub { margin-bottom: 30px; }
+  }
+</style>

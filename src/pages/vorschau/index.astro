@@ -1,0 +1,163 @@
+---
+import Base from '../../layouts/Base.astro';
+import { pfad } from '../../utils/url.js';
+
+const seiten = [
+  {
+    phase: 2,
+    titel: 'Anmeldung ohne Passwort',
+    href: '/vorschau/anmeldung/',
+    text: 'Das Mitglied gibt seine E-Mail-Adresse ein und bekommt einen Link geschickt. Kein Passwort, kein Zurücksetzen, kein Vergessen.',
+    icon: '\u{1F511}',
+  },
+  {
+    phase: 2,
+    titel: 'Mitgliederprofil',
+    href: '/vorschau/profil/',
+    text: 'Eigene Daten, Handicap-Verlauf über die Jahre und die Einwilligungen, die sich jederzeit widerrufen lassen.',
+    icon: '\u{1F464}',
+  },
+  {
+    phase: 3,
+    titel: 'Beitrag schreiben',
+    href: '/vorschau/beitrag/',
+    text: 'Fotos auswählen, Text tippen, veröffentlichen. Drei Schritte, keine Kategorien, keine Schlagworte.',
+    icon: '\u{270D}\u{FE0F}',
+  },
+  {
+    phase: 4,
+    titel: 'Textkorrektur durch die KI',
+    href: '/vorschau/ki-text/',
+    text: 'Der eigene Text und der Vorschlag nebeneinander. Voreingestellt ist immer der eigene Text.',
+    icon: '\u{2728}',
+  },
+  {
+    phase: 5,
+    titel: 'Benachrichtigungen',
+    href: '/vorschau/benachrichtigungen/',
+    text: 'Jedes Mitglied entscheidet selbst, worüber es informiert werden möchte und auf welchem Weg.',
+    icon: '\u{1F514}',
+  },
+  {
+    phase: 2,
+    titel: 'Mitgliederverwaltung',
+    href: '/vorschau/verwaltung-mitglieder/',
+    text: 'Der Mitgliederstamm mit Vorgabe, Kontaktdaten, Rollen und Einwilligungen. Grundlage für alles Weitere.',
+    icon: '\u{1F5C3}\uFE0F',
+  },
+  {
+    phase: 2,
+    titel: 'Turnier zusammenstellen',
+    href: '/vorschau/verwaltung-turnier/',
+    text: 'Einladen, Anmeldungen samt Warteliste verwalten und Flights einteilen — mit Prüfung, wer dieses Jahr schon zusammen gespielt hat.',
+    icon: '\u{1F4CB}',
+  },
+  {
+    phase: 2,
+    titel: 'Matchplay-Auslosung',
+    href: '/vorschau/verwaltung-auslosung/',
+    text: 'Paarungen auslosen und gegen die Begegnungshistorie prüfen, damit niemand zweimal im Jahr auf denselben Gegner trifft.',
+    icon: '\u{1F3B2}',
+  },
+  {
+    phase: 3,
+    titel: 'Inhalte verwalten',
+    href: '/vorschau/verwaltung-inhalte/',
+    text: 'Beiträge freigeben und bearbeiten, Medienbibliothek für Bilder und Videos, Speicherplatz im Blick.',
+    icon: '\u{1F4C1}',
+  },
+  {
+    phase: 3,
+    titel: 'Scorekarte erfassen',
+    href: '/vorschau/matchplay-erfassen/',
+    text: 'Karte abfotografieren, Schläge auslesen, Vorgaben verrechnen, Ergebnis ableiten — vor Ort, von beiden Spielern bestätigt.',
+    icon: '\u{1F4F8}',
+  },
+  {
+    phase: 3,
+    titel: 'Ergebnisse freigeben',
+    href: '/vorschau/matchplay-freigabe/',
+    text: 'Was der Spielführer prüft, bevor ein Matchplay-Ergebnis öffentlich wird — und welche E-Mails die Freigabe auslöst.',
+    icon: '\u{1F6E1}\uFE0F',
+  },
+  {
+    phase: 3,
+    titel: 'Verwaltung',
+    href: '/vorschau/verwaltung/',
+    text: 'Was Moderatoren und Vorstand sehen: Beiträge freigeben, Nachrichten verschicken, Mitglieder verwalten.',
+    icon: '\u{2699}\u{FE0F}',
+  },
+];
+---
+
+<Base
+  titel="Vorschau kommender Funktionen"
+  beschreibung="Layout-Vorschau des geplanten Mitgliederbereichs des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Vorschau kommender Funktionen</h1>
+
+      <p class="einleitung">
+        Die öffentliche Website ist fertig. Was hier folgt, ist noch nicht
+        gebaut &mdash; es zeigt, wie der Mitgliederbereich aussehen soll,
+        damit der Vorstand entscheiden kann, bevor programmiert wird.
+      </p>
+
+      <p class="draft-note" style="margin-top:28px">
+        <strong>Nichts davon funktioniert.</strong> Die Formulare nehmen keine
+        Eingaben entgegen, die Namen und Zahlen sind erfunden. Es geht allein
+        um Aufbau, Beschriftung und Bedienbarkeit.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128269;</span> Die geplanten Seiten im Überblick
+      </h2>
+
+      <div class="cards">
+        {seiten.map((s) => (
+          <a class="card" href={pfad(s.href)}>
+            <div class="card__icon" aria-hidden="true">{s.icon}</div>
+            <p class="phase-marke">Phase {s.phase}</p>
+            <h3>{s.titel}</h3>
+            <p>{s.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128173;</span>
+        <div>
+          <h4>Worauf Sie beim Durchsehen achten sollten</h4>
+          <p>
+            Sind die Beschriftungen verständlich, ohne dass man raten muss?
+            Ist klar, was als Nächstes zu tun ist? Fehlt etwas, das Sie
+            erwarten würden? Das lässt sich jetzt noch leicht ändern, später
+            nur noch mit Aufwand.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+
+  .phase-marke {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--gold-text);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 4px;
+  }
+</style>

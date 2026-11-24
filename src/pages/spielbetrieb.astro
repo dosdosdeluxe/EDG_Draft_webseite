@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import wettbewerbeDaten from '../data/wettbewerbe.json';
+
+const wettbewerbe = wettbewerbeDaten.wettbewerbe;
+---
+
+<Base
+  titel="Spielbetrieb"
+  beschreibung="Die Wettbewerbe des Eagle Golfers Dribbdebach e.V.: Eagle Tour, Matchplay, Clubmeisterschaft und Holy Mountain."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Spielbetrieb</h1>
+      <p class="einleitung">
+        Vier Wettbewerbe prägen unsere Saison. Drei davon werden ernsthaft
+        gespielt, einer mit Augenzwinkern.
+      </p>
+    </div>
+  </section>
+
+  {wettbewerbe.map((w, i) => (
+    <section class={i % 2 === 0 ? 'section section--grey' : 'section'} id={w.kuerzel}>
+      <div class="wrap">
+        <h2 class="section-title">
+          <span aria-hidden="true">{w.icon}</span> {w.name}
+        </h2>
+        <div class="stack">
+          <p><strong>{w.kurz}</strong></p>
+          <p>{w.text}</p>
+          <p class="teilnahme">
+            <strong>Teilnahme:</strong> {w.teilnahme}
+          </p>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#10067;</span> Häufige Fragen
+      </h2>
+
+      <div class="faq">
+        <details>
+          <summary>Auf welchen Plätzen spielen wir?</summary>
+          <p>
+            Wir spielen an wechselnden Plätzen in der Region Frankfurt und
+            Rhein-Main, unter anderem Frankfurter GC, GC Kronberg, GC Bad Homburg
+            und GC Taunus. Die Plätze der kommenden Saison werden zu
+            Jahresbeginn bekannt gegeben.
+          </p>
+        </details>
+
+        <details>
+          <summary>Brauche ich eine Stammvorgabe?</summary>
+          <p>
+            Für die Eagle Tour und die Clubmeisterschaft ja. Beim Holy Mountain
+            und bei geselligen Runden spielt die Vorgabe keine Rolle.
+          </p>
+        </details>
+
+        <details>
+          <summary>Wie melde ich mich zu einem Turnier an?</summary>
+          <p>
+            Zurzeit per E-Mail an den Vorstand. Sobald der Mitgliederbereich
+            fertig ist, geht die Anmeldung direkt über diese Seite.
+          </p>
+        </details>
+
+        <details>
+          <summary>Kann ich als Gast mitspielen?</summary>
+          <p>
+            Gäste sind bei den meisten Turnieren willkommen, solange Startzeiten
+            frei sind. Bitte vorher beim Vorstand nachfragen.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+  .teilnahme  { color: var(--text2); font-size: var(--fs-sm); }
+
+  /* Das Akkordeon nutzt die eingebauten HTML-Elemente details und summary.
+     Diese sind von Haus aus per Tastatur bedienbar und funktionieren
+     auch dann, wenn JavaScript abgeschaltet ist. */
+  .faq { display: grid; gap: 14px; max-width: 800px; }
+
+  .faq details {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .faq summary {
+    min-height: var(--touch);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    font-weight: 600;
+    font-size: var(--fs-base);
+    cursor: pointer;
+    list-style: none;
+    background: var(--bg2);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+
+  .faq summary::before {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold-text);
+    width: 24px;
+    flex-shrink: 0;
+  }
+  .faq details[open] summary::before { content: '\2212'; }
+
+  .faq details > p { padding: 20px 24px 24px; color: var(--text2); }
+</style>

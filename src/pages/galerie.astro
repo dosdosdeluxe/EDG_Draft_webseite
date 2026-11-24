@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Sobald Fotos vorliegen, werden sie hier eingetragen.
+// Jedes Bild braucht einen Alt-Text — er beschreibt das Bild für
+// Menschen, die es nicht sehen können. Das ist Pflicht nach WCAG 1.1.1.
+const alben = [
+  { jahr: 2026, titel: 'Eagle Tour 2026', anzahl: 0 },
+  { jahr: 2025, titel: 'Clubmeisterschaft 2025', anzahl: 0 },
+  { jahr: 2024, titel: 'Saisonabschluss 2024', anzahl: 0 },
+];
+---
+
+<Base
+  titel="Galerie"
+  beschreibung="Fotos von Turnieren und Veranstaltungen des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Galerie</h1>
+      <p class="einleitung">
+        Bilder aus sechzehn Jahren Vereinsleben.
+      </p>
+
+      <p class="draft-note" style="margin-top:24px">
+        <strong>Noch keine Fotos eingebunden.</strong> Die Bilder aus dem
+        bestehenden Archiv werden übertragen, sobald geklärt ist, welche
+        Aufnahmen veröffentlicht werden dürfen. Fotos, auf denen Personen
+        erkennbar sind, brauchen deren Einwilligung.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128193;</span> Geplante Alben
+      </h2>
+
+      <div class="cards">
+        {alben.map((a) => (
+          <article class="card album">
+            <div class="album__platzhalter" aria-hidden="true">&#128247;</div>
+            <h3>{a.titel}</h3>
+            <p>
+              {a.anzahl > 0
+                ? `${a.anzahl} Fotos`
+                : 'Noch keine Fotos übertragen'}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128248;</span>
+        <div>
+          <h4>Sie haben Fotos vom Turnier?</h4>
+          <p>
+            Schicken Sie sie an den Vorstand. Sobald der Mitgliederbereich
+            fertig ist, können Sie Bilder direkt über die Seite hochladen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .album__platzhalter {
+    display: grid;
+    place-items: center;
+    height: 150px;
+    background: var(--bg3);
+    border-radius: 10px;
+    font-size: 3rem;
+    margin-bottom: 18px;
+    opacity: .5;
+  }
+</style>

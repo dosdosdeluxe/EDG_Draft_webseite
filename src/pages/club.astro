@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import verein from '../data/verein.json';
+import { pfad } from '../utils/url.js';
+---
+
+<Base
+  titel="Club"
+  beschreibung="Geschichte, Vorstand und Kontakt des Eagle Golfers Dribbdebach e.V. in Frankfurt am Main."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Der Club</h1>
+      <p class="einleitung">{verein.motto}</p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128220;</span> Unsere Geschichte
+      </h2>
+
+      <div class="stack text-block">
+        <p>
+          Der {verein.name} wurde {verein.gegruendet} von einer kleinen Gruppe
+          leidenschaftlicher Golfer in Frankfurt Niederrad gegründet. Was als
+          lockere Spielrunde begann, ist heute ein fester Verein mit fast
+          fünfzig Mitgliedern und einem vollständigen Turnierbetrieb.
+        </p>
+        <p>
+          Der Name leitet sich vom Stadtteil Dribbdebach ab &mdash; dem
+          anderen Mainufer, in Frankfurter Mundart. Golf mit Leidenschaft,
+          ohne Standesdünkel: Das ist unser Motto geblieben.
+        </p>
+        <p>
+          Wir spielen an wechselnden Plätzen in der Region Frankfurt und
+          Rhein-Main und treffen uns regelmäßig zur Eagle Tour, zu
+          Matchplay-Runden und zur Clubmeisterschaft.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128101;</span> Vorstand
+      </h2>
+
+      <p class="draft-note">
+        <strong>Platzhalter.</strong> Die Namen und Aufgaben des Vorstands
+        werden hier eingetragen, sobald sie vorliegen.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9993;&#65039;</span> Kontakt
+      </h2>
+
+      <div class="stack text-block">
+        <p>
+          Sie haben Fragen zum Verein oder möchten einmal mitspielen?
+          Schreiben Sie uns.
+        </p>
+        <p>
+          <strong>E-Mail:</strong> {verein.impressum.email}
+        </p>
+        <p>
+          <a class="btn btn--ghost" href={pfad("/spielbetrieb/")}>
+            Zum Spielbetrieb
+          </a>
+          <a class="btn btn--ghost" href={pfad("/organisatorisches/")}>
+            Organisatorisches
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+  .text-block { max-width: 70ch; }
+</style>

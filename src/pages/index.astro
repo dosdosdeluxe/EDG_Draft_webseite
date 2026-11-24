@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import verein from '../data/verein.json';
+import wettbewerbeDaten from '../data/wettbewerbe.json';
+import termineDaten from '../data/termine.json';
+import { lang, nachDatum } from '../utils/datum.js';
+import { pfad } from '../utils/url.js';
+
+const wettbewerbe = wettbewerbeDaten.wettbewerbe;
+
+const naechste = termineDaten.termine
+  .filter((t) => t.status === 'offen')
+  .sort(nachDatum)
+  .slice(0, 3);
+---
+
+<Base
+  titel="Start"
+  beschreibung="Eagle Golfers Dribbdebach e.V. — Golfclub in Frankfurt am Main. Eagle Tour, Matchplay und Clubmeisterschaft."
+>
+  <Hero
+    titel="Golf mit Leidenschaft an der Rennbahn"
+    untertitel={`${verein.name} — Ihr Golfclub in ${verein.ort} seit ${verein.gegruendet}`}
+    zahlen={verein.zahlen}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="draft-note">
+        <p>
+          <strong>Entwurfsfassung.</strong> Alle Namen, Termine und Punktestände
+          auf dieser Seite sind Platzhalter. Sie werden vor dem Start durch die
+          echten Vereinsdaten ersetzt.
+        </p>
+        <p style="margin-top:14px">
+          Der geplante Mitgliederbereich und das Backend &mdash; Mitgliederverwaltung,
+          Turnierzusammenstellung, Auslosung, Inhaltsverwaltung &mdash; liegen unter
+          <a href={pfad('/vorschau/')}><strong>Vorschau kommender Funktionen</strong></a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128197;</span> Die nächsten Termine
+      </h2>
+
+      {naechste.length > 0 ? (
+        <ul class="termin-liste">
+          {naechste.map((t) => (
+            <li class="termin">
+              <div class="termin__kopf">
+                <h3>{t.titel}</h3>
+                <span class="badge badge--open">
+                  <span aria-hidden="true">&#9203;</span> Offen
+                </span>
+              </div>
+              <p class="termin__datum">{lang(t.datum)} &middot; {t.uhrzeit} Uhr</p>
+              <p class="termin__ort">{t.platz} &middot; {t.spielform}</p>
+              {t.hinweis && <p class="termin__hinweis">{t.hinweis}</p>}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Zurzeit sind keine Termine eingetragen.</p>
+      )}
+
+      <p style="margin-top:28px">
+        <a class="btn btn--ghost" href={pfad("/termine/")}>Alle Termine ansehen</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127948;</span> Unsere Wettbewerbe
+      </h2>
+
+      <div class="cards">
+        {wettbewerbe.map((w) => (
+          <a class="card" href={pfad(`/spielbetrieb/#${w.kuerzel}`)}>
+            <div class="card__icon" aria-hidden="true">{w.icon}</div>
+            <h3>{w.name}</h3>
+            <p>{w.kurz}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#128241;</span>
+        <div>
+          <h4>Die Seite als App auf dem Handy</h4>
+          <p>
+            Im Browser auf &#8222;Teilen&#8220; tippen und
+            &#8222;Zum Home-Bildschirm&#8220; wählen. Danach öffnet sich die
+            Seite mit einem Fingertipp, ohne dass Sie den Browser suchen müssen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .termin-liste { list-style: none; display: grid; gap: 18px; }
+
+  .termin {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--gold-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 24px 26px;
+    box-shadow: var(--shadow);
+  }
+  .termin__kopf {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .termin__kopf h3 { color: var(--blue); }
+  .termin__datum   { font-weight: 600; font-size: var(--fs-base); }
+  .termin__ort     { color: var(--text2); font-size: var(--fs-sm); }
+  .termin__hinweis { color: var(--text3); font-size: var(--fs-sm); margin-top: 8px; font-style: italic; }
+
+  :global(:root[data-theme='dark']) .termin__kopf h3 { color: var(--gold-lt); }
+</style>

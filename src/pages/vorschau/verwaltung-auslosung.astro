@@ -1,0 +1,298 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+import daten from '../../data/mitglieder.json';
+
+const { mitglieder, begegnungen2026 } = daten;
+const name = (id) => mitglieder.find((m) => m.id === id).name;
+const hcp  = (id) => mitglieder.find((m) => m.id === id).hcp;
+
+function begegnung(a, b) {
+  return begegnungen2026.find(
+    (x) => (x.a === a && x.b === b) || (x.a === b && x.b === a)
+  );
+}
+
+const teilnehmer = [1, 2, 3, 4, 5, 6, 7, 8];
+
+// Was eine reine Zufallsauslosung liefern kann
+const zufall  = [[1, 2], [3, 8], [4, 7], [5, 6]];
+// Dieselben acht, gegen die Begegnungshistorie geprüft
+const geprueft = [[1, 6], [2, 5], [3, 4], [7, 8]];
+
+const zaehle = (paare) => paare.filter(([a, b]) => begegnung(a, b)).length;
+const kZufall = zaehle(zufall);
+const kGeprueft = zaehle(geprueft);
+---
+
+<Base titel="Matchplay-Auslosung (Vorschau)">
+  <VorschauHinweis phase="2" was="So soll die Auslosung im Backend aussehen." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Matchplay-Auslosung</h1>
+      <p class="einleitung">
+        Acht Teilnehmer, vier Erstrundenpaarungen. Die Vorgabe lautet:
+        niemand trifft auf jemanden, gegen den er dieses Jahr schon
+        gespielt hat.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#128101;</span> Teilnehmerfeld
+      </h2>
+
+      <ul class="feld-liste">
+        {teilnehmer.map((id) => (
+          <li>
+            <span class="feld-liste__name">{name(id)}</span>
+            <span class="feld-liste__hcp">{hcp(id)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="optionen">
+        <div class="feld">
+          <label for="o-setzen">Setzliste</label>
+          <select id="o-setzen" disabled>
+            <option>Nach Vorgabe setzen</option>
+            <option>Nach Vorjahresergebnis setzen</option>
+            <option>Frei auslosen</option>
+          </select>
+        </div>
+        <div class="schalter">
+          <input type="checkbox" id="o-pruefen" checked disabled />
+          <label class="schalter__text" for="o-pruefen">
+            <strong>Wiederholungen vermeiden</strong>
+            <span>Paarungen ausschließen, die es 2026 schon gab.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127922;</span> Zwei Auslosungen im Vergleich
+      </h2>
+
+      <div class="varianten">
+        <article class="variante">
+          <header>
+            <h3>Ohne Prüfung ausgelost</h3>
+            <span class={kZufall > 0 ? 'zaehler zaehler--schlecht' : 'zaehler zaehler--gut'}>
+              {kZufall} von 4 Paarungen wiederholen sich
+            </span>
+          </header>
+
+          {zufall.map(([a, b], i) => {
+            const t = begegnung(a, b);
+            return (
+              <div class={`paarung ${t ? 'paarung--konflikt' : ''}`}>
+                <p class="paarung__nr">Partie {i + 1}</p>
+                <p class="paarung__namen">
+                  <strong>{name(a)}</strong> gegen <strong>{name(b)}</strong>
+                </p>
+                {t ? (
+                  <p class="konflikt">
+                    <span aria-hidden="true">&#9888;&#65039;</span>
+                    Schon gespielt &mdash; {t.anlass}, {t.datum.split('-').reverse().join('.')}
+                  </p>
+                ) : (
+                  <p class="frei">
+                    <span aria-hidden="true">&#10003;</span> Neue Paarung
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </article>
+
+        <article class="variante variante--empfohlen">
+          <header>
+            <h3>Mit Prüfung ausgelost</h3>
+            <span class={kGeprueft > 0 ? 'zaehler zaehler--schlecht' : 'zaehler zaehler--gut'}>
+              {kGeprueft} von 4 Paarungen wiederholen sich
+            </span>
+          </header>
+
+          {geprueft.map(([a, b], i) => {
+            const t = begegnung(a, b);
+            return (
+              <div class={`paarung ${t ? 'paarung--konflikt' : ''}`}>
+                <p class="paarung__nr">Partie {i + 1}</p>
+                <p class="paarung__namen">
+                  <strong>{name(a)}</strong> gegen <strong>{name(b)}</strong>
+                </p>
+                {t ? (
+                  <p class="konflikt">
+                    <span aria-hidden="true">&#9888;&#65039;</span>
+                    Schon gespielt &mdash; {t.anlass}
+                  </p>
+                ) : (
+                  <p class="frei">
+                    <span aria-hidden="true">&#10003;</span> Neue Paarung
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </article>
+      </div>
+
+      <div class="knoepfe">
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Geprüfte Auslosung übernehmen
+        </button>
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Zwei Spieler tauschen
+        </button>
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Neu auslosen
+        </button>
+      </div>
+
+      <p class="uebernahme">
+        Nach dem Übernehmen wird der Turnierbaum angelegt und alle acht
+        Spieler bekommen ihre Paarung per E-Mail &mdash; mit dem Hinweis,
+        den Termin untereinander zu vereinbaren.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#129517;</span> Was in den späteren Runden passiert
+      </h2>
+
+      <p class="abschnitt-text">
+        Die erste Runde lässt sich frei auslosen. Ab dem Halbfinale steht
+        die Paarung fest, sobald die Sieger feststehen &mdash; dort lässt
+        sich eine Wiederholung nicht mehr verhindern, nur noch anzeigen.
+      </p>
+
+      <div class="beispiel">
+        <p class="beispiel__titel">Beispiel</p>
+        <p>
+          Gewinnen {name(1)} und {name(6)} ihre Viertelfinals, treffen sie
+          im Halbfinale aufeinander. Ob es diese Paarung 2026 schon gab,
+          steht dann im Turnierbaum &mdash; als Hinweis, nicht als Hindernis.
+          Bei acht Teilnehmern über drei Runden ist das unvermeidlich.
+        </p>
+      </div>
+
+      <div class="note" style="margin-top:32px">
+        <span class="note__icon" aria-hidden="true">&#128202;</span>
+        <div>
+          <h3>Was die Prüfung braucht</h3>
+          <p>
+            Jede gespielte Partie und jeder Flight wird als Begegnung
+            festgehalten: wer, mit wem, wann, wobei. Das entsteht nebenbei,
+            sobald Ergebnisse eingetragen werden &mdash; niemand muss etwas
+            zusätzlich pflegen.
+          </p>
+          <p>
+            Deshalb funktioniert die Prüfung erst ab der zweiten Saison
+            richtig gut. Im ersten Jahr kennt das System noch keine
+            Vorgeschichte und lost frei aus.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/verwaltung-mitglieder/')}>
+          Zur Mitgliederverwaltung
+        </a>
+        <a class="btn btn--ghost" href={pfad('/matchplay/')}>Zum Turnierbaum</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 820px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+  .abschnitt-text { max-width: 72ch; margin-bottom: 24px; }
+
+  .feld-liste {
+    list-style: none; display: grid; gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+    margin-bottom: 28px;
+  }
+  .feld-liste li {
+    display: flex; justify-content: space-between; gap: 14px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px;
+  }
+  .feld-liste__name { font-weight: 600; }
+  .feld-liste__hcp { color: var(--text3); font-variant-numeric: tabular-nums; }
+
+  .optionen {
+    display: grid; gap: 16px;
+    grid-template-columns: 300px 1fr; align-items: start;
+  }
+  @media (max-width: 720px) { .optionen { grid-template-columns: 1fr; } }
+  .optionen .feld { margin-bottom: 0; }
+
+  .varianten {
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
+  }
+  .variante {
+    background: var(--bg); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .variante--empfohlen { border-color: var(--green); }
+  .variante header {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  .variante h3 { font-size: var(--fs-lg); }
+
+  .zaehler {
+    font-size: var(--fs-xs); font-weight: 700;
+    padding: 5px 12px; border-radius: 999px; border: 2px solid;
+  }
+  .zaehler--gut      { background: #e8f3e9; color: #1f5424; border-color: #2a5c2e; }
+  .zaehler--schlecht { background: #fdf4dd; color: #6b5310; border-color: #8A6D25; }
+
+  .paarung {
+    background: var(--bg2); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .paarung--konflikt { background: #fdf4dd; }
+  :global(:root[data-theme='dark']) .paarung--konflikt { background: #2e2710; }
+
+  .paarung__nr {
+    font-size: var(--fs-xs); font-weight: 700; color: var(--text3);
+    text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px;
+  }
+  .paarung__namen { font-size: var(--fs-sm); }
+
+  .konflikt, .frei {
+    display: flex; gap: 8px; align-items: flex-start;
+    margin-top: 10px; font-size: var(--fs-xs); max-width: none;
+  }
+  .konflikt { color: #4a3a0c; }
+  :global(:root[data-theme='dark']) .konflikt { color: #f0dca0; }
+  .frei { color: #1f5424; font-weight: 600; }
+  :global(:root[data-theme='dark']) .frei { color: #9edea3; }
+
+  .knoepfe { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .uebernahme { margin-top: 20px; font-size: var(--fs-sm); color: var(--text3); max-width: 70ch; }
+
+  .beispiel {
+    background: var(--bg); border-left: 5px solid var(--blue);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 22px 26px;
+  }
+  .beispiel__titel { font-weight: 700; margin-bottom: 8px; }
+  .beispiel p { font-size: var(--fs-sm); color: var(--text2); }
+</style>

@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import verein from '../data/verein.json';
+
+const i = verein.impressum;
+---
+
+<Base
+  titel="Datenschutz"
+  beschreibung="Datenschutzerklärung des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Datenschutz</h1>
+
+      <p class="draft-note" style="margin-top:24px">
+        <strong>Entwurf &mdash; juristisch prüfen lassen.</strong>
+        Dieser Text beschreibt den technischen Stand der Seite zutreffend,
+        ersetzt aber keine Rechtsberatung. Vor dem Start sollte ihn jemand
+        mit Fachkenntnis gegenlesen. Sobald der Mitgliederbereich dazukommt,
+        muss die Erklärung erweitert werden.
+      </p>
+
+      <div class="dse stack">
+        <section>
+          <h2>Verantwortlich</h2>
+          <p>
+            {i.vereinsname}<br />
+            {i.strasse}<br />
+            {i.plz_ort}<br />
+            E-Mail: {i.email}
+          </p>
+        </section>
+
+        <section>
+          <h2>Was diese Seite nicht tut</h2>
+          <p>
+            Diese Website ist eine rein statische Seite. Sie setzt
+            <strong>keine Cookies</strong>, bindet <strong>keine externen
+            Dienste</strong> ein und führt <strong>keine Analyse des
+            Nutzerverhaltens</strong> durch. Es gibt kein Tracking, keine
+            Werbenetzwerke und keine Schaltflächen sozialer Netzwerke.
+          </p>
+          <p>
+            Die verwendete Schriftart wird vom eigenen Server ausgeliefert.
+            Beim Aufruf der Seite wird also keine Verbindung zu Google oder
+            einem anderen Drittanbieter hergestellt.
+          </p>
+        </section>
+
+        <section>
+          <h2>Server-Protokolldateien</h2>
+          <p>
+            Beim Aufruf der Seite erhebt der Webserver automatisch Daten, die
+            Ihr Browser übermittelt. Das sind: aufgerufene Seite, Zeitpunkt
+            des Zugriffs, übertragene Datenmenge, verweisende Seite,
+            Browsertyp und Betriebssystem sowie die IP-Adresse.
+          </p>
+          <p>
+            Diese Daten werden nicht mit anderen Datenquellen
+            zusammengeführt. Rechtsgrundlage ist Artikel 6 Absatz 1
+            Buchstabe f DSGVO &mdash; das berechtigte Interesse am technisch
+            fehlerfreien Betrieb der Seite. Die Protokolle werden nach
+            spätestens sieben Tagen gelöscht.
+          </p>
+        </section>
+
+        <section>
+          <h2>Hosting</h2>
+          <p>
+            Die Seite wird bei der Alfahosting GmbH, Ankerstraße 3a,
+            06108 Halle (Saale), betrieben. Die Server stehen in Deutschland.
+            Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung
+            nach Artikel 28 DSGVO.
+          </p>
+        </section>
+
+        <section>
+          <h2>Fotos</h2>
+          <p>
+            Auf dieser Seite werden Fotos von Vereinsveranstaltungen
+            veröffentlicht. Personen sind darauf nur dann erkennbar
+            abgebildet, wenn sie in die Veröffentlichung eingewilligt haben.
+            Die Einwilligung kann jederzeit formlos widerrufen werden; das
+            betreffende Bild wird dann entfernt.
+          </p>
+        </section>
+
+        <section>
+          <h2>Ihre Rechte</h2>
+          <p>
+            Sie haben das Recht auf Auskunft über die zu Ihrer Person
+            gespeicherten Daten, auf deren Berichtigung oder Löschung, auf
+            Einschränkung der Verarbeitung, auf Widerspruch gegen die
+            Verarbeitung sowie auf Datenübertragbarkeit.
+          </p>
+          <p>
+            Wenden Sie sich dafür an die oben genannte Adresse. Außerdem
+            steht Ihnen ein Beschwerderecht bei einer Aufsichtsbehörde zu.
+            Zuständig ist der Hessische Beauftragte für Datenschutz und
+            Informationsfreiheit.
+          </p>
+        </section>
+
+        <section>
+          <h2>Verschlüsselung</h2>
+          <p>
+            Diese Seite wird ausschließlich über eine verschlüsselte
+            Verbindung ausgeliefert (HTTPS). Sie erkennen das am
+            Schloss-Symbol in der Adresszeile Ihres Browsers.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dse { max-width: 70ch; margin-top: 32px; }
+  .dse h2 { font-size: var(--fs-lg); color: var(--blue); margin-bottom: 10px; }
+  .dse section + section { margin-top: 32px; }
+  :global(:root[data-theme='dark']) .dse h2 { color: var(--gold-lt); }
+</style>

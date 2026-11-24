@@ -1,0 +1,64 @@
+---
+// Feste Leiste am unteren Bildschirmrand, nur auf Smartphones sichtbar.
+// Bewusst kein Hamburger-Menü: versteckte Navigation ist für die
+// Zielgruppe die größte Hürde. Alles Wichtige ist immer sichtbar.
+import { nav } from '../data/navigation.js';
+import { pfad, istAktiv } from '../utils/url.js';
+
+const aktuellerPfad = Astro.url.pathname;
+const istAktuell = (href) => istAktiv(aktuellerPfad, href);
+
+const tabs = nav.filter((e) => e.imTab);
+---
+
+<nav class="tabbar" aria-label="Navigation">
+  {tabs.map((eintrag) => (
+    <a
+      href={pfad(eintrag.href)}
+      aria-current={istAktuell(eintrag.href) ? 'page' : undefined}
+    >
+      <span class="tabbar__icon" aria-hidden="true">{eintrag.icon}</span>
+      <span class="tabbar__label">{eintrag.label}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .tabbar { display: none; }
+
+  @media (max-width: 899px) {
+    .tabbar {
+      display: flex;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--blue-dk);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, .25);
+    }
+
+    .tabbar a {
+      flex: 1;
+      min-height: var(--tab-h);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 2px;
+      color: rgba(255, 255, 255, .78);
+      text-decoration: none;
+      border-top: 3px solid transparent;
+    }
+
+    .tabbar__icon  { font-size: 23px; line-height: 1; }
+    .tabbar__label { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+
+    .tabbar a[aria-current='page'] {
+      color: #fff;
+      border-top-color: var(--gold-lt);
+      background: rgba(255, 255, 255, .08);
+    }
+    .tabbar a[aria-current='page'] .tabbar__label { font-weight: 700; }
+  }
+</style>

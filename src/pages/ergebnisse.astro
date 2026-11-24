@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+import daten from '../data/ergebnisse.json';
+import { lang } from '../utils/datum.js';
+import { pfad } from '../utils/url.js';
+
+const { eagleTour, holyMountain, hallOfFame } = daten;
+---
+
+<Base
+  titel="Ergebnisse"
+  beschreibung="Eagle Tour Jahreswertung, Holy Mountain und die Clubmeister der vergangenen Jahre."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Ergebnisse</h1>
+      <p class="einleitung">
+        Jahreswertungen und Siegerlisten. Die Punkte stammen aus der
+        Turnierverwaltung und werden nach jedem Turnier aktualisiert.
+      </p>
+      <p class="draft-note" style="margin-top:24px">
+        <strong>Entwurfsfassung.</strong> Die hier gezeigten Namen und Punkte
+        sind Platzhalter.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#129413;</span> {eagleTour.titel}
+      </h2>
+      <p style="margin-bottom:24px">{eagleTour.erklaerung}</p>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der Eagle-Tour-Wertung, seitlich scrollbar">
+        <table>
+          <caption>Stand nach dem Turnier vom {lang(eagleTour.standAm)}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Platz</th>
+              <th scope="col">Spieler</th>
+              <th scope="col">Vorgabe</th>
+              <th scope="col">Turniere</th>
+              <th scope="col">Punkte</th>
+            </tr>
+          </thead>
+          <tbody>
+            {eagleTour.wertung.map((z) => (
+              <tr>
+                <td class="rang">{z.platz}</td>
+                <td>{z.spieler}</td>
+                <td>{z.hcp}</td>
+                <td>{z.turniere}</td>
+                <td class="punkte">{z.punkte}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9968;&#65039;</span> {holyMountain.titel}
+      </h2>
+      <p style="margin-bottom:24px">{holyMountain.erklaerung}</p>
+
+      <ol class="berg">
+        {holyMountain.wertung.map((z) => (
+          <li>
+            <span class="berg__rang">{z.platz}</span>
+            <span class="berg__name">{z.spieler}</span>
+            <span class="berg__wert">
+              {z.wert.toLocaleString('de-DE')} <small>{z.einheit}</small>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9876;&#65039;</span> Matchplay
+      </h2>
+      <p style="margin-bottom:24px">
+        Das Matchplay läuft im K.-o.-System und hat einen eigenen
+        Turnierbaum. Ergebnisse erscheinen dort, sobald der Spielführer
+        sie freigegeben hat.
+      </p>
+      <p>
+        <a class="btn btn--ghost" href={pfad('/matchplay/')}>
+          Zum Turnierbaum
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#127942;</span> Hall of Fame
+      </h2>
+
+      <ul class="fame">
+        {hallOfFame.map((e) => (
+          <li>
+            <span class="fame__jahr">{e.jahr}</span>
+            <span class="fame__titel">{e.titel}</span>
+            <span class="fame__name">{e.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .rang   { font-weight: 700; width: 4rem; }
+  .punkte { font-weight: 700; color: var(--gold-text); }
+
+  .berg { list-style: none; counter-reset: none; display: grid; gap: 12px; max-width: 700px; }
+  .berg li {
+    min-width: 0;
+    display: flex; align-items: center; gap: 18px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 24px;
+  }
+  .berg__rang {
+    width: 42px; height: 42px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%; font-weight: 700;
+  }
+  .berg__name { font-weight: 600; margin-right: auto; }
+  .berg__wert { font-weight: 700; color: var(--gold-text); font-variant-numeric: tabular-nums; }
+  .berg__wert small { font-weight: 500; color: var(--text3); font-size: var(--fs-xs); }
+
+  .fame { list-style: none; display: grid; gap: 12px; max-width: 700px; }
+  .fame li {
+    min-width: 0;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px;
+    background: var(--bg);
+    border-left: 5px solid var(--gold-text);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 18px 24px;
+  }
+  .fame__jahr  { font-weight: 700; color: var(--gold-text); font-size: var(--fs-lg); }
+  .fame__titel { color: var(--text3); font-size: var(--fs-sm); }
+  .fame__name  { font-weight: 600; margin-left: auto; }
+</style>

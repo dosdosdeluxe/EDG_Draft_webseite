@@ -1,0 +1,184 @@
+---
+import Base from '../layouts/Base.astro';
+import termineDaten from '../data/termine.json';
+import { lang, kurz, nachDatum } from '../utils/datum.js';
+import { pfad } from '../utils/url.js';
+
+// Zum Abonnieren braucht der Kalender die Adresse mit webcal:// davor.
+// Nur dann bietet das Telefon "Abonnieren" an statt "Einmal importieren".
+const kalenderAdresse = new URL(pfad('/termine.ics'), Astro.site);
+const abonnieren = 'webcal://' + kalenderAdresse.host + kalenderAdresse.pathname;
+
+const offen    = termineDaten.termine.filter((t) => t.status === 'offen').sort(nachDatum);
+const gespielt = termineDaten.termine.filter((t) => t.status === 'gespielt').sort(nachDatum).reverse();
+---
+
+<Base
+  titel="Termine"
+  beschreibung="Alle Turniere und Veranstaltungen des Eagle Golfers Dribbdebach e.V."
+>
+  <section class="section">
+    <div class="wrap">
+      <h1>Termine {termineDaten.saison}</h1>
+      <p class="einleitung">
+        Alle Turniere und Veranstaltungen der laufenden Saison. Diese Seite
+        lässt sich ausdrucken &mdash; die Navigation wird dabei weggelassen.
+      </p>
+
+      <div class="abo">
+        <span class="abo__icon" aria-hidden="true">&#128197;</span>
+        <div class="abo__text">
+          <h2>Termine in den eigenen Kalender</h2>
+          <p>
+            Einmal abonnieren, und alle Vereinstermine stehen im Kalender des
+            Telefons &mdash; mit Erinnerung am Vortag. Kommt ein Turnier dazu
+            oder wird eines verlegt, ändert es sich dort von selbst. Sie
+            müssen nichts weiter tun.
+          </p>
+          <p class="abo__knoepfe">
+            <a class="btn btn--primary" href={abonnieren}>Kalender abonnieren</a>
+            <a class="btn btn--ghost" href={pfad('/termine.ics')} download>
+              Einmalig herunterladen
+            </a>
+          </p>
+          <p class="abo__klein">
+            Der erste Knopf fragt auf iPhone, Android und im Mac-Kalender
+            nach, ob Sie den Kalender hinzufügen möchten. Der zweite trägt die
+            Termine nur einmal ein; spätere Änderungen kommen dann nicht mit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9203;</span> Kommende Termine
+      </h2>
+
+      {offen.length > 0 ? (
+        <ul class="termin-liste">
+          {offen.map((t) => (
+            <li class="termin">
+              <div class="termin__datum-block" aria-hidden="true">
+                <span class="termin__tag">{t.datum.split('-')[2]}</span>
+                <span class="termin__monat">{kurz(t.datum).split('.')[1]}</span>
+              </div>
+              <div class="termin__inhalt">
+                <h3>{t.titel}</h3>
+                <p class="termin__wann">{lang(t.datum)} &middot; {t.uhrzeit} Uhr</p>
+                <p class="termin__wo">{t.platz} &middot; {t.spielform}</p>
+                {t.hinweis && <p class="termin__hinweis">{t.hinweis}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Für diese Saison sind keine weiteren Termine eingetragen.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">
+        <span aria-hidden="true">&#9989;</span> Bereits gespielt
+      </h2>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der gespielten Turniere, seitlich scrollbar">
+        <table>
+          <caption>Gespielte Turniere der Saison {termineDaten.saison}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Datum</th>
+              <th scope="col">Turnier</th>
+              <th scope="col">Platz</th>
+              <th scope="col">Spielform</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {gespielt.map((t) => (
+              <tr>
+                <td>{kurz(t.datum)}</td>
+                <td>{t.titel}</td>
+                <td>{t.platz}</td>
+                <td>{t.spielform}</td>
+                <td>
+                  <span class="badge badge--done">
+                    <span aria-hidden="true">&#10003;</span> Gespielt
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .abo {
+    display: flex; gap: 20px; align-items: flex-start;
+    margin-top: 32px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--green);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 24px 26px;
+  }
+  .abo__icon { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+  .abo__text { min-width: 0; }
+  .abo__text h2 { font-size: var(--fs-lg); color: var(--blue); margin-bottom: 8px; }
+  :global(:root[data-theme='dark']) .abo__text h2 { color: var(--gold-lt); }
+  .abo__text p { font-size: var(--fs-sm); color: var(--text2); max-width: 62ch; }
+  .abo__knoepfe { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+  .abo__klein { font-size: var(--fs-xs); color: var(--text3); margin-top: 14px; }
+  @media (max-width: 560px) { .abo { flex-direction: column; gap: 12px; } }
+  @media print { .abo { display: none; } }
+
+  .termin-liste { list-style: none; display: grid; gap: 18px; }
+
+  .termin {
+    min-width: 0;
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    box-shadow: var(--shadow);
+  }
+
+  .termin__datum-block {
+    flex-shrink: 0;
+    width: 70px;
+    text-align: center;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 6px;
+  }
+  .termin__tag   { display: block; font-size: 1.7rem; font-weight: 700; line-height: 1.1; }
+  .termin__monat { display: block; font-size: var(--fs-xs); font-weight: 600; }
+
+  /* min-width: 0 erlaubt dem Textblock, schmaler zu werden als sein
+     längstes Wort — sonst schiebt er die Karte über den Bildschirmrand. */
+  .termin__inhalt { min-width: 0; }
+  .termin__inhalt h3 { color: var(--blue); margin-bottom: 8px; }
+  .termin__wann    { font-weight: 600; }
+  .termin__wo      { color: var(--text2); font-size: var(--fs-sm); }
+  .termin__hinweis { color: var(--text3); font-size: var(--fs-sm); margin-top: 8px; font-style: italic; }
+
+  :global(:root[data-theme='dark']) .termin__inhalt h3 { color: var(--gold-lt); }
+
+  @media (max-width: 560px) {
+    .termin { gap: 16px; padding: 18px; }
+    .termin__datum-block { width: 58px; }
+  }
+</style>

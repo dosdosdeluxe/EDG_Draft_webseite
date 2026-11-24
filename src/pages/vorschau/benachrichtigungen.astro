@@ -1,0 +1,174 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+
+const arten = [
+  {
+    titel: 'Einladung zu Turnieren',
+    text: 'Sobald ein neuer Termin feststeht.',
+    mail: true, push: true,
+  },
+  {
+    titel: 'Erinnerung zwei Tage vorher',
+    text: 'Damit die Anmeldefrist nicht verstreicht.',
+    mail: true, push: true,
+  },
+  {
+    titel: 'Ergebnisse nach dem Turnier',
+    text: 'Wenn die Wertung fertig gerechnet ist.',
+    mail: false, push: true,
+  },
+  {
+    titel: 'Neue Beiträge und Fotos',
+    text: 'Wenn jemand etwas veröffentlicht hat.',
+    mail: false, push: false,
+  },
+  {
+    titel: 'Mitteilungen des Vorstands',
+    text: 'Einladung zur Mitgliederversammlung und Ähnliches.',
+    mail: true, push: false, pflicht: true,
+  },
+];
+---
+
+<Base titel="Benachrichtigungen (Vorschau)">
+  <VorschauHinweis phase="5" was="So sollen die Benachrichtigungen einstellbar sein." />
+
+  <section class="section">
+    <div class="wrap schmal">
+      <h1>Benachrichtigungen</h1>
+      <p class="einleitung">
+        Sie bestimmen, worüber wir Sie informieren &mdash; und auf welchem Weg.
+        Alles lässt sich jederzeit wieder ändern.
+      </p>
+
+      <div class="tabelle-karte">
+        <div class="kopfzeile">
+          <span>Worüber</span>
+          <span class="mitte">E-Mail</span>
+          <span class="mitte">Handy</span>
+        </div>
+
+        {arten.map((a, i) => (
+          <div class="zeile">
+            <div class="zeile__text">
+              <strong>{a.titel}</strong>
+              <span>{a.text}</span>
+              {a.pflicht && (
+                <span class="pflicht-marke">
+                  Pflichtmitteilung &mdash; nicht abwählbar
+                </span>
+              )}
+            </div>
+            <div class="mitte">
+              <input
+                type="checkbox"
+                checked={a.mail}
+                disabled
+                aria-label={`${a.titel} per E-Mail`}
+              />
+            </div>
+            <div class="mitte">
+              <input
+                type="checkbox"
+                checked={a.push}
+                disabled
+                aria-label={`${a.titel} auf das Handy`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p style="margin-top:24px">
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Einstellungen speichern
+        </button>
+      </p>
+
+      <h2 class="zwischen">Benachrichtigung auf dem Handy</h2>
+      <p>
+        Damit Mitteilungen direkt auf dem Sperrbildschirm erscheinen, muss die
+        Seite einmalig als App eingerichtet werden. Das dauert zwei Handgriffe
+        und geht ohne App Store.
+      </p>
+
+      <div class="note" style="margin-top:24px">
+        <span class="note__icon" aria-hidden="true">&#128241;</span>
+        <div>
+          <h3>So richten Sie das ein</h3>
+          <p>
+            <strong>iPhone:</strong> In Safari unten auf das Teilen-Symbol
+            tippen, dann „Zum Home-Bildschirm“.<br />
+            <strong>Android:</strong> In Chrome oben rechts auf die drei
+            Punkte, dann „Zum Startbildschirm hinzufügen“.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="zwischen">Abmelden</h2>
+      <p>
+        In jeder E-Mail steht unten ein Abmeldelink. Der funktioniert ohne
+        Anmeldung und wirkt sofort &mdash; Sie müssen sich dafür nicht
+        einloggen und niemanden fragen.
+      </p>
+
+      <p style="margin-top:36px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>
+          Zurück zur Übersicht
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 800px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .tabelle-karte {
+    margin-top: 32px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .kopfzeile, .zeile {
+    display: grid;
+    grid-template-columns: 1fr 90px 90px;
+    gap: 12px;
+    align-items: center;
+    padding: 16px 22px;
+  }
+  .kopfzeile {
+    background: var(--blue);
+    color: #fff;
+    font-weight: 600;
+    font-size: var(--fs-sm);
+  }
+  .zeile { border-top: 1px solid var(--border); min-height: 72px; }
+  .zeile:nth-child(even) { background: var(--bg2); }
+
+  .zeile__text strong { display: block; }
+  .zeile__text span   { font-size: var(--fs-sm); color: var(--text3); }
+
+  .pflicht-marke {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: var(--fs-xs) !important;
+    font-weight: 600;
+    color: var(--gold-text) !important;
+  }
+
+  .mitte { text-align: center; }
+  .mitte input[type='checkbox'] { width: 28px; height: 28px; accent-color: var(--green); }
+
+  .zwischen { margin-top: 52px; margin-bottom: 16px; color: var(--blue); }
+  :global(:root[data-theme='dark']) .zwischen { color: var(--gold-lt); }
+
+  @media (max-width: 560px) {
+    .kopfzeile, .zeile { grid-template-columns: 1fr 64px 64px; padding: 14px 16px; gap: 8px; }
+  }
+</style>

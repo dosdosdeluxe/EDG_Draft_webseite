@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { pfad } from '../utils/url.js';
+---
+
+<Base titel="Seite nicht gefunden">
+  <section class="section">
+    <div class="wrap fehler">
+      <p class="fehler__zahl" aria-hidden="true">404</p>
+      <h1>Diese Seite gibt es nicht</h1>
+      <p class="fehler__text">
+        Vielleicht hat sich die Adresse geändert, oder es hat sich ein
+        Tippfehler eingeschlichen. Über die Navigation kommen Sie zurück.
+      </p>
+      <p style="margin-top:32px">
+        <a class="btn btn--primary" href={pfad("/")}>Zur Startseite</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .fehler { text-align: center; padding-block: 40px; }
+  .fehler__zahl {
+    font-size: clamp(4rem, 14vw, 8rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gold-text);
+    margin-bottom: 8px;
+  }
+  .fehler__text { margin-inline: auto; color: var(--text2); font-size: var(--fs-lg); }
+</style>

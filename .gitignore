@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+ausgabe/
+EGD-Website-Vorschau/
+.DS_Store
+*.log

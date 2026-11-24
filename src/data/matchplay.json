@@ -1,0 +1,65 @@
+{
+  "_hinweis": "PLATZHALTERDATEN. Turnierbaum des Matchplay. Erlaubte Werte für status: 'gespielt', 'offen', 'wartet_freigabe'. Das Ergebnis steht in der im Golf üblichen Schreibweise, z.B. '3&2' = drei Löcher vorn bei zwei verbleibenden Löchern.",
+
+  "titel": "Matchplay 2026",
+  "saison": "2026",
+  "standAm": "2026-09-20",
+  "platz": "Wechselnde Plätze, von den Spielern vereinbart",
+
+  "runden": [
+    {
+      "name": "Viertelfinale",
+      "kuerzel": "vf",
+      "partien": [
+        {
+          "a": "T. Richter",  "b": "H. Wagner",
+          "sieger": "a", "ergebnis": "4&3",
+          "status": "gespielt", "datum": "2026-06-21"
+        },
+        {
+          "a": "M. Schulz",   "b": "R. Neumann",
+          "sieger": "a", "ergebnis": "2&1",
+          "status": "gespielt", "datum": "2026-06-28"
+        },
+        {
+          "a": "A. Berger",   "b": "F. Lorenz",
+          "sieger": "a", "ergebnis": "1 auf",
+          "status": "gespielt", "datum": "2026-07-05"
+        },
+        {
+          "a": "K. Petersen", "b": "S. Hoffmann",
+          "sieger": "b", "ergebnis": "3&2",
+          "status": "gespielt", "datum": "2026-07-12"
+        }
+      ]
+    },
+    {
+      "name": "Halbfinale",
+      "kuerzel": "hf",
+      "partien": [
+        {
+          "a": "T. Richter", "b": "M. Schulz",
+          "sieger": "a", "ergebnis": "2 auf",
+          "status": "gespielt", "datum": "2026-08-23"
+        },
+        {
+          "a": "A. Berger",  "b": "S. Hoffmann",
+          "sieger": "a", "ergebnis": "5&4",
+          "status": "wartet_freigabe", "datum": "2026-09-20"
+        }
+      ]
+    },
+    {
+      "name": "Finale",
+      "kuerzel": "fi",
+      "partien": [
+        {
+          "a": "T. Richter", "b": "A. Berger",
+          "sieger": null, "ergebnis": null,
+          "status": "offen", "datum": null,
+          "hinweis": "Termin wird von den Spielern vereinbart"
+        }
+      ]
+    }
+  ]
+}

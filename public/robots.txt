@@ -1,0 +1,9 @@
+# Eagle Golfers Dribbdebach e.V.
+# Diese Fassung gilt fuer die echte Vereinsadresse.
+# Die Entwurfsfassung auf GitHub Pages bekommt beim Bauen eine eigene
+# robots.txt, die das Indexieren vollstaendig untersagt.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://eaglegolfersdribbdebach.de/sitemap.xml

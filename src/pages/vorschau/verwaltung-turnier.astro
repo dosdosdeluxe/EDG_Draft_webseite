@@ -1,0 +1,396 @@
+---
+import Base from '../../layouts/Base.astro';
+import VorschauHinweis from '../../components/VorschauHinweis.astro';
+import { pfad } from '../../utils/url.js';
+import daten from '../../data/mitglieder.json';
+
+const { mitglieder, begegnungen2026 } = daten;
+const name = (id) => mitglieder.find((m) => m.id === id).name;
+const hcp  = (id) => mitglieder.find((m) => m.id === id).hcp;
+
+// Haben sich diese beiden 2026 schon getroffen? Wenn ja: wobei.
+function begegnung(a, b) {
+  return begegnungen2026.find(
+    (x) => (x.a === a && x.b === b) || (x.a === b && x.b === a)
+  );
+}
+
+// Alle Paarungen innerhalb eines Flights prüfen
+function konflikte(flight) {
+  const treffer = [];
+  for (let i = 0; i < flight.length; i++) {
+    for (let j = i + 1; j < flight.length; j++) {
+      const b = begegnung(flight[i], flight[j]);
+      if (b) treffer.push({ a: flight[i], b: flight[j], anlass: b.anlass });
+    }
+  }
+  return treffer;
+}
+
+const angemeldet = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+// Variante A: stur nach Vorgabe sortiert, wie man es von Hand macht
+const nachVorgabe = [...angemeldet].sort(
+  (x, y) => parseFloat(hcp(x).replace(',', '.')) - parseFloat(hcp(y).replace(',', '.'))
+);
+const flightsNaiv = [
+  nachVorgabe.slice(0, 3), nachVorgabe.slice(3, 6), nachVorgabe.slice(6, 9),
+];
+
+// Variante B: zusätzlich gegen die Begegnungshistorie geprüft
+const flightsGeprueft = [[1, 4, 6], [2, 3, 5], [7, 8, 9]];
+
+const summe = (fs) => fs.reduce((n, f) => n + konflikte(f).length, 0);
+const konfliktNaiv = summe(flightsNaiv);
+const konfliktGeprueft = summe(flightsGeprueft);
+
+const warteliste = [10];
+---
+
+<Base titel="Turnier zusammenstellen (Vorschau)">
+  <VorschauHinweis phase="2" was="So soll ein Turnier im Backend zusammengestellt werden." />
+
+  <section class="section">
+    <div class="wrap">
+      <h1>Turnier zusammenstellen</h1>
+      <p class="einleitung">
+        Von der Einladung über die Anmeldungen bis zur Flight-Einteilung.
+        Vier Schritte, alles an einer Stelle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 1 · ANLEGEN ═════════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <h2 class="schritt-titel"><span class="schritt-nr" aria-hidden="true">1</span> Turnier anlegen</h2>
+
+      <div class="karte">
+        <div class="gitter">
+          <div class="feld">
+            <label for="t-name">Name</label>
+            <input type="text" id="t-name" value="Eagle Tour Stop 6" readonly />
+          </div>
+          <div class="feld">
+            <label for="t-datum">Datum</label>
+            <input type="text" id="t-datum" value="11.10.2026" readonly />
+          </div>
+          <div class="feld">
+            <label for="t-platz">Platz</label>
+            <input type="text" id="t-platz" value="GC Rennbahn Frankfurt" readonly />
+          </div>
+          <div class="feld">
+            <label for="t-form">Spielform</label>
+            <select id="t-form" disabled>
+              <option>Stableford</option><option>Zählspiel</option>
+              <option>Matchplay</option><option>Scramble</option>
+            </select>
+          </div>
+          <div class="feld">
+            <label for="t-max">Höchstzahl Teilnehmer</label>
+            <input type="text" id="t-max" value="9" readonly />
+            <p class="hilfe">Darüber hinaus landen Anmeldungen auf der Warteliste.</p>
+          </div>
+          <div class="feld">
+            <label for="t-frist">Anmeldeschluss</label>
+            <input type="text" id="t-frist" value="07.10.2026" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · EINLADEN ════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap schmal">
+      <h2 class="schritt-titel"><span class="schritt-nr" aria-hidden="true">2</span> Einladen</h2>
+
+      <p class="abschnitt-text">
+        Der Empfängerkreis wird aus dem Mitgliederstamm gebildet. Wer der
+        Einladung per Rundmail widersprochen hat, bekommt sie nicht &mdash;
+        darum muss sich niemand kümmern.
+      </p>
+
+      <div class="karte">
+        <div class="feld">
+          <label for="e-kreis">Wer soll eingeladen werden?</label>
+          <select id="e-kreis" disabled>
+            <option>Alle aktiven Mitglieder (9)</option>
+            <option>Nur mit gültiger Stammvorgabe (9)</option>
+            <option>Vorgabe bis 26 (7)</option>
+            <option>Wer 2026 noch nicht gespielt hat (1)</option>
+            <option>Einzeln auswählen…</option>
+          </select>
+        </div>
+
+        <div class="schalter">
+          <input type="checkbox" id="e-erinnerung" checked disabled />
+          <label class="schalter__text" for="e-erinnerung">
+            <strong>Zwei Tage vor Anmeldeschluss erinnern</strong>
+            <span>Nur an die, die noch nicht geantwortet haben.</span>
+          </label>
+        </div>
+
+        <p style="margin-top:20px">
+          <button class="btn btn--primary" type="button" aria-disabled="true">
+            Einladung verschicken
+          </button>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · ANMELDUNGEN ═════════════════════════════════ -->
+  <section class="section section--grey">
+    <div class="wrap">
+      <h2 class="schritt-titel"><span class="schritt-nr" aria-hidden="true">3</span> Anmeldungen</h2>
+
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Meldeliste des Turniers, seitlich scrollbar">
+        <table>
+          <caption>{angemeldet.length} Anmeldungen, {warteliste.length} auf der Warteliste</caption>
+          <thead>
+            <tr>
+              <th scope="col">Spieler</th>
+              <th scope="col">Vorgabe</th>
+              <th scope="col">Angemeldet</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {angemeldet.map((id, i) => (
+              <tr>
+                <td><strong>{name(id)}</strong></td>
+                <td class="zahl">{hcp(id)}</td>
+                <td class="zahl">{String(20 + i).padStart(2, '0')}.09.</td>
+                <td>
+                  <span class="badge badge--done">
+                    <span aria-hidden="true">&#10003;</span> Startplatz
+                  </span>
+                </td>
+              </tr>
+            ))}
+            {warteliste.map((id) => (
+              <tr class="warte">
+                <td><strong>{name(id)}</strong></td>
+                <td class="zahl">{hcp(id)}</td>
+                <td class="zahl">29.09.</td>
+                <td>
+                  <span class="badge badge--open">
+                    <span aria-hidden="true">&#9679;</span> Warteliste, Platz 1
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="tabellen-hinweis">
+        Sagt jemand ab, rückt die Warteliste automatisch nach und der
+        Nachrücker bekommt sofort eine Nachricht.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · FLIGHTS ═════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap">
+      <h2 class="schritt-titel"><span class="schritt-nr" aria-hidden="true">4</span> Flights einteilen</h2>
+
+      <p class="abschnitt-text">
+        Drei Spieler je Flight. Die Einteilung soll zwei Dinge leisten:
+        ausgewogene Vorgaben und <strong>keine Paarung, die es dieses Jahr
+        schon gab</strong>. Beides zugleich geht nicht immer &mdash; deshalb
+        zeigt das System, was es kostet.
+      </p>
+
+      <div class="varianten">
+        <!-- Variante A -->
+        <article class="variante">
+          <header>
+            <h3>Nur nach Vorgabe sortiert</h3>
+            <span class={konfliktNaiv > 0 ? 'zaehler zaehler--schlecht' : 'zaehler zaehler--gut'}>
+              {konfliktNaiv} Wiederholungen
+            </span>
+          </header>
+          <p class="variante__text">So teilt man von Hand ein: Liste nach Vorgabe, oben drei, mitte drei, unten drei.</p>
+
+          {flightsNaiv.map((f, i) => {
+            const k = konflikte(f);
+            return (
+              <div class={`flight ${k.length ? 'flight--konflikt' : ''}`}>
+                <p class="flight__titel">Flight {i + 1}</p>
+                <ul class="flight__spieler">
+                  {f.map((id) => <li>{name(id)} <span>{hcp(id)}</span></li>)}
+                </ul>
+                {k.map((x) => (
+                  <p class="konflikt">
+                    <span aria-hidden="true">&#9888;&#65039;</span>
+                    {name(x.a)} und {name(x.b)} spielten schon zusammen &mdash; {x.anlass}
+                  </p>
+                ))}
+              </div>
+            );
+          })}
+        </article>
+
+        <!-- Variante B -->
+        <article class="variante variante--empfohlen">
+          <header>
+            <h3>Mit Begegnungsprüfung</h3>
+            <span class={konfliktGeprueft > 0 ? 'zaehler zaehler--schlecht' : 'zaehler zaehler--gut'}>
+              {konfliktGeprueft} Wiederholungen
+            </span>
+          </header>
+          <p class="variante__text">Dieselben neun Spieler, anders verteilt. Die Vorgaben streuen etwas mehr, dafür trifft niemand auf einen alten Flightpartner.</p>
+
+          {flightsGeprueft.map((f, i) => {
+            const k = konflikte(f);
+            return (
+              <div class={`flight ${k.length ? 'flight--konflikt' : ''}`}>
+                <p class="flight__titel">Flight {i + 1}</p>
+                <ul class="flight__spieler">
+                  {f.map((id) => <li>{name(id)} <span>{hcp(id)}</span></li>)}
+                </ul>
+                {k.map((x) => (
+                  <p class="konflikt">
+                    <span aria-hidden="true">&#9888;&#65039;</span>
+                    {name(x.a)} und {name(x.b)} &mdash; {x.anlass}
+                  </p>
+                ))}
+              </div>
+            );
+          })}
+        </article>
+      </div>
+
+      <div class="knoepfe">
+        <button class="btn btn--primary" type="button" aria-disabled="true">
+          Geprüfte Einteilung übernehmen
+        </button>
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Spieler von Hand tauschen
+        </button>
+        <button class="btn btn--ghost" type="button" aria-disabled="true">
+          Neu auslosen
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey">
+    <div class="wrap schmal">
+      <div class="note">
+        <span class="note__icon" aria-hidden="true">&#129518;</span>
+        <div>
+          <h4>Warum das System vorschlägt statt entscheidet</h4>
+          <p>
+            Eine Einteilung ohne jede Wiederholung existiert nicht immer.
+            Je später im Jahr, desto mehr Paarungen gab es schon &mdash;
+            irgendwann ist jede Kombination belegt. Dann wählt das System die
+            Variante mit den wenigsten Wiederholungen und zeigt sie an,
+            statt stillschweigend etwas auszugeben.
+          </p>
+          <p>
+            Die letzte Entscheidung trifft immer der Spielführer. Er kennt
+            Gründe, die in keiner Datenbank stehen &mdash; wer sich gerade
+            nicht grün ist, wer zusammen anreist, wer wen mitnehmen will.
+          </p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px">
+        <a class="btn btn--ghost" href={pfad('/vorschau/verwaltung-auslosung/')}>
+          Weiter: Matchplay-Auslosung
+        </a>
+        <a class="btn btn--ghost" href={pfad('/vorschau/')}>Zur Übersicht</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .schmal { max-width: 820px; }
+  .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; max-width: 70ch; }
+  .abschnitt-text { max-width: 72ch; margin-bottom: 26px; }
+
+  .schritt-titel {
+    display: flex; align-items: center; gap: 16px;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    color: var(--blue); margin-bottom: 20px;
+  }
+  :global(:root[data-theme='dark']) .schritt-titel { color: var(--gold-lt); }
+  .schritt-nr {
+    width: 48px; height: 48px; flex-shrink: 0;
+    display: grid; place-items: center;
+    background: var(--blue); color: #fff;
+    border-radius: 50%; font-size: 1.3rem; font-weight: 700;
+  }
+
+  .karte {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+  }
+  .gitter { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+  @media (max-width: 620px) { .gitter { grid-template-columns: 1fr; } }
+
+  .zahl { font-variant-numeric: tabular-nums; }
+  /* Kein opacity: das dimmt auch das Statuskennzeichen mit und
+     druecht dessen Kontrast unter den AA-Wert. Die Zeile ist durch
+     ihren Text als Warteliste erkennbar, das genuegt. */
+  .warte td:first-child { font-style: italic; }
+  .tabellen-hinweis { margin-top: 18px; font-size: var(--fs-sm); color: var(--text3); max-width: 70ch; }
+
+  /* ── Varianten nebeneinander ─────────────────────────── */
+  .varianten {
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
+  }
+
+  .variante {
+    background: var(--bg); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .variante--empfohlen { border-color: var(--green); }
+
+  .variante header {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .variante h3 { font-size: var(--fs-lg); }
+  .variante__text { font-size: var(--fs-sm); color: var(--text3); margin-bottom: 20px; }
+
+  .zaehler {
+    font-size: var(--fs-xs); font-weight: 700;
+    padding: 5px 12px; border-radius: 999px; border: 2px solid;
+  }
+  .zaehler--gut     { background: #e8f3e9; color: #1f5424; border-color: #2a5c2e; }
+  .zaehler--schlecht{ background: #fdf4dd; color: #6b5310; border-color: #8A6D25; }
+
+  .flight {
+    background: var(--bg2); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 12px;
+  }
+  .flight--konflikt { background: #fdf4dd; }
+  :global(:root[data-theme='dark']) .flight--konflikt { background: #2e2710; }
+
+  .flight__titel { font-weight: 700; font-size: var(--fs-sm); margin-bottom: 8px; }
+  .flight__spieler { list-style: none; display: grid; gap: 4px; }
+  .flight__spieler li {
+    display: flex; justify-content: space-between; gap: 14px;
+    font-size: var(--fs-sm);
+  }
+  .flight__spieler span { color: var(--text3); font-variant-numeric: tabular-nums; }
+
+  .konflikt {
+    display: flex; gap: 8px; align-items: flex-start;
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid rgba(138, 109, 37, .35);
+    font-size: var(--fs-xs); color: #4a3a0c;
+    max-width: none;
+  }
+  :global(:root[data-theme='dark']) .konflikt { color: #f0dca0; }
+
+  .knoepfe { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+</style>

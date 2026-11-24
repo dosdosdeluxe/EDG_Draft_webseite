@@ -1,0 +1,76 @@
+name: Testversion auf GitHub Pages
+
+# Zweck: eine Adresse zum Herumklicken und Herzeigen, ohne die
+# echte Domain anzufassen. Erreichbar unter
+#     https://<benutzername>.github.io/<repository-name>/
+#
+# Der Alfahosting-Workflow (deploy.yml) bleibt davon unberührt.
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Rechte, die GitHub Pages zum Veröffentlichen braucht
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Mehrere gleichzeitige Veröffentlichungen verhindern
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Pages vorbereiten
+        id: pages
+        uses: actions/configure-pages@v5
+
+      # Auf GitHub Pages liegt die Seite in einem Unterordner, der so
+      # heißt wie das Repository. Ohne diesen Wert zeigen alle internen
+      # Links ins Leere.
+      - name: Website bauen
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+# ═══════════════════════════════════════════════════════════════
+#  EINMALIG EINZURICHTEN
+#  ───────────────────────────────────────────────────────────────
+#  Im Repository unter  Settings -> Pages
+#     Source:  "GitHub Actions"  auswählen (nicht "Deploy from a branch")
+#
+#  Danach genügt ein Push auf main. Nach ein bis zwei Minuten steht
+#  die Adresse unter  Settings -> Pages  ganz oben.
+#
+#  Hinweis: Ist das Repository öffentlich, ist auch die Testseite
+#  öffentlich. Solange dort nur Platzhalterdaten stehen, ist das
+#  unproblematisch — echte Mitgliederdaten gehören da nicht hinein.
+# ═══════════════════════════════════════════════════════════════

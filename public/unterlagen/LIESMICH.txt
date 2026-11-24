@@ -1,0 +1,29 @@
+Unterlagen für die Rubrik "Organisatorisches"
+=============================================
+
+In diesen Ordner gehören die PDF- und Office-Vorlagen, die auf der Seite
+/organisatorisches/ zum Herunterladen angeboten werden.
+
+So wird eine Datei sichtbar:
+
+1. Datei hier ablegen, zum Beispiel:
+      public/unterlagen/ausschreibung-vorlage.docx
+
+2. In src/data/organisatorisches.json den passenden Eintrag ergänzen.
+   Aus:
+      { "name": "Ausschreibung (Vorlage)", "datei": null, "format": "DOCX" }
+   wird:
+      { "name": "Ausschreibung (Vorlage)", "datei": "/unterlagen/ausschreibung-vorlage.docx", "format": "DOCX" }
+
+Solange "datei" auf null steht, erscheint der Eintrag auf der Seite grau
+mit dem Zusatz "noch nicht hinterlegt". Es entsteht kein toter Link.
+
+Dateinamen bitte klein schreiben, ohne Leerzeichen und ohne Umlaute
+(also "einladung-vorlage.docx", nicht "Einladung Vorlage.docx").
+
+Was NICHT in diesen Ordner gehört
+---------------------------------
+Alles, was Namen von Mitgliedern enthält: Anwesenheitslisten, Protokolle,
+Meldelisten, Einladungen mit Verteiler. Dieser Ordner ist öffentlich im
+Internet erreichbar, auch ohne Link auf der Seite. Solche Unterlagen
+gehören in den Mitgliederbereich hinter die Anmeldung.
