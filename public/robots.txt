@@ -4,6 +4,10 @@
 # robots.txt, die das Indexieren vollstaendig untersagt.
 
 User-agent: *
+# Layout-Vorschau des Mitgliederbereichs: Entwurf, nicht in der Sitemap.
+# Disallow steht vor Allow, weil manche Crawler bei der ersten passenden
+# Zeile stoppen.
+Disallow: /vorschau/
 Allow: /
 
 Sitemap: https://eaglegolfersdribbdebach.de/sitemap.xml
