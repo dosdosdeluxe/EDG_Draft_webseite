@@ -120,6 +120,13 @@ Entwurfsfassung testbar, auf GitHub Pages läuft kein PHP.
 - Nicht in der Sitemap, `noindex`. Kontrastfarbe `--accent` auf `#7FCB86` angehoben (axe).
 - Offen: nicht auf Alfahosting getestet (PHP-Version, Schreibrechte, `mail()`).
 
+## Dev-Server (Alfahosting, /html/dev26)
+
+Passwortschutz per Basic Auth: `.htpasswd` und ein erweiterter `.htaccess` liegen nur
+auf dem Server. Beim Upload des Pakets `.htaccess`, `.htpasswd`, `matchplay-winter/api.php`
+und `matchplay-winter/data.json` überspringen, sonst fällt der Schutz weg. Zugangsdaten
+lokal in `~/.matchplay-dev-zugang.txt`, nie ins Repo.
+
 ## Stand und offene Punkte
 
 Fertig: 11 öffentliche Seiten, 13 Vorschauseiten, Organisatorisches,
