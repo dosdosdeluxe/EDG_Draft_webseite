@@ -1,7 +1,7 @@
 // Erzeugt das Vorschaubild fuers Teilen (WhatsApp, Facebook, LinkedIn)
 // und die App-Symbole fuer den Home-Bildschirm.
 //
-//   public/og-bild.png        1200x630, erscheint beim Teilen des Links
+//   public/og-bild.jpg        1200x630, erscheint beim Teilen des Links
 //   public/icon-180.png       Apple-Touch-Icon (iPhone, iPad)
 //   public/icon-192.png       Android
 //   public/icon-512.png       Android, Splash-Screen
@@ -88,7 +88,9 @@ const seite = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 await seite.setContent(karte, { waitUntil: 'load' });
 await seite.evaluate(() => document.fonts.ready);
 await seite.waitForTimeout(400);
-await seite.screenshot({ path: join(PROJEKT, 'public/og-bild.png') });
+// JPEG statt PNG: Die Seite verweist auf og-bild.jpg (Base.astro), und WhatsApp
+// lädt Vorschaubilder nur bis etwa 300 KB.
+await seite.screenshot({ path: join(PROJEKT, 'public/og-bild.jpg'), type: 'jpeg', quality: 90 });
 
 // App-Symbole: Wappen mittig auf dunkelblauem Grund mit runden Ecken.
 for (const groesse of [180, 192, 512]) {
@@ -107,4 +109,4 @@ for (const groesse of [180, 192, 512]) {
 }
 
 await browser.close();
-console.log('og-bild.png und icon-180/192/512.png in public/ erzeugt.');
+console.log('og-bild.jpg und icon-180/192/512.png in public/ erzeugt.');
