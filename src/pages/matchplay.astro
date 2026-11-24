@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import daten from '../data/matchplay.json';
 import { lang } from '../utils/datum.js';
 import { pfad } from '../utils/url.js';
+import AktuellKarte from '../components/AktuellKarte.astro';
 
 const { titel, standAm, runden } = daten;
 
@@ -34,24 +35,15 @@ const offeneNamen = runden
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <h2 class="section-title">
-        <span aria-hidden="true">&#10052;&#65039;</span> Winter-Matchplay Serie
-      </h2>
-      <p class="einleitung">
-        Die Wintersaison läuft eigenständig: zwei Gruppen mit Gruppenphase,
-        danach der Finaltag. Dort findest du den Spielplan, die Tabellen,
-        die Fotos und das Formular, um ein Ergebnis zu melden.
-      </p>
-      <p>
-        <a class="btn" href={pfad('/matchplay-winter/')}>Zur Winter-Matchplay Serie</a>
-      </p>
-    </div>
-  </section>
+  <AktuellKarte />
 
   <section class="section section--grey">
     <div class="wrap">
+      <p class="ausblick" style="margin-bottom:20px">
+        <span class="badge badge--open"><span aria-hidden="true">&#9203;</span> Ausblick 2027</span>
+        Das K.-o.-Turnier startet in der nächsten Saison. Die Paarungen
+        unten sind Platzhalter.
+      </p>
       <h2 class="section-title">
         <span aria-hidden="true">&#127941;</span> Turnierbaum
       </h2>

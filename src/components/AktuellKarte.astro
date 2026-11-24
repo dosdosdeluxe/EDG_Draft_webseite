@@ -1,0 +1,39 @@
+---
+// Hervorgehobene Karte für das laufende Turnierformat (Winter-Matchplay).
+// Steht auf der Startseite und auf der Matchplay-Seite. Die Kennzeichnung
+// trägt Zeichen und Text, nicht nur Farbe.
+import { pfad } from '../utils/url.js';
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="aktuell">
+      <p class="aktuell__marke">
+        <span class="badge badge--running"><span aria-hidden="true">&#9733;</span> Aktuell &middot; Saison 2026/27</span>
+      </p>
+      <h2>Winter-Matchplay Serie</h2>
+      <p>
+        Das laufende Turnierformat des Vereins: zwei Gruppen mit Gruppenphase,
+        danach der Finaltag. Spielplan, Tabellen, Fotos und das Formular, um
+        ein Ergebnis zu melden, findest du auf der eigenen Seite.
+      </p>
+      <p class="aktuell__aktion">
+        <a class="btn btn--primary" href={pfad('/matchplay-winter/')}>Zur Winter-Matchplay Serie</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .aktuell {
+    border: 3px solid var(--gold);
+    border-radius: 14px;
+    background: var(--bg2);
+    padding: clamp(20px, 4vw, 36px);
+  }
+  .aktuell__marke { margin: 0 0 12px; }
+  .aktuell h2 { color: var(--blue); margin-bottom: 10px; }
+  :global(:root[data-theme="dark"]) .aktuell h2 { color: var(--gold-lt); }
+  .aktuell p { max-width: 65ch; }
+  .aktuell__aktion { margin-top: 20px; }
+</style>

@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import verein from '../data/verein.json';
 import wettbewerbeDaten from '../data/wettbewerbe.json';
+import AktuellKarte from '../components/AktuellKarte.astro';
 import termineDaten from '../data/termine.json';
 import { lang, nachDatum } from '../utils/datum.js';
 import { heroZahlen } from '../utils/zahlen.js';
@@ -25,6 +26,8 @@ const naechste = termineDaten.termine
     untertitel={`${verein.name} — Ihr Golfclub in ${verein.ort} seit ${verein.gegruendet}`}
     zahlen={heroZahlen(verein, termineDaten.saison)}
   />
+
+  <AktuellKarte />
 
   <section class="section">
     <div class="wrap">
