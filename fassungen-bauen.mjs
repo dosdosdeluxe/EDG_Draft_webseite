@@ -13,8 +13,9 @@
 import { execSync } from 'node:child_process';
 import { cpSync, rmSync, mkdirSync, writeFileSync, readFileSync, readdirSync, statSync, existsSync, unlinkSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const PROJEKT = '/home/claude/egd-website';
+const PROJEKT = dirname(fileURLToPath(import.meta.url));
 const REPO_PFAD = '/EDG_Draft_webseite/';   // Name des GitHub-Repos
 
 import { kalenderSchreiben } from './kalender-erzeugen.mjs';

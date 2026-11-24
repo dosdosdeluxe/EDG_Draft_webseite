@@ -7,9 +7,10 @@
 // Wird von fassungen-bauen.mjs nach jedem Build aufgerufen.
 
 import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const PROJEKT = '/home/claude/egd-website';
+const PROJEKT = dirname(fileURLToPath(import.meta.url));
 
 // Zeilen im ICS-Format duerfen hoechstens 75 Zeichen lang sein.
 function falten(zeile) {
@@ -129,7 +130,10 @@ export function kalenderSchreiben(zielOrdner) {
 }
 
 // Direkter Aufruf: node kalender-erzeugen.mjs <ordner>
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Der Vergleich geht über pathToFileURL: import.meta.url kodiert Leerzeichen und
+// Umlaute im Ordnernamen (%20), process.argv[1] nicht. Ein Vergleich mit
+// `file://${process.argv[1]}` schlägt dort fehl, und das Skript tut nichts.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const ordner = process.argv[2] || join(PROJEKT, 'public');
   console.log(`${kalenderSchreiben(ordner)} Termine nach ${ordner}/termine.ics geschrieben.`);
 }

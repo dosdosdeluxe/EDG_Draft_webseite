@@ -11,12 +11,12 @@
 // Das Vorschaubild wird im Browser gesetzt und abfotografiert, damit es
 // dieselbe Schrift und dieselben Farben verwendet wie die Website.
 
-import pw from '/home/claude/.npm-global/lib/node_modules/playwright/index.js';
-const { chromium } = pw;
+import { chromium } from 'playwright';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const PROJEKT = '/home/claude/egd-website';
+const PROJEKT = dirname(fileURLToPath(import.meta.url));
 const logo = readFileSync(join(PROJEKT, 'public/logo.png')).toString('base64');
 const schrift = readFileSync(
   join(PROJEKT, 'node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2')
