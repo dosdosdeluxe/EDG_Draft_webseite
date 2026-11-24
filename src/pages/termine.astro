@@ -86,6 +86,9 @@ const gespielt = termineDaten.termine.filter((t) => t.status === 'gespielt').sor
         <span aria-hidden="true">&#9989;</span> Bereits gespielt
       </h2>
 
+      {gespielt.length === 0 ? (
+        <p>Die Saison {termineDaten.saison} hat noch nicht begonnen. Gespielte Turniere erscheinen hier.</p>
+      ) : (
       <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der gespielten Turniere, seitlich scrollbar">
         <table>
           <caption>Gespielte Turniere der Saison {termineDaten.saison}</caption>
@@ -115,6 +118,7 @@ const gespielt = termineDaten.termine.filter((t) => t.status === 'gespielt').sor
           </tbody>
         </table>
       </div>
+      )}
     </div>
   </section>
 </Base>

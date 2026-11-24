@@ -1,26 +1,26 @@
 {
-  "_hinweis": "PLATZHALTERDATEN. Echte Termine hier eintragen. Format des Datums: JJJJ-MM-TT. Erlaubte Werte für status: 'offen', 'gespielt', 'abgesagt'.",
+  "_hinweis": "PLATZHALTERDATEN für die Saison 2027 (Winter-Matchplay läuft separat unter /matchplay-winter/). Echte Termine hier eintragen. Format des Datums: JJJJ-MM-TT. Erlaubte Werte für status: 'offen', 'gespielt', 'abgesagt'.",
 
-  "saison": "2026",
+  "saison": "2027",
 
   "termine": [
-    {"datum": "2026-11-29", "uhrzeit": "11:00", "titel": "Matchplay Finale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": "Beide Finalisten melden sich beim Spielführer"},
-    {"datum": "2026-12-06", "uhrzeit": "11:00", "titel": "Saisonabschluss mit Siegerehrung", "platz": "Clubhaus", "spielform": "Gesellig", "status": "offen", "hinweis": "Anmeldung bis 29.11. erbeten"},
     {"datum": "2027-01-24", "uhrzeit": "15:00", "titel": "Mitgliederversammlung 2027", "platz": "Clubhaus", "spielform": "Versammlung", "status": "offen", "hinweis": "Einladung folgt mit Frist laut Satzung"},
-    {"datum": "2026-10-25", "uhrzeit": "10:00", "titel": "Clubmeisterschaft 2026", "platz": "GC Kronberg", "spielform": "Zählspiel, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-10-11", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 6", "platz": "GC Rennbahn Frankfurt", "spielform": "Stableford", "status": "gespielt", "hinweis": "Letzter Zählwettbewerb der Saison"},
-    {"datum": "2026-09-20", "uhrzeit": "10:00", "titel": "Matchplay Halbfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-09-13", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 5", "platz": "GC Bad Homburg", "spielform": "Stableford", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-08-23", "uhrzeit": "10:00", "titel": "Matchplay Halbfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-07-19", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 4", "platz": "GC Taunus", "spielform": "Stableford", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-07-12", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-07-05", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-06-28", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-06-21", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-06-14", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 3", "platz": "GC Hanau", "spielform": "Stableford", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-05-10", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 2", "platz": "GC Neuhof", "spielform": "Stableford", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-04-12", "uhrzeit": "09:30", "titel": "Eagle Tour Stop 1", "platz": "GC Kronberg", "spielform": "Stableford", "status": "gespielt", "hinweis": "Saisoneröffnung"},
-    {"datum": "2026-03-22", "uhrzeit": "14:00", "titel": "Saisoneröffnung mit Regelabend", "platz": "Clubhaus", "spielform": "Gesellig", "status": "gespielt", "hinweis": ""},
-    {"datum": "2026-08-02", "uhrzeit": "09:00", "titel": "Holy Mountain Sonderwertung", "platz": "GC Taunus", "spielform": "Stableford, Höhenmeter", "status": "gespielt", "hinweis": "Zählt für die Holy-Mountain-Wertung"}
+    {"datum": "2027-03-21", "uhrzeit": "14:00", "titel": "Saisoneröffnung mit Regelabend", "platz": "Clubhaus", "spielform": "Gesellig", "status": "offen", "hinweis": ""},
+    {"datum": "2027-04-11", "uhrzeit": "09:30", "titel": "Eagle Tour Stop 1", "platz": "GC Kronberg", "spielform": "Stableford", "status": "offen", "hinweis": "Saisoneröffnung"},
+    {"datum": "2027-05-09", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 2", "platz": "GC Neuhof", "spielform": "Stableford", "status": "offen", "hinweis": ""},
+    {"datum": "2027-06-13", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 3", "platz": "GC Hanau", "spielform": "Stableford", "status": "offen", "hinweis": ""},
+    {"datum": "2027-06-20", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-06-27", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-07-04", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-07-11", "uhrzeit": "10:00", "titel": "Matchplay Viertelfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-07-18", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 4", "platz": "GC Taunus", "spielform": "Stableford", "status": "offen", "hinweis": ""},
+    {"datum": "2027-08-01", "uhrzeit": "09:00", "titel": "Holy Mountain Sonderwertung", "platz": "GC Taunus", "spielform": "Stableford, Höhenmeter", "status": "offen", "hinweis": "Zählt für die Holy-Mountain-Wertung"},
+    {"datum": "2027-08-22", "uhrzeit": "10:00", "titel": "Matchplay Halbfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-09-12", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 5", "platz": "GC Bad Homburg", "spielform": "Stableford", "status": "offen", "hinweis": ""},
+    {"datum": "2027-09-19", "uhrzeit": "10:00", "titel": "Matchplay Halbfinale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-10-10", "uhrzeit": "09:00", "titel": "Eagle Tour Stop 6", "platz": "GC Rennbahn Frankfurt", "spielform": "Stableford", "status": "offen", "hinweis": "Letzter Zählwettbewerb der Saison"},
+    {"datum": "2027-10-24", "uhrzeit": "10:00", "titel": "Clubmeisterschaft 2027", "platz": "GC Kronberg", "spielform": "Zählspiel, 18 Loch", "status": "offen", "hinweis": ""},
+    {"datum": "2027-11-28", "uhrzeit": "11:00", "titel": "Matchplay Finale", "platz": "Platz nach Absprache", "spielform": "Matchplay, 18 Loch", "status": "offen", "hinweis": "Beide Finalisten melden sich beim Spielführer"},
+    {"datum": "2027-12-05", "uhrzeit": "11:00", "titel": "Saisonabschluss mit Siegerehrung", "platz": "Clubhaus", "spielform": "Gesellig", "status": "offen", "hinweis": "Anmeldung bis 21.11. erbeten"}
   ]
 }

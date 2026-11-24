@@ -32,6 +32,12 @@ const { eagleTour, holyMountain, hallOfFame } = daten;
       </h2>
       <p style="margin-bottom:24px">{eagleTour.erklaerung}</p>
 
+      {eagleTour.wertung.length === 0 ? (
+        <p class="leer">
+          Die Saison 2027 beginnt im Frühjahr. Die Wertung erscheint nach dem
+          ersten Turnier der Eagle Tour.
+        </p>
+      ) : (
       <div class="table-scroll" role="region" tabindex="0" aria-label="Tabelle der Eagle-Tour-Wertung, seitlich scrollbar">
         <table>
           <caption>Stand nach dem Turnier vom {lang(eagleTour.standAm)}</caption>
@@ -57,6 +63,7 @@ const { eagleTour, holyMountain, hallOfFame } = daten;
           </tbody>
         </table>
       </div>
+      )}
     </div>
   </section>
 
@@ -67,6 +74,9 @@ const { eagleTour, holyMountain, hallOfFame } = daten;
       </h2>
       <p style="margin-bottom:24px">{holyMountain.erklaerung}</p>
 
+      {holyMountain.wertung.length === 0 && (
+        <p class="leer">Die Holy-Mountain-Wertung 2027 startet mit der Saison.</p>
+      )}
       <ol class="berg">
         {holyMountain.wertung.map((z) => (
           <li>
@@ -88,7 +98,7 @@ const { eagleTour, holyMountain, hallOfFame } = daten;
       </h2>
       <p style="margin-bottom:24px">
         Das Matchplay läuft im K.-o.-System und hat einen eigenen
-        Turnierbaum. Ergebnisse erscheinen dort, sobald der Spielführer
+        Turnierbaum, er startet 2027. Ergebnisse erscheinen dort, sobald der Spielführer
         sie freigegeben hat.
       </p>
       <p>
@@ -120,6 +130,8 @@ const { eagleTour, holyMountain, hallOfFame } = daten;
 
 <style>
   .einleitung { font-size: var(--fs-lg); color: var(--text2); margin-top: 16px; }
+
+  .leer { background: var(--bg); border: 2px dashed var(--border); border-radius: var(--radius); padding: 18px 24px; max-width: 700px; }
 
   .rang   { font-weight: 700; width: 4rem; }
   .punkte { font-weight: 700; color: var(--gold-text); }

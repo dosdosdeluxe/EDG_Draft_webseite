@@ -1,70 +1,71 @@
 {
   "_hinweis": "PLATZHALTERDATEN mit erfundenen Namen. Echte Punktestände aus dem PC-Caddie-Export hier eintragen.",
-
   "eagleTour": {
-    "titel": "Eagle Tour 2026",
+    "titel": "Eagle Tour 2027",
     "erklaerung": "Nach jedem Turnier gibt es Punkte. Die vier besten Ergebnisse jedes Spielers zählen für die Jahreswertung.",
-    "standAm": "2026-10-11",
-    "wertung": [
-      { "platz": 1, "spieler": "D. Keller", "hcp": "13,9", "turniere": 5, "punkte": 186 },
-      { "platz": 2, "spieler": "J. Vogel", "hcp": "14,7", "turniere": 6, "punkte": 182 },
-      { "platz": 3, "spieler": "T. Richter", "hcp": "12,4", "turniere": 5, "punkte": 181 },
-      { "platz": 4, "spieler": "R. Neumann", "hcp": "16,3", "turniere": 4, "punkte": 179 },
-      { "platz": 5, "spieler": "A. Berger", "hcp": "18,2", "turniere": 5, "punkte": 172 },
-      { "platz": 6, "spieler": "S. Hoffmann", "hcp": "19,5", "turniere": 5, "punkte": 171 },
-      { "platz": 7, "spieler": "N. Graf", "hcp": "15,2", "turniere": 4, "punkte": 170 },
-      { "platz": 8, "spieler": "K. Roth", "hcp": "16,9", "turniere": 5, "punkte": 168 },
-      { "platz": 9, "spieler": "R. Maurer", "hcp": "25,2", "turniere": 4, "punkte": 167 },
-      { "platz": 10, "spieler": "H. Wagner", "hcp": "24,6", "turniere": 5, "punkte": 165 },
-      { "platz": 11, "spieler": "G. Brandt", "hcp": "26,4", "turniere": 5, "punkte": 163 },
-      { "platz": 12, "spieler": "M. Hartmann", "hcp": "18,8", "turniere": 4, "punkte": 162 },
-      { "platz": 13, "spieler": "M. Schulz", "hcp": "15,8", "turniere": 6, "punkte": 161 },
-      { "platz": 14, "spieler": "P. Schmitt", "hcp": "17,6", "turniere": 5, "punkte": 159 },
-      { "platz": 15, "spieler": "K. Petersen", "hcp": "21,0", "turniere": 5, "punkte": 158 },
-      { "platz": 16, "spieler": "U. Fischer", "hcp": "23,1", "turniere": 4, "punkte": 158 },
-      { "platz": 17, "spieler": "F. Lorenz", "hcp": "27,1", "turniere": 4, "punkte": 156 },
-      { "platz": 18, "spieler": "U. Seidel", "hcp": "24,0", "turniere": 4, "punkte": 156 },
-      { "platz": 19, "spieler": "P. Winter", "hcp": "27,6", "turniere": 3, "punkte": 122 },
-      { "platz": 20, "spieler": "M. Köhler", "hcp": "20,9", "turniere": 3, "punkte": 117 },
-      { "platz": 21, "spieler": "S. Ziegler", "hcp": "21,7", "turniere": 3, "punkte": 115 },
-      { "platz": 22, "spieler": "G. Lang", "hcp": "22,2", "turniere": 3, "punkte": 114 },
-      { "platz": 23, "spieler": "B. Krüger", "hcp": "30,2", "turniere": 3, "punkte": 110 },
-      { "platz": 24, "spieler": "H. Braun", "hcp": "32,5", "turniere": 2, "punkte": 77 },
-      { "platz": 25, "spieler": "E. Franke", "hcp": "31,1", "turniere": 2, "punkte": 75 },
-      { "platz": 26, "spieler": "I. Lehmann", "hcp": "28,3", "turniere": 2, "punkte": 70 },
-      { "platz": 27, "spieler": "C. Engel", "hcp": "34,0", "turniere": 2, "punkte": 69 }
-    ]
+    "standAm": null,
+    "wertung": []
   },
-
   "holyMountain": {
     "titel": "Holy Mountain",
     "erklaerung": "Wer im Laufe der Saison die meisten Höhenmeter auf dem Platz sammelt, gewinnt den Berg.",
-    "wertung": [
-      { "platz": 1, "spieler": "E. Franke", "wert": 2930, "einheit": "Höhenmeter" },
-      { "platz": 2, "spieler": "C. Engel", "wert": 2905, "einheit": "Höhenmeter" },
-      { "platz": 3, "spieler": "J. Vogel", "wert": 2795, "einheit": "Höhenmeter" },
-      { "platz": 4, "spieler": "H. Wagner", "wert": 2690, "einheit": "Höhenmeter" },
-      { "platz": 5, "spieler": "T. Richter", "wert": 2610, "einheit": "Höhenmeter" },
-      { "platz": 6, "spieler": "M. Köhler", "wert": 2465, "einheit": "Höhenmeter" },
-      { "platz": 7, "spieler": "S. Ziegler", "wert": 2140, "einheit": "Höhenmeter" },
-      { "platz": 8, "spieler": "U. Seidel", "wert": 1970, "einheit": "Höhenmeter" },
-      { "platz": 9, "spieler": "H. Braun", "wert": 1735, "einheit": "Höhenmeter" },
-      { "platz": 10, "spieler": "G. Lang", "wert": 1615, "einheit": "Höhenmeter" }
-    ]
+    "wertung": []
   },
-
   "hallOfFame": [
-      { "jahr": 2026, "titel": "Clubmeister", "name": "J. Vogel" },
-      { "jahr": 2025, "titel": "Clubmeister", "name": "M. Schulz" },
-      { "jahr": 2024, "titel": "Clubmeister", "name": "T. Richter" },
-      { "jahr": 2023, "titel": "Clubmeister", "name": "A. Berger" },
-      { "jahr": 2022, "titel": "Clubmeister", "name": "D. Keller" },
-      { "jahr": 2021, "titel": "Clubmeister", "name": "T. Richter" },
-      { "jahr": 2020, "titel": "Clubmeister", "name": "J. Vogel" },
-      { "jahr": 2019, "titel": "Clubmeister", "name": "D. Keller" },
-      { "jahr": 2018, "titel": "Clubmeister", "name": "P. Schmitt" },
-      { "jahr": 2017, "titel": "Clubmeister", "name": "K. Roth" },
-      { "jahr": 2016, "titel": "Clubmeister", "name": "M. Hartmann" },
-      { "jahr": 2015, "titel": "Clubmeister", "name": "D. Keller" }
+    {
+      "jahr": 2025,
+      "titel": "Clubmeister",
+      "name": "M. Schulz"
+    },
+    {
+      "jahr": 2024,
+      "titel": "Clubmeister",
+      "name": "T. Richter"
+    },
+    {
+      "jahr": 2023,
+      "titel": "Clubmeister",
+      "name": "A. Berger"
+    },
+    {
+      "jahr": 2022,
+      "titel": "Clubmeister",
+      "name": "D. Keller"
+    },
+    {
+      "jahr": 2021,
+      "titel": "Clubmeister",
+      "name": "T. Richter"
+    },
+    {
+      "jahr": 2020,
+      "titel": "Clubmeister",
+      "name": "J. Vogel"
+    },
+    {
+      "jahr": 2019,
+      "titel": "Clubmeister",
+      "name": "D. Keller"
+    },
+    {
+      "jahr": 2018,
+      "titel": "Clubmeister",
+      "name": "P. Schmitt"
+    },
+    {
+      "jahr": 2017,
+      "titel": "Clubmeister",
+      "name": "K. Roth"
+    },
+    {
+      "jahr": 2016,
+      "titel": "Clubmeister",
+      "name": "M. Hartmann"
+    },
+    {
+      "jahr": 2015,
+      "titel": "Clubmeister",
+      "name": "D. Keller"
+    }
   ]
 }

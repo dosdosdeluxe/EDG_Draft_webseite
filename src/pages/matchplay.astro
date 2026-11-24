@@ -12,7 +12,7 @@ const offeneNamen = runden
   .flatMap((r) => r.partien)
   .filter((p) => p.status !== 'gespielt')
   .flatMap((p) => [p.a, p.b])
-  .filter((n, i, alle) => n && alle.indexOf(n) === i);
+  .filter((n, i, alle) => n && n !== 'Auslosung folgt' && alle.indexOf(n) === i);
 ---
 
 <Base
@@ -26,11 +26,11 @@ const offeneNamen = runden
         Mann gegen Mann im K.-o.-System. Gewonnen wird Loch für Loch, nicht
         nach Gesamtschlägen. Wer verliert, scheidet aus.
       </p>
-      <p class="stand">Stand: {lang(standAm)}</p>
+      {standAm && <p class="stand">Stand: {lang(standAm)}</p>}
 
       <p class="draft-note" style="margin-top:24px">
-        <strong>Entwurfsfassung.</strong> Die Namen und Ergebnisse sind
-        Platzhalter.
+        <strong>Entwurfsfassung.</strong> Der Turnierbaum ist eine Vorlage,
+        die Paarungen folgen nach der Auslosung.
       </p>
     </div>
   </section>
@@ -41,8 +41,8 @@ const offeneNamen = runden
     <div class="wrap">
       <p class="ausblick" style="margin-bottom:20px">
         <span class="badge badge--open"><span aria-hidden="true">&#9203;</span> Ausblick 2027</span>
-        Das K.-o.-Turnier startet in der nächsten Saison. Die Paarungen
-        unten sind Platzhalter.
+        Das K.-o.-Turnier startet in der Saison 2027. Die Auslosung
+        steht noch aus.
       </p>
       <h2 class="section-title">
         <span aria-hidden="true">&#127941;</span> Turnierbaum
@@ -118,9 +118,13 @@ const offeneNamen = runden
       <h2 class="section-title">
         <span aria-hidden="true">&#9876;&#65039;</span> Noch im Rennen
       </h2>
-      <ul class="dabei">
-        {offeneNamen.map((n) => <li>{n}</li>)}
-      </ul>
+      {offeneNamen.length === 0 ? (
+        <p>Sobald ausgelost ist, stehen hier alle Spieler, die noch im Turnier sind.</p>
+      ) : (
+        <ul class="dabei">
+          {offeneNamen.map((n) => <li>{n}</li>)}
+        </ul>
+      )}
       <p class="dabei__hinweis">
         Diese Spieler bekommen eine E-Mail, sobald ihre nächste Paarung
         feststeht.
