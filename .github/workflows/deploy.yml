@@ -1,11 +1,19 @@
 name: Website bauen und veröffentlichen
 
-# Läuft bei jedem Push auf den Hauptzweig.
+# Läuft nur von Hand: GitHub -> Reiter "Actions" -> diesen Arbeitsablauf
+# wählen -> "Run workflow".
+#
+# Bewusst nicht bei jedem Push: Der Upload spiegelt dist/ mit --delete auf
+# den Webserver und löscht dort alles, was nicht in dist/ liegt, auch die
+# alte Joomla-Seite. Solange Impressum und Datenschutz Platzhalter sind,
+# darf nichts davon automatisch live gehen. Ist die Seite fertig, lässt sich
+# hier ein Push-Trigger ergänzen:
+#     push:
+#       branches: [main]
+#
 # Der Build erzeugt fertiges HTML; auf dem Webserver läuft kein Node.js.
 on:
-  push:
-    branches: [main, master]
-  workflow_dispatch:      # erlaubt manuelles Auslösen im GitHub-Reiter "Actions"
+  workflow_dispatch:
 
 jobs:
   bauen-und-hochladen:
