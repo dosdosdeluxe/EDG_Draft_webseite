@@ -113,6 +113,13 @@ const naechste = termineDaten.termine
 <style>
   .termin-liste { list-style: none; display: grid; gap: 18px; }
 
+  /* Ausgelegt für vier Wettbewerbe: Telefon untereinander, Tablet 2x2,
+     breite Bildschirme nebeneinander. Mit auto-fit blieb zwischen 770 und
+     1000px eine Karte allein in der zweiten Reihe. */
+  .cards { grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 560px)  { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1180px) { .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
   .termin {
     background: var(--bg);
     border: 1px solid var(--border);
